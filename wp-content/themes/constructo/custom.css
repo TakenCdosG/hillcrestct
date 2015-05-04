@@ -220,10 +220,11 @@ ul.recentportfolio li.item.item-type-line{
 	background-color: #093057 !important;
 }
 
-.widget_recent_entries > ul > li, ul#menu-footer-menu li a{
+.widget_recent_entries > ul > li, ul#menu-footer-menu li a, .footer-textarea p{
 	color: #ffffff !important;
 	border: none;
 	font-family: arial;
+	font-size: 12px;
 	padding: 1px 0;
 }
 
@@ -266,4 +267,60 @@ li#text-2.widget-container.widget_text div.textwidget{
 		margin-right: 4px;
 		border-right: 2px solid #e6e6e6;
 	}
+}
+
+#footer1-3{
+	width: 296px;
+	position: relative;
+	margin-right: 80px;
+}
+
+.footer-logos{
+	position: relative;
+	top:-53px;
+}
+
+.calcagni-logo{
+	position: absolute;
+}
+
+.hillcrest-footer-logo{
+	position: absolute;
+	margin-left: 53%;
+}
+
+.footer-textarea{
+	position: relative;
+	top:65px;
+}
+
+.lower-logos{
+	height: 32px;
+	position: relative;
+	top: 75px;
+}
+
+.lower-img-1{
+	height: 32px;
+	position: absolute;
+}
+
+.lower-img-2{
+	height: 29px;
+	position: absolute;
+	margin-left: 15%
+}
+
+div.col-md-3.col-xs-6:first-child{
+	position: relative;
+	margin-right:5% 
+}
+
+div.col-md-3.col-xs-6:nth-child(2){
+	width: 200px;
+	margin-right: 2%;
+}
+
+.menu-footer-menu-container{
+	width: 155px;
 }
