@@ -187,6 +187,27 @@ function anps_get_header() {
 
     <header class="site-header <?php echo $anps_header_styles ?>">
         <div class="nav-wrap<?php echo $menu_left_center_right_class; ?>">
+            <div class="upper-header">
+                <div class="social-icons-header">
+                    <div class="facebook-icon"><a href="#"><img src="<?php echo get_template_directory_uri(); ?>/images/social-logos/facebook.png"></a></div>
+                    <div class="twitter-icon"><a href="#"><img src="<?php echo get_template_directory_uri(); ?>/images/social-logos/twitter.png"></a></div>
+                    <div class="pinterest-icon"><a href="#"><img src="<?php echo get_template_directory_uri(); ?>/images/social-logos/pinterest.png"></a></div>
+                    <div class="googlep-icon"><a href="#"><img src="<?php echo get_template_directory_uri(); ?>/images/social-logos/googlePlus.png"></a></div>
+                    <div class="behance-icon"><a href="#"><img src="<?php echo get_template_directory_uri(); ?>/images/social-logos/behance.png"></a></div>
+                </div>
+                <div class="info-header">
+                    <div class="clock-icon"><img src="<?php echo get_template_directory_uri(); ?>/images/social-logos/clock.png"></div>
+                    <div class="info-header-text"><p>Model Hours: Wed, Fri, Sat, & Sun: 12 PM - 3 PM <?php echo str_repeat("&nbsp;", 24); ?>Thurs: 4 PM - 7 PM</p></div>
+                </div>
+                <div class="phone-number">
+                    <div class="phone-icon"><img src="<?php echo get_template_directory_uri(); ?>/images/social-logos/phone-icon.png"></div>
+                    <div class="phone-number-text"><p>(860) 621-5455</p></div>
+                </div>
+                <div class="header-email">
+                    <div class="mail-icon"><img src="<?php echo get_template_directory_uri(); ?>/images/social-logos/mail-icon.png"></div>
+                    <div class="header-email-text"><p>info@HillCrestCT.com</p></div>
+                </div>
+            </div>
             <div class="container"><?php anps_get_sticky_logo() . anps_get_site_header();?></div>
         </div>  
         <div class="sticky-holder"></div>   
@@ -578,7 +599,7 @@ function anps_get_menu() {
                 'menu'=>$menu
             ));
         ?>
-        <button class="fa fa-search desktop"></button>
+        <!--<button class="fa fa-search desktop"></button>-->
     </nav>
     <?php
 }

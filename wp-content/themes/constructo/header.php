@@ -2,6 +2,8 @@
 <!DOCTYPE html>
 <html <?php language_attributes(); ?>>
 <head>
+	<script src="//use.typekit.net/kac4vdw.js"></script>
+	<script>try{Typekit.load();}catch(e){}</script>
 	<meta charset="<?php bloginfo( 'charset' ); ?>" />
 	<?php anps_is_responsive(false); ?>
 	<title><?php wp_title( '|', true, 'right' ); ?></title>
