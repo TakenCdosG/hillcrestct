@@ -23,8 +23,8 @@ class footer1 extends WP_Widget {
 		?>
 
 		<p>
-		<label for="<?php echo $this->get_field_id('textarea'); ?>"><?php _e('Textarea:', 'wp_widget_plugin'); ?></label>
-		<textarea class="widefat" id="<?php echo $this->get_field_id('textarea'); ?>" name="<?php echo $this->get_field_name('textarea'); ?>"><?php echo $textarea; ?></textarea>
+		<label for="<?php echo $this->get_field_id('textarea'); ?>"><?php _e('Enter footer text here (HTML Tags are valid):', 'wp_widget_plugin'); ?></label>
+		<textarea rows="10" cols="10" class="widefat" id="<?php echo $this->get_field_id('textarea'); ?>" name="<?php echo $this->get_field_name('textarea'); ?>"><?php echo $textarea; ?></textarea>
 		</p>
 		<?php
 	}

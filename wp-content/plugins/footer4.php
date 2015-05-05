@@ -8,7 +8,7 @@ class footer4 extends WP_Widget {
 
 	// constructor
 	function footer4() {
-        parent::WP_Widget(false, $name = __('Footer Column 1 Info', 'wp_widget_plugin') );
+        parent::WP_Widget(false, $name = __('Footer Column 4 Info', 'wp_widget_plugin') );
     }
 
 	// widget form creation
@@ -16,15 +16,21 @@ class footer4 extends WP_Widget {
 
 		// Check values
 		if( $instance) {
-		     $textarea = esc_textarea($instance['textarea']);
+			$title = esc_attr($instance['title']);
+			$text = esc_attr($instance['text']);
 		} else {
-		     $textarea = '';
+			$title = '';
+			$text = '';
 		}
 		?>
 
 		<p>
-		<label for="<?php echo $this->get_field_id('textarea'); ?>"><?php _e('Textarea:', 'wp_widget_plugin'); ?></label>
-		<textarea class="widefat" id="<?php echo $this->get_field_id('textarea'); ?>" name="<?php echo $this->get_field_name('textarea'); ?>"><?php echo $textarea; ?></textarea>
+			<label for="<?php echo $this->get_field_id('title'); ?>"><?php _e('Column Title', 'wp_widget_plugin'); ?></label>
+			<input class="widefat" id="<?php echo $this->get_field_id('title'); ?>" name="<?php echo $this->get_field_name('title'); ?>" type="text" value="<?php echo $title; ?>" />
+		</p>
+		<p>
+			<label for="<?php echo $this->get_field_id('text'); ?>"><?php _e('Text:', 'wp_widget_plugin'); ?></label>
+			<input class="widefat" id="<?php echo $this->get_field_id('text'); ?>" name="<?php echo $this->get_field_name('text'); ?>" type="text" value="<?php echo $text; ?>" />
 		</p>
 		<?php
 	}
@@ -32,7 +38,8 @@ class footer4 extends WP_Widget {
 	function update($new_instance, $old_instance) {
 		$instance = $old_instance;
 		// Fields
-		$instance['textarea'] = strip_tags($new_instance['textarea']);
+		$instance['title'] = strip_tags($new_instance['title']);
+		$instance['text'] = strip_tags($new_instance['text']);
 		return $instance;
 	}
 
@@ -40,24 +47,37 @@ class footer4 extends WP_Widget {
 	function widget($args, $instance) {
 		extract( $args );
 		// these are the widget options
-		$textarea = $instance['textarea'];
+		$title = $instance['title'];
+		$text = $instance['text'];
 		echo $before_widget;
 		?>
 		<div class="widget-text wp_widget_plugin_box">
 			<div class="footer-logos">
-				<div class="calcagni-logo"><img src="<?php echo get_template_directory_uri(); ?>/images/social-logos/calcagni-logo.png"></div>
-				<div class="hillcrest-footer-logo"><img src="<?php echo get_template_directory_uri(); ?>/images/social-logos/hillcrest-footer-logo.png"></div>
 			</div>
-			<div class="footer-textarea">
+			<div class="footer-title-area">
 				<?php
-					if( $textarea ) {
-						 echo '<p class="wp_widget_plugin_textarea">'.$textarea.'</p>';
+					if( $title ) {
+						 echo '<h3 class="widget-title">'.$title.'</h3>';
 					}
 				?>
 			</div>
-			<div class="lower-logos">
-				<div class="lower-img-1"><img src="<?php echo get_template_directory_uri(); ?>/images/social-logos/lower-img-1.png"></div>
-				<div class="lower-img-2"><img src="<?php echo get_template_directory_uri(); ?>/images/social-logos/lower-img-2.png"></div>
+			<div class="footer-text-area">
+				<?php
+					if( $text ) {
+						echo '<p>'.$text.'</p>';
+				   	}
+			   	?>
+			</div>
+			<div class="footer-form-area">
+				<input type="text" name="email" placeholder="Email Address">
+				<input class="submit-btn" type="submit" value="submit">	 
+			</div>
+			<div class="footer-social-icons">
+				<div class="fb-white"><a href="#"><img src="<?php echo get_template_directory_uri(); ?>/images/social-logos/facebook-white.png"></a></div>
+				<div class="tw-white"><a href="#"><img src="<?php echo get_template_directory_uri(); ?>/images/social-logos/twitter-white.png"></a></div>
+				<div class="pt-white"><a href="#"><img src="<?php echo get_template_directory_uri(); ?>/images/social-logos/pinterest-white.png"></a></div>
+				<div class="gp-white"><a href="#"><img src="<?php echo get_template_directory_uri(); ?>/images/social-logos/google-white.png"></a></div>
+				<div class="be-white"><a href="#"><img src="<?php echo get_template_directory_uri(); ?>/images/social-logos/behance-white.png"></a></div>
 			</div>
 		</div>
 		<?php

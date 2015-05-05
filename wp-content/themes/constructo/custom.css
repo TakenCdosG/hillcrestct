@@ -324,3 +324,70 @@ div.col-md-3.col-xs-6:nth-child(2){
 .menu-footer-menu-container{
 	width: 155px;
 }
+
+.footer-text-area{
+	position: relative;
+	top: -22px;
+	font-family: "arial";
+	color: #ffffff;
+	font-size: 13px;
+	font-weight: 600;
+}
+
+.footer-form-area{
+	position: relative;
+	top: -20px;
+}
+
+.footer-form-area input{
+	border: 1px solid #cbcbcb;
+	color: #4b4b4b;
+	font-family: "arial";
+	padding-left: 5px;
+}
+
+::-webkit-input-placeholder { color:#4b4b4b; }
+::-moz-placeholder { color:#4b4b4b; } /* firefox 19+ */
+:-ms-input-placeholder { color:#4b4b4b; } /* ie */
+input:-moz-placeholder { color:#4b4b4b; }
+
+input.submit-btn{
+	color: #ffffff;
+	background-color: #003d79;
+	border:1px solid #cbcbcb;
+	padding: 1px 9px 1px 9px;
+	position: absolute;
+	text-transform: uppercase;
+	font-family: "arial";
+}
+.site-footer img{
+	margin-bottom: 0px;
+}
+
+.footer-social-icons{
+	height: 16px;
+}
+
+.fb-white{
+	position: absolute;
+}
+
+.tw-white{
+	position: absolute;
+	margin-left: 28px;
+}
+
+.pt-white{
+	position: absolute;
+	margin-left: 56px;
+}
+
+.gp-white{
+	position: absolute;
+	margin-left: 84px;
+}
+
+.be-white{
+	position: absolute;
+	margin-left: 112px;
+}
