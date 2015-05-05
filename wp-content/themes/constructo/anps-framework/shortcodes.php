@@ -2,12 +2,12 @@
 /* Blog shortcode */
 function anps_blog_func($atts, $content) {
     extract( shortcode_atts( array(
-		'category' => '',
-		'orderby' => '',
-		'order' => '',
+        'category' => '',
+        'orderby' => '',
+        'order' => '',
         'type' => '',
         'columns' => ''
-	), $atts ) ); 
+    ), $atts ) ); 
     global $wp_rewrite;
 
     wp_enqueue_script('anps-isotope');
@@ -20,27 +20,27 @@ function anps_blog_func($atts, $content) {
         $current = 1;
     }
     $args = array(
-    	'posts_per_page'   => $content,
-    	'category_name'    => $category,
-    	'orderby'          => $orderby,
-    	'order'            => $order,
-    	'post_type'        => 'post',
-    	'post_status'      => 'publish',
+        'posts_per_page'   => $content,
+        'category_name'    => $category,
+        'orderby'          => $orderby,
+        'order'            => $order,
+        'post_type'        => 'post',
+        'post_status'      => 'publish',
         'paged'            => $current
     );
 
     $posts = new WP_Query( $args );
 
     $pagination = array(
-    	'base' => @add_query_arg('page','%#%'),
-    	'format' => '',
-    	'total' => $posts->max_num_pages,
-    	'current' => $current,
-    	'show_all' => false,
+        'base' => @add_query_arg('page','%#%'),
+        'format' => '',
+        'total' => $posts->max_num_pages,
+        'current' => $current,
+        'show_all' => false,
         'prev_text'    => '',
         'next_text'    => '',
-    	'type' => 'list',
-	);
+        'type' => 'list',
+    );
     
     switch($type) {
         case "": $blog_type = "content"; break;
@@ -149,7 +149,7 @@ function anps_recent_portfolio_slider_func($atts, $content) {
             $image = "<img src='".$image_url[0]."' />";
         }
         $portfolio_data .= "<li class='item item-type-line'>";
-        $portfolio_data .= "<a class='item-hover' href=".get_permalink().">";
+        $portfolio_data .= "<a class='item-hover'>";
         $portfolio_data .= "<div class='mask'></div>";
         $portfolio_data .= "<div class='item-info'>";
         $portfolio_data .= "<div class='headline'><h2>".get_the_title()."</h2></div>";
@@ -220,7 +220,7 @@ function anps_recent_portfolio_func($atts, $content) {
             $image = "<img src='".$image_url[0]."' />";
         }
         $portfolio_data .= "<li class='item item-type-line$m_class'>";
-        $portfolio_data .= "<a class='item-hover' href=".get_permalink().">";
+        $portfolio_data .= "<a class='item-hover'>";
         $portfolio_data .= "<div class='mask'></div>";
         $portfolio_data .= "<div class='item-info'>";
         $portfolio_data .= "<div class='headline'><h2>".get_the_title()."</h2></div>";
@@ -249,7 +249,7 @@ function anps_portfolio_func($atts, $content) {
             'per_page' => -1,
             'mobile_class' => '2',
             'filter_color' => '#000000'
-	), $atts ) );
+    ), $atts ) );
 
    wp_enqueue_script('anps-isotope');
 
@@ -387,7 +387,7 @@ function anps_portfolio_func($atts, $content) {
         if($type!="random")
         {
         $portfolio_data .= "<li class='isotope-item ".$portfolio_cat.$rand_class.$m_class.$mdclass."'><article class='inner'>";
-        $portfolio_data .= "<a class='item-hover' href=".get_permalink().">";
+        $portfolio_data .= "<a class='item-hover'>";
         $portfolio_data .= "<div class='mask'></div>";
         $portfolio_data .= "<div class='item-info'>";
         if($type=="default") {
@@ -415,7 +415,7 @@ function anps_portfolio_func($atts, $content) {
         $portfolio_data .= "<li class='isotope-item ".$portfolio_cat.$rand_class.$mdclass."'>";
         $portfolio_data .= "<article class='inner'>";
 
-        $portfolio_data .= "<a class='item-hover' href=".get_permalink().">";
+        $portfolio_data .= "<a class='item-hover'>";
         $portfolio_data .= "<div class='mask'></div>";
         $portfolio_data .= "<div class='item-info'>";
         $portfolio_data .= "<div class='headline'><h2>".get_the_title()."</h2></div>";
@@ -550,19 +550,19 @@ add_shortcode("team", "anps_team_func");
 /* Recent blog posts */
 function anps_recent_blog_func($atts, $content) {
     extract( shortcode_atts( array(
-		'number' => ''
-	), $atts ) );
+        'number' => ''
+    ), $atts ) );
     switch($number) {
         case "3": $blog_columns = " col-lg-4 col-md-6 col-sm-6 col-xs-12"; break;
         case "4": $blog_columns = " col-lg-3 col-md-6 col-sm-6 col-xs-12"; break;
         default : $blog_columns = " col-lg-4 col-md-6 col-sm-6 col-xs-12"; break;
     }
      $args = array(
-	'posts_per_page'   => $number,
-	'orderby'          => "date",
-	'order'            => "DESC",
-	'post_type'        => 'post',
-	'post_status'      => 'publish');
+    'posts_per_page'   => $number,
+    'orderby'          => "date",
+    'order'            => "DESC",
+    'post_type'        => 'post',
+    'post_status'      => 'publish');
      $posts = new WP_Query( $args );
      $recent_post_text ="";
      if($posts->have_posts()) :
@@ -602,7 +602,7 @@ add_shortcode("recent_blog", "anps_recent_blog_func");
 /* Progress */
 function anps_progress_func($atts, $content) {
     extract( shortcode_atts( array(
-		'procent' => "0",
+        'procent' => "0",
         'striped' => "",
         'active' => "",
         'color_class' => 'progress-bar-success'
@@ -629,7 +629,7 @@ add_shortcode("progress", "anps_progress_func");
 /* Counter */
 function anps_counter_func($atts, $content) {
     extract( shortcode_atts( array(
-		'icon' => "",
+        'icon' => "",
                 'max' => "",
                 'min' => "0",
                 "icon_color" => "",
@@ -716,17 +716,17 @@ function anps_coming_soon_func($atts, $content) {
         $img_bg = " style='background-image: url(".$image.");'";
     }
     return '<div class="coming-soon"'.$img_bg.'>
-		<h1>'.$title.'</h1>
-		<h2 class="primary">'.$subtitle.'</h2>
-		<ul class="countdown primary"></ul>'.
+        <h1>'.$title.'</h1>
+        <h2 class="primary">'.$subtitle.'</h2>
+        <ul class="countdown primary"></ul>'.
                 do_shortcode($content)
-	.'</div>
-	<script src="'.get_template_directory_uri()  . "/js/countdown.js".'"></script>
+    .'</div>
+    <script src="'.get_template_directory_uri()  . "/js/countdown.js".'"></script>
         <script>
-		jQuery(".countdown").countdown("'.$date.'", function(event) {
-		     jQuery(this).html(event.strftime("<li>%D<label>days</label></li><li>%H<label>hours</label></li><li>%M <label>minutes</label></li><li>%S<label>seconds</label></li>"));
-		});
-	</script>';
+        jQuery(".countdown").countdown("'.$date.'", function(event) {
+             jQuery(this).html(event.strftime("<li>%D<label>days</label></li><li>%H<label>hours</label></li><li>%M <label>minutes</label></li><li>%S<label>seconds</label></li>"));
+        });
+    </script>';
 }
 add_shortcode("coming_soon", "anps_coming_soon_func");
 /* Twitter */
@@ -734,14 +734,14 @@ global $anps_parallax_slug;
 $anps_parallax_slug = array();
 function anps_twitter_func($atts, $content) {
     extract( shortcode_atts( array(
-		'title' => 'Stay informed',
+        'title' => 'Stay informed',
                 'parallax' => 'false',
                 'parallax_overlay' => '',
                 'image' => '',
                 'color' => '',
                 'slug' => '',
                 'image_u' => ''
-	), $atts ) );
+    ), $atts ) );
     if($image_u) {
         $image = wp_get_attachment_image_src($image_u, 'full');
         $image = $image[0];
@@ -818,10 +818,10 @@ add_shortcode("twitter", "anps_twitter_func");
 ****** Column layout shortcodes ******
 **************************************/
 function content_half_func( $atts,  $content ) {
-	extract( shortcode_atts( array(
-		'id' => '',
+    extract( shortcode_atts( array(
+        'id' => '',
         'class' => ''
-	), $atts ) );
+    ), $atts ) );
     $content = do_shortcode( shortcode_unautop( $content ) );
     if ( '</p>' == substr( $content, 0, 4 )
     and '<p>' == substr( $content, strlen( $content ) - 3 ) )
@@ -841,10 +841,10 @@ function content_half_func( $atts,  $content ) {
 }
 add_shortcode( 'content_half', 'content_half_func' );
 function content_third_func( $atts,  $content ) {
-	extract( shortcode_atts( array(
-		'id' => '',
+    extract( shortcode_atts( array(
+        'id' => '',
         'class' => ''
-	), $atts ) );
+    ), $atts ) );
     $content = do_shortcode( shortcode_unautop( $content ) );
     if ( '</p>' == substr( $content, 0, 4 )
     and '<p>' == substr( $content, strlen( $content ) - 3 ) )
@@ -863,10 +863,10 @@ function content_third_func( $atts,  $content ) {
 }
 add_shortcode( 'content_third', 'content_third_func' );
 function content_two_third_func( $atts,  $content ) {
-	extract( shortcode_atts( array(
-		'id' => '',
+    extract( shortcode_atts( array(
+        'id' => '',
         'class' => ''
-	), $atts ) );
+    ), $atts ) );
     $content = do_shortcode( shortcode_unautop( $content ) );
     if ( '</p>' == substr( $content, 0, 4 )
     and '<p>' == substr( $content, strlen( $content ) - 3 ) )
@@ -885,10 +885,10 @@ function content_two_third_func( $atts,  $content ) {
 }
 add_shortcode( 'content_two_third', 'content_two_third_func' );
 function content_quarter_func( $atts,  $content ) {
-	extract( shortcode_atts( array(
-		'id' => '',
+    extract( shortcode_atts( array(
+        'id' => '',
         'class' => ''
-	), $atts ) );
+    ), $atts ) );
     $content = do_shortcode( shortcode_unautop( $content ) );
     if ( '</p>' == substr( $content, 0, 4 )
     and '<p>' == substr( $content, strlen( $content ) - 3 ) )
@@ -907,10 +907,10 @@ function content_quarter_func( $atts,  $content ) {
 }
 add_shortcode( 'content_quarter', 'content_quarter_func' );
 function content_two_quarter_func( $atts,  $content ) {
-	extract( shortcode_atts( array(
-		'id' => '',
+    extract( shortcode_atts( array(
+        'id' => '',
         'class' => ''
-	), $atts ) );
+    ), $atts ) );
     $content = do_shortcode( shortcode_unautop( $content ) );
     if ( '</p>' == substr( $content, 0, 4 )
     and '<p>' == substr( $content, strlen( $content ) - 3 ) )
@@ -929,10 +929,10 @@ function content_two_quarter_func( $atts,  $content ) {
 }
 add_shortcode( 'content_two_quarter', 'content_two_quarter_func' );
 function content_three_quarter_func( $atts,  $content ) {
-	extract( shortcode_atts( array(
-		'id' => '',
+    extract( shortcode_atts( array(
+        'id' => '',
         'class' => ''
-	), $atts ) );
+    ), $atts ) );
     $content = do_shortcode( shortcode_unautop( $content ) );
     if ( '</p>' == substr( $content, 0, 4 )
     and '<p>' == substr( $content, strlen( $content ) - 3 ) )
@@ -955,7 +955,7 @@ add_shortcode( 'content_three_quarter', 'content_three_quarter_func' );
 **************************************/
 /* Icon shortcode */
 function icon_func( $atts,  $content ) {
-	extract( shortcode_atts( array(
+    extract( shortcode_atts( array(
             'url' => '',
             'target' => '_self',
             'icon' => '',
@@ -993,7 +993,7 @@ function icon_func( $atts,  $content ) {
                     <p>'.$content.'</p>
                 </div>';          
     }
-  	
+    
 }
 add_shortcode( 'icon', 'icon_func' );
 /* Quote */
@@ -1123,12 +1123,12 @@ function button_func( $atts,  $content ) {
 add_shortcode( 'button', 'button_func' );
 /* Error 404 */
 function error_404_func( $atts,  $content ) {
-	extract( shortcode_atts( array(
+    extract( shortcode_atts( array(
             'title' => '',
             'sub_title' => ''
     ), $atts ) );
-		
-	return '<div class="error-404">
+        
+    return '<div class="error-404">
                     <h1>'.$title.'</h1>
                     <h2>'.$sub_title.'</h2>  
                     <a href="javascript:javascript:history.go(-1)" class="btn btn-wide">'.$content.'</a>
@@ -1169,7 +1169,7 @@ function anps_alert_func($atts, $content) {
     }
     return '<div class="alert'.$type_class.'">
                 <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-		<i class="fa fa-'.$icon.'"></i> '.$content.'
+        <i class="fa fa-'.$icon.'"></i> '.$content.'
             </div>';
 }
 add_shortcode('alert', 'anps_alert_func');
@@ -1680,7 +1680,7 @@ function anps_pricing_table_func( $atts,  $content ) {
         ), $atts ) );
 
         if( $button_text != '' ) {
-        	$button_text = '<li><a class="btn btn-md" href="' . $button_url . '">' . $button_text . '</a></li>';
+            $button_text = '<li><a class="btn btn-md" href="' . $button_url . '">' . $button_text . '</a></li>';
         }
         $exposed_class = "";
         if($featured) {
