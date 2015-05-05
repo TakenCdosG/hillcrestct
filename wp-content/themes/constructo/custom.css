@@ -391,3 +391,13 @@ input.submit-btn{
 	position: absolute;
 	margin-left: 112px;
 }
+
+
+
+/*
+* Hiding header social,"Home" in the nav and "menu" in the footer... for launch
+*
+*/
+.upper-header, .site-navigation, #nav_menu-2 .widget-title{
+    display: none;
+}
