@@ -642,3 +642,24 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 /*************************/
 /*END WOOCOMMERCE*/
 /*************************/
+
+/*************************/
+/* CONTACT FORM 7 CUSTOM ACTION URL */
+/*************************/
+
+add_filter('wpcf7_form_action_url', 'wpcf7_custom_form_action_url');
+function wpcf7_custom_form_action_url($url)
+{
+    global $post, $wpcf7;
+     if ($post->ID === 5 || $post->ID === 816 ) {
+       $wpcf7->skip_mail = 1;
+        return 'http://thinkcreativegroup.createsend.com/t/y/s/fjywi/';
+      
+    } else {
+        return $url;
+    }
+ }
+
+/*************************/
+/* END CONTACT FORM 7 */
+/*************************/
