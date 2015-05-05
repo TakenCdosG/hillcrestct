@@ -398,6 +398,6 @@ input.submit-btn{
 * Hiding header social,"Home" in the nav and "menu" in the footer... for launch
 *
 */
-.upper-header, .site-navigation, #nav_menu-2 .widget-title{
+.upper-header, .site-navigation, #nav_menu-2.widget_nav_menu .widget-title, .menu-footer-menu-container, .navbar-toggle{
     display: none;
 }
