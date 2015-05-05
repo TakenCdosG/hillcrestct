@@ -45,7 +45,7 @@ class footer1 extends WP_Widget {
 		?>
 		<div class="widget-text wp_widget_plugin_box">
 			<div class="footer-logos">
-				<div class="calcagni-logo"><img src="<?php echo get_template_directory_uri(); ?>/images/social-logos/calcagni-logo.png"></div>
+				<div class="calcagni-logo"><a href="http://calcagni.com"><img src="<?php echo get_template_directory_uri(); ?>/images/social-logos/calcagni-logo.png"></a></div>
 				<div class="hillcrest-footer-logo"><img src="<?php echo get_template_directory_uri(); ?>/images/social-logos/hillcrest-footer-logo.png"></div>
 			</div>
 			<div class="footer-textarea">
