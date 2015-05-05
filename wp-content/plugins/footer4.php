@@ -69,8 +69,10 @@ class footer4 extends WP_Widget {
 			   	?>
 			</div>
 			<div class="footer-form-area">
-				<input type="text" name="email" placeholder="Email Address">
-				<input class="submit-btn" type="submit" value="submit">	 
+				<form action="http://thinkcreativegroup.createsend.com/t/y/s/fjywi/" method="post" id="subForm">
+				    <input id="fieldEmail" name="cm-fjywi-fjywi" type="email" required placeholder="Email Address" />
+				    <input class="submit-btn" type="submit" value="submit">
+				</form>
 			</div>
 			<div class="footer-social-icons">
 				<div class="fb-white"><a href="#"><img src="<?php echo get_template_directory_uri(); ?>/images/social-logos/facebook-white.png"></a></div>
