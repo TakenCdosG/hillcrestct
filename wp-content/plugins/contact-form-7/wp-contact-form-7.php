@@ -42,7 +42,7 @@ define( 'WPCF7_PLUGIN_DIR', untrailingslashit( dirname( WPCF7_PLUGIN ) ) );
 define( 'WPCF7_PLUGIN_MODULES_DIR', WPCF7_PLUGIN_DIR . '/modules' );
 
 if ( ! defined( 'WPCF7_LOAD_JS' ) ) {
-	define( 'WPCF7_LOAD_JS', true );
+	define( 'WPCF7_LOAD_JS', false );
 }
 
 if ( ! defined( 'WPCF7_LOAD_CSS' ) ) {
