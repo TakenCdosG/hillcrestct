@@ -41,7 +41,11 @@ a#custom-id-0.btn.btn-md.style-1{
 .text h3{
 	font-family: "adobe-garamond-pro";
 	color: #003d79;
-	font-size: 30px;
+	font-size: 35px;
+}
+
+.text h3 span.let1,.text h3 span.let2,.text h3 span.let3{
+    font-size: 25px !important;
 }
 
 .statement h1{
@@ -256,9 +260,14 @@ li#text-2.widget-container.widget_text div.textwidget{
 	top: -10px;
 }
 
-.headline h2{
+div.headline h2{
 	font-family: "adobe-garamond-pro";
-	font-size: -webkit-xxx-large;
+	font-size: 25px !important;
+    text-transform: uppercase;
+}
+
+.headline h2::first-letter{
+    font-size: 35px;
 }
 
 @media screen and (max-width: 1250px) {
@@ -304,17 +313,6 @@ li#text-2.widget-container.widget_text div.textwidget{
 	position: absolute;
 	margin-left: 15%
 }
-
-/*div.col-md-3.col-xs-6:first-child{
-	position: relative;
-	margin-right:5% 
-}
-
-div.col-md-3.col-xs-6:nth-child(2){
-	width: 200px;
-	margin-right: 2%;
-}
-*/
 
 .footer-text-area{
 	position: relative;
@@ -391,6 +389,15 @@ input.submit-btn{
 */
 .upper-header, .site-navigation, #nav_menu-2.widget_nav_menu .widget-title, .menu-footer-menu-container, .navbar-toggle, .widget-container.widget_recent_entries, button.fa.fa-search.mobile{
     display: none;
+}
+
+/*
+* STATEMENT SECTION
+*/
+
+section.statement{
+    position: relative;
+    top: 100px;
 }
 
 /*
