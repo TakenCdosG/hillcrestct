@@ -203,7 +203,7 @@ function anps_get_header() {
                 </div>
                 <div class="phone-number">
                     <div class="phone-icon"><img src="<?php echo get_template_directory_uri(); ?>/images/social-logos/phone-icon.png"></div>
-                    <div class="phone-number-text"><a href="tel:8606215455"><p>(860) 621-5455</p></a></div>
+                    <div class="phone-number-text"><a href="tel:8606215455">(860) 621-5455</a></div>
                 </div>
                 <div class="header-email">
                     <div class="mail-icon"><img src="<?php echo get_template_directory_uri(); ?>/images/social-logos/mail-icon.png"></div>

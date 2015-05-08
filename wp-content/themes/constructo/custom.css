@@ -190,6 +190,7 @@ ul.recentportfolio li.item.item-type-line{
 	font-family: "pt-sans";
 	color: #888888;
 	font-size: 13px;
+    z-index: 900;
 }
 
 .header-email{
