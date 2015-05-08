@@ -381,14 +381,51 @@ input.submit-btn{
 	margin-left: 112px;
 }
 
-
-
+/*
+* NAVIGATION MENU MOBILE STYLES
+*/
+@media screen and (max-width: 992px){
+    nav.site-navigation.open,.site-navigation:before, .site-navigation:after {
+        background: #003d79 !important;
+    }
+    .site-navigation{
+        margin-left: 0 !important;
+    }
+    nav.site-navigation.open ul#menu-main-menu li a {
+        color: #ffffff !important;
+    }
+}
+@media screen and (min-width: 320px) and (max-width: 992px){
+    section.wpb_row vc_custom_1430511487651{
+        height: 135px!important;
+    }
+    div.text.vc_custom_1430407398521{
+        margin-top: -62px !important;
+    }
+    div.text.vc_custom_1430407398521 h3 span {
+        font-size: 20px !important;
+    }
+    div.text.vc_custom_1430407398521 p{
+        margin-top: -17px;
+    }
+    div.text.vc_custom_1430407398521 p span {
+        font-size: 13px!important;
+    }
+    div.vc_empty_space{
+        height: 0;
+    }
+    a#custom-id-0.btn.btn-md.style-1{
+        margin-top: -55px;
+        padding: 8px 12px !important;
+        font-size: 13px;
+    }
+}
 /*
 * Hiding header social,"Home" in the nav and "menu" in the footer... for launch
 *
 */
 .site-navigation, #nav_menu-2.widget_nav_menu .widget-title, .menu-footer-menu-container, .navbar-toggle, .widget-container.widget_recent_entries, button.fa.fa-search.mobile{
-    display: none;
+    display: block;
 }
 
 /*
