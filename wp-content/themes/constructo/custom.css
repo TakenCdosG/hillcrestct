@@ -424,8 +424,8 @@ input.submit-btn{
 * Hiding header social,"Home" in the nav and "menu" in the footer... for launch
 *
 */
-.site-navigation, #nav_menu-2.widget_nav_menu .widget-title, .menu-footer-menu-container, .navbar-toggle, .widget-container.widget_recent_entries, button.fa.fa-search.mobile{
-    display: block;
+.site-navigation, #nav_menu-2.widget_nav_menu .widget-title, .menu-footer-menu-container, .widget-container.widget_recent_entries, button.fa.fa-search.mobile{
+    display: none;
 }
 
 /*
