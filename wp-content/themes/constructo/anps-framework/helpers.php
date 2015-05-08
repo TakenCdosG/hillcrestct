@@ -1,6 +1,6 @@
 <?php
 /* Header image, video, gallery (blog, portfolio) */
-function anps_header_media($id, $image_class="") { 
+function anps_header_media($id, $image_class="") {
     if(has_post_thumbnail($id)) { 
         $header_media = get_the_post_thumbnail($id, $image_class);
     }
@@ -189,15 +189,17 @@ function anps_get_header() {
         <div class="nav-wrap<?php echo $menu_left_center_right_class; ?>">
             <div class="upper-header">
                 <div class="social-icons-header">
-                    <div class="facebook-icon"><a href="#"><img src="<?php echo get_template_directory_uri(); ?>/images/social-logos/facebook.png"></a></div>
-                    <div class="twitter-icon"><a href="#"><img src="<?php echo get_template_directory_uri(); ?>/images/social-logos/twitter.png"></a></div>
-                    <div class="pinterest-icon"><a href="#"><img src="<?php echo get_template_directory_uri(); ?>/images/social-logos/pinterest.png"></a></div>
-                    <div class="googlep-icon"><a href="#"><img src="<?php echo get_template_directory_uri(); ?>/images/social-logos/googlePlus.png"></a></div>
-                    <div class="behance-icon"><a href="#"><img src="<?php echo get_template_directory_uri(); ?>/images/social-logos/behance.png"></a></div>
+                    <div class="social-icons-container">
+                        <div class="facebook-icon"><a href="#"><img src="<?php echo get_template_directory_uri(); ?>/images/social-logos/facebook.png"></a></div>
+                        <div class="twitter-icon"><a href="#"><img src="<?php echo get_template_directory_uri(); ?>/images/social-logos/twitter.png"></a></div>
+                        <div class="pinterest-icon"><a href="#"><img src="<?php echo get_template_directory_uri(); ?>/images/social-logos/pinterest.png"></a></div>
+                        <div class="googlep-icon"><a href="#"><img src="<?php echo get_template_directory_uri(); ?>/images/social-logos/googlePlus.png"></a></div>
+                        <div class="behance-icon"><a href="#"><img src="<?php echo get_template_directory_uri(); ?>/images/social-logos/behance.png"></a></div>
+                    </div>
                 </div>
                 <div class="info-header">
                     <div class="clock-icon"><img src="<?php echo get_template_directory_uri(); ?>/images/social-logos/clock.png"></div>
-                    <div class="info-header-text"><p>Model Hours: Wed, Fri, Sat, & Sun: 12 PM - 3 PM <?php echo str_repeat("&nbsp;", 24); ?>Thurs: 4 PM - 7 PM</p></div>
+                    <div class="info-header-text"><p>Model Hours: Wed, Fri, Sat, & Sun: 12 PM - 3 PM Thurs: 4 PM - 7 PM</p></div>
                 </div>
                 <div class="phone-number">
                     <div class="phone-icon"><img src="<?php echo get_template_directory_uri(); ?>/images/social-logos/phone-icon.png"></div>
@@ -205,7 +207,7 @@ function anps_get_header() {
                 </div>
                 <div class="header-email">
                     <div class="mail-icon"><img src="<?php echo get_template_directory_uri(); ?>/images/social-logos/mail-icon.png"></div>
-                    <div class="header-email-text"><p>info@HillCrestCT.com</p></div>
+                    <div class="header-email-text"><a href="mailto:info@HillCrestCT.com"> <p>info@HillCrestCT.com</p></a></div>
                 </div>
             </div>
             <div class="container"><?php anps_get_sticky_logo() . anps_get_site_header();?></div>
