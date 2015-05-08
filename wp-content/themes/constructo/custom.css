@@ -387,8 +387,8 @@ input.submit-btn{
 * Hiding header social,"Home" in the nav and "menu" in the footer... for launch
 *
 */
-.upper-header, .site-navigation, #nav_menu-2.widget_nav_menu .widget-title, .menu-footer-menu-container, .navbar-toggle, .widget-container.widget_recent_entries, button.fa.fa-search.mobile{
-    display: block;
+.site-navigation, #nav_menu-2.widget_nav_menu .widget-title, .menu-footer-menu-container, .navbar-toggle, .widget-container.widget_recent_entries, button.fa.fa-search.mobile{
+    display: none;
 }
 
 /*
@@ -405,7 +405,7 @@ section.statement{
 *Responsive in footer
 *
 */
-@media screen and (min-width: 320px) and (max-width: 420px){
+/*@media screen and (min-width: 320px) and (max-width: 420px){
     input#fieldEmail{
         width: 130px;
     }
@@ -438,7 +438,7 @@ section.statement{
         position: relative;
         margin-top: -14% !important;
     }
-    /*HEADER - RESPONSIVE*/
+
     .social-icons-header{
         position: absolute;
         margin-left: 0;
@@ -509,7 +509,7 @@ section.statement{
         top: 25px;
         margin-left: 23%;
     }
-    .header-email-text{
+    .header-email-text a{
         top: 42px;
         margin-left: 1%;
         width: 0%;
@@ -539,7 +539,7 @@ section.statement{
         position: relative;
         margin-top: -12% !important;
     }
-    /*HEADER RESPONSIVE*/
+
     .social-icons-header{
         position: absolute;
         margin-left: 5%;
@@ -610,7 +610,7 @@ section.statement{
         top: 40px;
         margin-left: 1%;
     }
-    .header-email-text{
+    .header-email-text a{
         top: 42px;
         margin-left: 10%;
         width: 0%;
@@ -637,7 +637,7 @@ section.statement{
     input#fieldEmail{
         width: 130px;
     }
-    /*HEADER RESPONSIVE*/
+
     .social-icons-header{
         position: absolute;
         margin-left: 5%;
@@ -708,7 +708,7 @@ section.statement{
         top: 40px;
         margin-left: 1%;
     }
-    .header-email-text{
+    .header-email-text a{
         top: 42px;
         margin-left: 10%;
         width: 0%;
@@ -747,7 +747,7 @@ section.statement{
 *2nd, 3rd, 4th Columns position fix
 *
 *
-*/
+
 
 @media screen and (min-width: 579px) and (max-width: 734px){
     .col-md-3.col-xs-6:nth-child(2),.col-md-3.col-xs-6:nth-child(3){
@@ -769,8 +769,12 @@ section.statement{
         margin-top: -5% !important;
     }
 }
+*/
+/*
+* THIS NEXT SECTION ONLY THE COLUMNS STYLES WILL BE COMMENTED, WHEN IT'S TIME TO DISPLAY THE MENU AND OTHER STUFF UNCOMMENT THIS STYLES
+*/
 @media screen and (min-width: 588px) and (max-width: 992px) {
-    .col-md-3.col-xs-6:nth-child(2){
+    /*.col-md-3.col-xs-6:nth-child(2){
         position: relative;
         margin-top: -45px !important;
     }
@@ -781,8 +785,8 @@ section.statement{
     .col-md-3.col-xs-6:nth-child(4){
         position: relative;
         margin-top: -2% !important;
-    }
-    /*HEADER RESPONSIVE*/
+    }*/
+
     .social-icons-header{
         position: absolute;
         margin-left: 12%;
@@ -862,14 +866,14 @@ section.statement{
         top: 40px;
         margin-left: 1%;
     }
-    .header-email-text{
+    .header-email-text a{
         top: 42px;
         margin-left: 10%;
         width: 0%;
         font-size: 11px;
     }
 }
-@media screen and (min-width: 993px) {
+/*@media screen and (min-width: 993px) {
     .col-md-3.col-xs-6:nth-child(3){
         position: relative;
         margin-top: -45px !important;
@@ -879,7 +883,7 @@ section.statement{
         margin-top: -45px !important;
     }
 }
-
+*/
 /*
 * MEDIA QUERIES FOR HEADER > 993PX
 */
@@ -1046,7 +1050,7 @@ section.statement{
 * DELETE OR COMMENT THIS FOLLOWING STYLES WHEN SHOWING THE MENU AND RECENT POST FOOTER SECTIONS
 *
 *
-
+*/
 @media screen and (min-width: 320px) and (max-width: 420px){
     input#fieldEmail{
         width: 130px;
@@ -1076,6 +1080,82 @@ section.statement{
         position: relative;
         margin-top: -110px !important;
     }
+    .social-icons-header{
+        position: absolute;
+        margin-left: 0;
+        height: 64px;
+        width: 28%;
+        border-left: none;
+        border-right: none;
+    }
+    .social-icons-container{
+        position: relative;
+        margin-left: -20%;
+        top:-18px;
+    }
+    .facebook-icon{
+        margin-left: 30px;
+        top: 20px;
+    }
+    .twitter-icon{
+        margin-left: 50px;
+        top: 20px;
+    }
+    .pinterest-icon{
+        margin-left: 77px;
+        top:20px;
+    }
+    .googlep-icon{
+        margin-left: 41px;
+        top: 55px;
+    }
+    .behance-icon{
+        margin-left: 65px;
+        top: 53px;
+    }
+    .info-header{
+        margin-left: 28%;
+        margin-right: 0;
+        width: 39%;
+    }
+    .clock-icon{
+        top: 17px;
+        margin-left: 1%;
+    }
+    .info-header-text{
+        top: 7px;
+        margin-left: 15%;
+        width: 77%;
+        font-size: 9px;
+        margin-right: 5%;
+    }
+    .phone-number{
+        margin-left: 66%;
+        width: 35%;
+    }
+    .phone-icon{
+        top: 3px;
+        margin-left: 5%;
+    }
+    .phone-number-text{
+        top: 5px;
+        margin-left: 19%;
+        width: 108px;
+        font-size: 11px;
+    }
+    .header-email{
+        width: 54%;
+    }
+    .mail-icon{
+        top: 25px;
+        margin-left: 23%;
+    }
+    .header-email-text a{
+        top: 42px;
+        margin-left: 1%;
+        width: 0%;
+        font-size: 10px;
+    }
 }
 @media screen and (min-width: 421px) and (max-width: 488px){
     .calcagni-logo{
@@ -1095,6 +1175,82 @@ section.statement{
         position: relative;
         margin-top: -110px !important;
     }
+    .social-icons-header{
+        position: absolute;
+        margin-left: 5%;
+        height: 64px;
+        width: 28%;
+        border-left: none;
+        border-right: none;
+    }
+    .social-icons-container{
+        position: relative;
+        margin-left: -20%;
+        top:-18px;
+    }
+    .facebook-icon{
+        margin-left: 30px;
+        top: 20px;
+    }
+    .twitter-icon{
+        margin-left: 50px;
+        top: 20px;
+    }
+    .pinterest-icon{
+        margin-left: 77px;
+        top:20px;
+    }
+    .googlep-icon{
+        margin-left: 41px;
+        top: 55px;
+    }
+    .behance-icon{
+        margin-left: 65px;
+        top: 53px;
+    }
+    .info-header{
+        margin-left: 28%;
+        margin-right: 0;
+        width: 39%;
+    }
+    .clock-icon{
+        top: 10px;
+        margin-left: 4%;
+    }
+    .info-header-text{
+        top: 7px;
+        margin-left: 15%;
+        width: 77%;
+        font-size: 9px;
+        margin-right: 5%;
+    }
+    .phone-number{
+        margin-left: 66%;
+        width: 35%;
+    }
+    .phone-icon{
+        top: 3px;
+        margin-left: 8%;
+    }
+    .phone-number-text{
+        top: 5px;
+        margin-left: 19%;
+        width: 108px;
+        font-size: 11px;
+    }
+    .header-email{
+        width: 54%;
+    }
+    .mail-icon{
+        top: 40px;
+        margin-left: 1%;
+    }
+    .header-email-text a{
+        top: 42px;
+        margin-left: 10%;
+        width: 0%;
+        font-size: 11px;
+    }
 }
 @media screen and (min-width: 489px) and (max-width: 587px){
     .calcagni-logo{
@@ -1109,6 +1265,82 @@ section.statement{
     }
     input#fieldEmail{
         width: 130px;
+    }
+    .social-icons-header{
+        position: absolute;
+        margin-left: 5%;
+        height: 64px;
+        width: 28%;
+        border-left: none;
+        border-right: none;
+    }
+    .social-icons-container{
+        position: relative;
+        margin-left: -20%;
+        top:-18px;
+    }
+    .facebook-icon{
+        margin-left: 30px;
+        top: 20px;
+    }
+    .twitter-icon{
+        margin-left: 50px;
+        top: 20px;
+    }
+    .pinterest-icon{
+        margin-left: 77px;
+        top:20px;
+    }
+    .googlep-icon{
+        margin-left: 41px;
+        top: 55px;
+    }
+    .behance-icon{
+        margin-left: 65px;
+        top: 53px;
+    }
+    .info-header{
+        margin-left: 28%;
+        margin-right: 0;
+        width: 39%;
+    }
+    .clock-icon{
+        top: 10px;
+        margin-left: 4%;
+    }
+    .info-header-text{
+        top: 7px;
+        margin-left: 15%;
+        width: 77%;
+        font-size: 11px;
+        margin-right: 5%;
+    }
+    .phone-number{
+        margin-left: 66%;
+        width: 35%;
+    }
+    .phone-icon{
+        top: 3px;
+        margin-left: 8%;
+    }
+    .phone-number-text{
+        top: 5px;
+        margin-left: 19%;
+        width: 108px;
+        font-size: 11px;
+    }
+    .header-email{
+        width: 54%;
+    }
+    .mail-icon{
+        top: 40px;
+        margin-left: 1%;
+    }
+    .header-email-text a{
+        top: 42px;
+        margin-left: 10%;
+        width: 0%;
+        font-size: 11px;
     }
 }
 @media screen and (min-width: 690px) and (max-width: 991px){
@@ -1163,4 +1395,3 @@ section.statement{
         margin-top: -45px !important;
     }
 }
-*/
