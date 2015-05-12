@@ -469,10 +469,10 @@ div.row.home-detail-text div.wpb_column.col-md-12 ul.list.circle li{
 /*
 * 4TH COLUMN PORTFOLIO ISOTOPE FIX
 */
-.isotope-item.traditional.col-xs-6.col-md-3:nth-child(4) article.inner{
+.isotope-item.col-xs-6.col-md-3:nth-child(4) article.inner{
     top: 65px !important;
 }
-.isotope-item.traditional.col-xs-6.col-md-3:nth-child(4) a.portfolio-title{
+.isotope-item.col-xs-6.col-md-3:nth-child(4) a.portfolio-title{
     top: 65px !important;
     position: relative;
 }
@@ -480,10 +480,10 @@ div.row.home-detail-text div.wpb_column.col-md-12 ul.list.circle li{
     top: -30px !important;
 }
 @media screen and (min-width: 320px) and (max-width: 992px){
-    .isotope-item.traditional.col-xs-6.col-md-3:nth-child(4) article.inner{
+    .isotope-item.col-xs-6.col-md-3:nth-child(4) article.inner{
         top: 130px !important;
     }
-    .isotope-item.traditional.col-xs-6.col-md-3:nth-child(4) a.portfolio-title{
+    .isotope-item.col-xs-6.col-md-3:nth-child(4) a.portfolio-title{
         top: 130px !important;
         position: relative;
     }
@@ -522,7 +522,7 @@ section.wpb_row.row.no-margin.vc_custom_1431455555338.text-center div section.st
 /*
 * MANUFACTURERS SECTION
 */
-.metaslider.metaslider-flex.metaslider-924.ml-slider.nav-hidden{
+.metaslider.metaslider-flex.ml-slider.nav-hidden{
     margin-left: 19% !important;
 }
 
