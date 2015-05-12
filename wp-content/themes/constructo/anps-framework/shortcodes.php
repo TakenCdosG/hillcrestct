@@ -149,7 +149,7 @@ function anps_recent_portfolio_slider_func($atts, $content) {
             $image = "<img src='".$image_url[0]."' />";
         }
         $portfolio_data .= "<li class='item item-type-line'>";
-        $portfolio_data .= "<a class='item-hover'>";
+        $portfolio_data .= "<a href=".get_permalink()." class='item-hover' >";
         $portfolio_data .= "<div class='mask'></div>";
         $portfolio_data .= "<div class='item-info'>";
         $portfolio_data .= "<div class='headline'><h2>".get_the_title()."</h2></div>";
@@ -220,7 +220,7 @@ function anps_recent_portfolio_func($atts, $content) {
             $image = "<img src='".$image_url[0]."' />";
         }
         $portfolio_data .= "<li class='item item-type-line$m_class'>";
-        $portfolio_data .= "<a class='item-hover'>";
+        $portfolio_data .= "<a class='item-hover'>"; /* ADD THIS href=".get_permalink()." TO ACTIVATE CLICKABLE LINKS ON HOME PAGE  */
         $portfolio_data .= "<div class='mask'></div>";
         $portfolio_data .= "<div class='item-info'>";
         $portfolio_data .= "<div class='headline'><h2>".get_the_title()."</h2></div>";
@@ -387,7 +387,7 @@ function anps_portfolio_func($atts, $content) {
         if($type!="random")
         {
         $portfolio_data .= "<li class='isotope-item ".$portfolio_cat.$rand_class.$m_class.$mdclass."'><article class='inner'>";
-        $portfolio_data .= "<a class='item-hover'>";
+        $portfolio_data .= "<a class='item-hover' href=".get_permalink().">";
         $portfolio_data .= "<div class='mask'></div>";
         $portfolio_data .= "<div class='item-info'>";
         if($type=="default") {
@@ -415,7 +415,7 @@ function anps_portfolio_func($atts, $content) {
         $portfolio_data .= "<li class='isotope-item ".$portfolio_cat.$rand_class.$mdclass."'>";
         $portfolio_data .= "<article class='inner'>";
 
-        $portfolio_data .= "<a class='item-hover'>";
+        $portfolio_data .= "<a class='item-hover' href=".get_permalink().">";
         $portfolio_data .= "<div class='mask'></div>";
         $portfolio_data .= "<div class='item-info'>";
         $portfolio_data .= "<div class='headline'><h2>".get_the_title()."</h2></div>";

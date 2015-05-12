@@ -1,5 +1,7 @@
 /*** Write your CSS structure here. ***/
-
+/*
+* SLIDER TEXT STYLES
+*/
 .tp-caption.large_bold_white, .large_bold_white {
 	font-family: "adobe-garamond-pro" !important;
 	position: absolute;
@@ -48,7 +50,7 @@ a#custom-id-0.btn.btn-md.style-1{
     font-size: 25px !important;
 }
 
-.statement h1{
+.statement-text h1{
 	text-transform: none;
 	font-family: "adobe-garamond-pro";
 }
@@ -397,7 +399,7 @@ input.submit-btn{
     }
 }
 /*
-* OREANGE BAR UNDER HOME SLIDER MOBILE STYLES
+* ORANGE BAR UNDER HOME SLIDER MOBILE STYLES
 */
 @media screen and (min-width: 320px) and (max-width: 992px){
     section.wpb_row.vc_custom_1430511487651{
@@ -430,13 +432,120 @@ input.submit-btn{
     }
 }
 /*
+* STYLES OUR HOME PAGES
+*/
+ul.list.circle{
+    list-style-type: disc;
+    margin: 15px 16px 40px;
+}
+ul.list.circle li::before{
+    content: "";
+    margin-left: -6%;
+}
+.vc_button-2-wrapper.vc_button-2-align-inline{
+    margin-bottom: 40px;
+}
+.vc_button-2-wrapper.vc_button-2-align-inline .vc_btn.vc_btn_orange.vc_btn-orange.vc_btn_lg.vc_btn-lg.vc_btn_rounded{
+    background-color: #ea9919 !important;
+}
+div.row.home-detail-title div.wpb_column.col-md-12 h5{
+    font-family: "adobe-garamond-pro";
+    color:#003d79;
+    font-size: 15px;
+}
+div.row.home-detail-title div.wpb_column.col-md-12 h5:first-letter{
+    font-size: 20px;
+}
+div.row.home-detail-text div.wpb_column.col-md-12 div.text, div.row.home-detail-text div.wpb_column.col-md-12 ul.list.circle li{
+    font-family: "adobe-garamond-pro";
+}
+div.row.home-detail-note div.wpb_column.col-md-12 div.text{
+    font-family: "adobe-garamond-pro";
+    font-size: 13px;
+}
+div.row.home-detail-text div.wpb_column.col-md-12 ul.list.circle li{
+    margin-bottom: -16px;
+}
+/*
+* 4TH COLUMN PORTFOLIO ISOTOPE FIX
+*/
+.isotope-item.traditional.col-xs-6.col-md-3:nth-child(4) article.inner{
+    top: 65px !important;
+}
+.isotope-item.traditional.col-xs-6.col-md-3:nth-child(4) a.portfolio-title{
+    top: 65px !important;
+    position: relative;
+}
+.classic.isotope{
+    top: -30px !important;
+}
+@media screen and (min-width: 320px) and (max-width: 992px){
+    .isotope-item.traditional.col-xs-6.col-md-3:nth-child(4) article.inner{
+        top: 130px !important;
+    }
+    .isotope-item.traditional.col-xs-6.col-md-3:nth-child(4) a.portfolio-title{
+        top: 130px !important;
+        position: relative;
+    }
+}
+/*
+* OUR HOMES PAGE STYLES
+*/
+.filter i.fa-filter{
+    display: none;
+}
+.filter li{
+    font-family: "pt-sans";
+}
+/* PAGE HEADING STYLES */
+.page-heading h1{
+    font-family: "adobe-garamond-pro";
+    font-variant: small-caps;
+    font-size: 34px !important;
+    color: #003d79;
+}
+div.container ul.breadcrumbs{
+    font-family: "pt-sans";
+    color:#000000;
+    font-weight: 600;
+}
+/*
+* STATEMENT SECTION STYLES
+*/
+section.statement a#custom-id-0.btn.btn-md.style-1{
+    text-transform: uppercase;
+    margin-top: 0;
+}
+section.wpb_row.row.no-margin.vc_custom_1431455555338.text-center div section.statement{
+    top:75px;
+}
+/*
+* MANUFACTURERS SECTION
+*/
+.metaslider.metaslider-flex.metaslider-924.ml-slider.nav-hidden{
+    margin-left: 19% !important;
+}
+
+
+/*
 * Hiding header social,"Home" in the nav and "menu" in the footer... for launch
 *
 */
 .site-navigation, #nav_menu-2.widget_nav_menu .widget-title, .menu-footer-menu-container, .widget-container.widget_recent_entries, button.fa.fa-search.mobile{
     display: none;
 }
-
+ul.filter.style-1 li button.selected{
+    color: #db931f !important;
+    font-weight: 600;
+}
+ul.filter.style-1 span, ul.filter.style-1 li button{
+    color: #4c4c4c !important;
+}
+ul.portfolio h2{
+    font-family: "adobe-garamond-pro";
+    color: #003d79;
+    font-weight: 600;
+}
 /*
 * STATEMENT SECTION
 */

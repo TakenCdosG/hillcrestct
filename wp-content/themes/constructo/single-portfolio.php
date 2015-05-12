@@ -29,6 +29,11 @@ while($portfolio_posts->have_posts()) :
                 $header_media .= "<img alt='".$image_title."'  src='".$image_src[0]."'>";
                 $header_media .= "</a>";
                 $header_media .= "</div>";
+                $header_media .= "<div class='img-description'>";
+                $header_media .= "<div class='img-desc-text'>";
+                $header_media .= "<h5>".$image_title."</h5>";
+                $header_media .= "</div>";
+                $header_media .= "</div>";
                 $j++;
             }
             $header_media .= "</div>";
