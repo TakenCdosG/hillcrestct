@@ -199,7 +199,7 @@ function anps_get_header() {
                 </div>
                 <div class="info-header">
                     <div class="clock-icon"><img src="<?php echo get_template_directory_uri(); ?>/images/social-logos/clock.png"></div>
-                    <div class="info-header-text"><p>Model Hours: Wed, Fri, Sat, & Sun: 12 PM - 3 PM Thurs: 4 PM - 7 PM</p></div>
+                    <div class="info-header-text"><p>Model Hours: Sat. & Sun. 12 PM – 5 PM</p></div>
                 </div>
                 <div class="phone-number">
                     <div class="phone-icon"><img src="<?php echo get_template_directory_uri(); ?>/images/social-logos/phone-icon.png"></div>
@@ -207,7 +207,7 @@ function anps_get_header() {
                 </div>
                 <div class="header-email">
                     <div class="mail-icon"><img src="<?php echo get_template_directory_uri(); ?>/images/social-logos/mail-icon.png"></div>
-                    <div class="header-email-text"><a href="mailto:info@HillCrestCT.com"> <p>info@HillCrestCT.com</p></a></div>
+                    <div class="header-email-text"><a href="mailto:HillCrest@Calcagni.com"> <p>HillCrest@Calcagni.com</p></a></div>
                 </div>
             </div>
             <div class="container"><?php anps_get_sticky_logo() . anps_get_site_header();?></div>
