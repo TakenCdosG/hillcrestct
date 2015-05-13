@@ -503,8 +503,25 @@ section.wpb_row.row.no-margin.vc_custom_1431455555338.text-center div section.st
 .metaslider.metaslider-flex.ml-slider.nav-hidden{
     margin-left: 19% !important;
 }
-
-
+/*
+* SINGLE PORTFOLIO STYLES
+*/
+.portfolio-single .gallery .item{
+    margin-bottom: 10px;
+}
+.img-description{
+    margin-bottom: 10px;
+    margin-top: -5px;
+}
+.img-desc-text{
+    text-align: center;
+}
+div.img-desc-text span{
+    font-family: "adobe-garamond-pro";
+    font-size: 18px;
+    text-transform: uppercase;
+    color: #003d79;
+}
 /*
 * Hiding header social,"Home" in the nav and "menu" in the footer... for launch
 *

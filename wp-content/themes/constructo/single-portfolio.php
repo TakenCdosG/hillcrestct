@@ -20,7 +20,8 @@ while($portfolio_posts->have_posts()) :
          if(get_option("portfolio_single", "style-1")=='style-1') {    
             $header_media = "<div class='gallery'>";
             $header_media .= "<div class='gallery-inner'>";
-            $j=0; 
+            $j=0;
+             $it=1;
             foreach($gallery_images as $item) {
                 $image_src = wp_get_attachment_image_src($item, "full"); 
                 $image_title = get_the_title($item); 
@@ -31,10 +32,12 @@ while($portfolio_posts->have_posts()) :
                 $header_media .= "</div>";
                 $header_media .= "<div class='img-description'>";
                 $header_media .= "<div class='img-desc-text'>";
-                $header_media .= "<h5>".$image_title."</h5>";
+                $imgtitle = get_field('img'.$it.'text');
+                $header_media .= "<span>".$imgtitle."</span>";
                 $header_media .= "</div>";
                 $header_media .= "</div>";
                 $j++;
+                $it++;
             }
             $header_media .= "</div>";
             $header_media .= "</div>";

@@ -188,13 +188,16 @@ function anps_get_header() {
     <header class="site-header <?php echo $anps_header_styles ?>">
         <div class="nav-wrap<?php echo $menu_left_center_right_class; ?>">
             <div class="upper-header">
+                <?php
+                    global $fbaddr,$twaddr,$ptaddr,$gpaddr,$beaddr;
+                ?>
                 <div class="social-icons-header">
                     <div class="social-icons-container">
-                        <div class="facebook-icon"><a href="#"><img src="<?php echo get_template_directory_uri(); ?>/images/social-logos/facebook.png"></a></div>
-                        <div class="twitter-icon"><a href="#"><img src="<?php echo get_template_directory_uri(); ?>/images/social-logos/twitter.png"></a></div>
-                        <div class="pinterest-icon"><a href="#"><img src="<?php echo get_template_directory_uri(); ?>/images/social-logos/pinterest.png"></a></div>
-                        <div class="googlep-icon"><a href="#"><img src="<?php echo get_template_directory_uri(); ?>/images/social-logos/googlePlus.png"></a></div>
-                        <div class="behance-icon"><a href="#"><img src="<?php echo get_template_directory_uri(); ?>/images/social-logos/behance.png"></a></div>
+                        <div class="facebook-icon"><a href="<?php if($fbaddr == null) echo "#"; else echo $fbaddr;?>"><img src="<?php echo get_template_directory_uri(); ?>/images/social-logos/facebook.png"></a></div>
+                        <div class="twitter-icon"><a href="<?php if($twaddr == null) echo "#"; else echo $twaddr; ?>"><img src="<?php echo get_template_directory_uri(); ?>/images/social-logos/twitter.png"></a></div>
+                        <div class="pinterest-icon"><a href="<?php if($ptaddr == null) echo "#"; else echo $ptaddr; ?>"><img src="<?php echo get_template_directory_uri(); ?>/images/social-logos/pinterest.png"></a></div>
+                        <div class="googlep-icon"><a href="<?php if($gpaddr == null) echo "#"; else echo $gpaddr; ?>"><img src="<?php echo get_template_directory_uri(); ?>/images/social-logos/googlePlus.png"></a></div>
+                        <div class="behance-icon"><a href="<?php if($beaddr == null) echo "#"; else echo $beaddr; ?>"><img src="<?php echo get_template_directory_uri(); ?>/images/social-logos/behance.png"></a></div>
                     </div>
                 </div>
                 <div class="info-header">

@@ -663,3 +663,12 @@ function wpcf7_custom_form_action_url($url)
 /*************************/
 /* END CONTACT FORM 7 */
 /*************************/
+/*
+ *  ACF WIDGET FIELDS
+ */
+global $fbaddr,$twaddr,$ptaddr,$gpaddr,$beaddr;
+$fbaddr = get_field('fbaddr','5');
+$twaddr = get_field('twaddr','5');
+$ptaddr = get_field('ptaddr','5');
+$gpaddr = get_field('gpaddr','5');
+$beaddr = get_field('beaddr','5');
