@@ -32,7 +32,7 @@ while($portfolio_posts->have_posts()) :
                 $header_media .= "</div>";
                 $header_media .= "<div class='img-description'>";
                 $header_media .= "<div class='img-desc-text'>";
-                //$imgtitle = get_field('img'.$it.'text');
+                $imgtitle = get_field('img'.$it.'text');
                 $header_media .= "<span>".$imgtitle."</span>";
                 $header_media .= "</div>";
                 $header_media .= "</div>";
