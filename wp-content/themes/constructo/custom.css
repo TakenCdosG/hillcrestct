@@ -1,5 +1,21 @@
 /*** Write your CSS structure here. ***/
 /*
+* TEMPORAL SOCIAL ICON REMOVAL
+*/
+.social-icons-container,.footer-social-icons{
+    display: none;
+}
+
+/*
+* FONT STYLES
+*/
+h1,h2,h4,h5,h6{
+    font-family: "adobe-garamond-pro" !important;
+}
+.small-caps{
+    font-variant: small-caps;
+}
+/*
 * SLIDER TEXT STYLES
 */
 .tp-caption.large_bold_white, .large_bold_white {
@@ -16,7 +32,7 @@ h3 span{
 	font-size: 45px !important;
 }
 
-p span{
+div.text.vc_custom_1430407398521 p span{
 	font-family: "pt-sans" ;
 	font-size: 20px !important;
 	font-weight: 600;
