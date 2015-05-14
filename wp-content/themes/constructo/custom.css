@@ -456,7 +456,7 @@ ul.list.circle{
 }
 ul.list.circle li::before{
     content: "";
-    margin-left: -6%;
+    margin-left: -15px;
 }
 .vc_button-2-wrapper.vc_button-2-align-inline{
     margin-bottom: 40px;
@@ -474,10 +474,13 @@ div.row.home-detail-title div.wpb_column.col-md-12 h5:first-letter{
 }
 div.row.home-detail-text div.wpb_column.col-md-12 div.text, div.row.home-detail-text div.wpb_column.col-md-12 ul.list.circle li{
     font-family: "adobe-garamond-pro";
+    color: #303030;
+    font-size: 15px;
 }
 div.row.home-detail-note div.wpb_column.col-md-12 div.text{
     font-family: "adobe-garamond-pro";
     font-size: 13px;
+    color: #303030;
 }
 div.row.home-detail-text div.wpb_column.col-md-12 ul.list.circle li{
     margin-bottom: -16px;
