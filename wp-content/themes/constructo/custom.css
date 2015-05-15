@@ -32,7 +32,7 @@ h3 span{
 	font-size: 45px !important;
 }
 
-div.text.vc_custom_1430407398521 p span{
+div.text.orange-bar-text p span{
 	font-family: "pt-sans" ;
 	font-size: 20px !important;
 	font-weight: 600;
@@ -424,13 +424,13 @@ input.submit-btn{
    div div.text.orange-bar-text{
         margin-top: -62px !important;
     }
-    div.orange-bar-text h3 span {
+    div.text.orange-bar-text h3 span {
         font-size: 20px !important;
     }
-    div.orange-bar-text p{
+    div.text.orange-bar-text p{
         margin-top: -17px;
     }
-    div.orange-bar-text p span {
+    div.text.orange-bar-text p span {
         font-size: 13px!important;
     }
     div.vc_empty_space{
