@@ -20,9 +20,9 @@ h1,h2,h4,h5,h6{
 */
 .tp-caption.large_bold_white, .large_bold_white {
 	font-family: "adobe-garamond-pro" !important;
-	position: absolute;
+	/*position: absolute;
 	top: 30% !important;
-	margin-left: 30% !important;
+	margin-left: 30% !important;*/
 	font-weight: 400 !important;
 	text-shadow: 2px 1px 1px rgba(0, 0, 0, 1);
 }
