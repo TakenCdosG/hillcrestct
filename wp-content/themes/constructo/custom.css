@@ -16,13 +16,24 @@ h1,h2,h4,h5,h6{
     font-variant: small-caps;
 }
 /*
+* LINKS
+*/
+a *,.site-header a:hover{
+    color:#003d79 !important;
+}
+a.item-hover div div h2, a.item-hover div div h2 i{
+    color: #ffffff !important;
+}
+.btn.style-1:hover, .btn.style-1:active, .btn.style-1:focus, .vc_btn.style-1:hover, .vc_btn.style-1:active, .vc_btn.style-1:focus,.btn:hover, .btn:active, .btn:focus, .wpcf7-submit:hover, .wpcf7-submit:active, .wpcf7-submit:focus{
+    background-color:#003d79 !important;
+}
+
+
+/*
 * SLIDER TEXT STYLES
 */
 .tp-caption.large_bold_white, .large_bold_white {
 	font-family: "adobe-garamond-pro" !important;
-	/*position: absolute;
-	top: 30% !important;
-	margin-left: 30% !important;*/
 	font-weight: 400 !important;
 	text-shadow: 2px 1px 1px rgba(0, 0, 0, 1);
 }
@@ -44,12 +55,19 @@ p span.contact-text strong{
 	color: #888888;
 }
 
-span.contact-text, p span.contact-text, p span.contact-text a{
+span.contact-text, p span.contact-text{
 	font-family: "pt-sans" ;
 	font-size: 15px !important;
 	font-weight: 100;
 	color: #888888;
 }
+p span.contact-text a{
+    font-family: "pt-sans" ;
+    font-size: 15px !important;
+    font-weight: 100;
+    color: #003d79;
+}
+
 
 a#custom-id-0.btn.btn-md.style-1{
 	text-transform: capitalize;
@@ -206,7 +224,7 @@ ul.recentportfolio li.item.item-type-line{
 	width: 110px;
 	height: 27px;
 	font-family: "pt-sans";
-	color: #888888;
+	color: #003d79;
 	font-size: 13px;
     z-index: 900;
 }
@@ -231,7 +249,7 @@ ul.recentportfolio li.item.item-type-line{
 	width: 110px;
 	height: 27px;
 	font-family: "pt-sans";
-	color: #888888;
+	color: #003d79;
 	font-size: 13px;
 }
 
