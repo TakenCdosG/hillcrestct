@@ -27,8 +27,15 @@ a.item-hover div div h2, a.item-hover div div h2 i{
 .btn.style-1:hover, .btn.style-1:active, .btn.style-1:focus, .vc_btn.style-1:hover, .vc_btn.style-1:active, .vc_btn.style-1:focus,.btn:hover, .btn:active, .btn:focus, .wpcf7-submit:hover, .wpcf7-submit:active, .wpcf7-submit:focus{
     background-color:#003d79 !important;
 }
-
-
+/*
+* Single Home Button to Our Homes
+*/
+div.bthbtn a {
+    font-size: 13px !important;
+}
+button.btn.btn-lg.style-5 i{
+    color: #ffffff !important;
+}
 /*
 * SLIDER TEXT STYLES
 */
