@@ -181,7 +181,7 @@ ul.recentportfolio li.item.item-type-line{
 
 .clock-icon{
 	position: absolute;
-	top: 20px;
+	top: 18px;
 	margin-left: 25px;
 }
 
@@ -214,7 +214,7 @@ ul.recentportfolio li.item.item-type-line{
 
 .phone-icon{
 	position: absolute;
-	top:20px;
+	top:18px;
 }
 
 .phone-number-text a{
@@ -239,7 +239,7 @@ ul.recentportfolio li.item.item-type-line{
 
 .mail-icon{
 	position: absolute;
-	top:20px;
+	top:18px;
 }
 
 .header-email-text a{
