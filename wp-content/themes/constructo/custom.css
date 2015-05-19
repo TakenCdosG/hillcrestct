@@ -18,7 +18,7 @@ h1,h2,h4,h5,h6{
 /*
 * LINKS
 */
-a *,.site-header a:hover{
+a *,.site-header a:hover, p a{
     color:#003d79 !important;
 }
 a.item-hover div div h2, a.item-hover div div h2 i{
@@ -691,8 +691,8 @@ section.statement{
         width: 39%;
     }
     .clock-icon{
-        top: 17px;
-        margin-left: 1%;
+        top: 8px;
+        margin-left: 2%;
     }
     .info-header-text{
         top: 7px;
@@ -1056,7 +1056,7 @@ section.statement{
         margin-left: 4%;
     }
     .info-header-text{
-        top: 7px;
+        top: 12px;
         margin-left: 15%;
         width: 77%;
         font-size: 11px;
