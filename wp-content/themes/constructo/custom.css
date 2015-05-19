@@ -1262,3 +1262,25 @@ section.statement{
         margin-left: 60%;
     }
 }
+
+/*
+* IMAGE PRINT STYLE
+*/
+@media print {
+    div.site-header,div.page-heading,section.container,footer.site-footer, div.nav-wrap, div.nav-wrap div.upper-header, div.nav-wrap div.container {
+        display: none;
+    }
+
+    div.img-desc-text, div.img-desc-text span{
+        display: block;
+        font-size: 80px;
+        color: #000000;
+    }
+
+    img{
+        display: block !important;
+        max-width: 700px !important;
+        position: absolute;
+        top: 20%;
+        }
+}
