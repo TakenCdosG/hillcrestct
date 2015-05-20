@@ -202,6 +202,7 @@
 		items: 3,
 		loop: false,
 		center: false,
+        scrollPerPage: true,
 
 		mouseDrag: true,
 		touchDrag: true,
@@ -1262,7 +1263,9 @@
 	 */
 	Owl.prototype.to = function(position, speed) {
 		if (this.settings.loop) {
-			var distance = position - this.relative(this.current()),
+			var //distance = position - this.relative(this.current()),
+            //THIS WAS CUSTOM MODIFIED, THE ORIGINAL LINE IS THE ONE UP {QWERTY}
+                distance = 1,
 				revert = this.current(),
 				before = this.current(),
 				after = this.current() + distance,
