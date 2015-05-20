@@ -181,7 +181,7 @@ ul.recentportfolio li.item.item-type-line{
 	position: absolute;
 	margin-left: 40%;
 	height:64px;
-	width: 357px;
+	width: 303px;
 	border-left:1px solid #e6e6e6;
 	border-right: 1px solid #e6e6e6;
 }
@@ -213,9 +213,9 @@ ul.recentportfolio li.item.item-type-line{
 
 .phone-number{
 	position: absolute;
-	margin-left: 60%;
+	margin-left: 57%;
 	height:64px;
-	width: 130px;
+	width: 7%;
 	border-right: 1px solid #e6e6e6;
 }
 
@@ -238,9 +238,9 @@ ul.recentportfolio li.item.item-type-line{
 
 .header-email{
 	position: absolute;
-	margin-left: 68%;
+	margin-left: 66%;
 	height:64px;
-	width: 160px;
+	width: 11%;
 	border-right: 1px solid #e6e6e6;
 }
 
@@ -822,7 +822,7 @@ section.statement{
     }
     .mail-icon{
         top: 40px;
-        margin-left: 1%;
+        margin-left: 3%;
     }
     .header-email-text a{
         top: 42px;
@@ -921,7 +921,7 @@ section.statement{
     }
     .mail-icon{
         top: 40px;
-        margin-left: 1%;
+        margin-left: 3%;
     }
     .header-email-text a{
         top: 42px;
@@ -1081,7 +1081,7 @@ section.statement{
     }
     .mail-icon{
         top: 40px;
-        margin-left: 1%;
+        margin-left: 4%;
     }
     .header-email-text a{
         top: 42px;
@@ -1117,7 +1117,7 @@ section.statement{
         position: absolute;
         margin-left: 28.5%;
         height:64px;
-        width: 357px;
+        width: 31%px;
         border-left:1px solid #e6e6e6;
         border-right: 1px solid #e6e6e6;
     }
@@ -1136,17 +1136,17 @@ section.statement{
 
     .phone-number{
         position: absolute;
-        margin-left: 66%;
+        margin-left: 61%;
         height:64px;
-        width: 130px;
+        width: 12%;
         border-right: 1px solid #e6e6e6;
     }
 
     .header-email{
         position: absolute;
-        margin-left: 80%;
+        margin-left: 74%;
         height:64px;
-        width: 160px;
+        width: 18%;
         border-right: 1px solid #e6e6e6;
     }
 }
@@ -1156,12 +1156,15 @@ section.statement{
     }
     .info-header{
         margin-left: 28.5%;
+        width: 31%;
     }
     .phone-number{
-        margin-left: 65%;
+        margin-left: 61%;
+        width: 12%;
     }
     .header-email{
-        margin-left: 79%;
+        margin-left: 76%;
+        width: 18%;
     }
 }
 @media screen and (min-width: 1071px) and (max-width: 1150px){
@@ -1170,12 +1173,15 @@ section.statement{
     }
     .info-header{
         margin-left: 28.5%;
+        width: 28%;
     }
     .phone-number{
-        margin-left: 63%;
+        margin-left: 58%;
+        width: 12%;
     }
     .header-email{
-        margin-left: 77%;
+        margin-left: 73%;
+        width: 18%;
     }
 }
 @media screen and (min-width: 1151px) and (max-width: 1230px){
@@ -1184,12 +1190,15 @@ section.statement{
     }
     .info-header{
         margin-left: 28.5%;
+        width: 26%;
     }
     .phone-number{
-        margin-left: 61%;
+        margin-left: 56%;
+        width: 12%;
     }
     .header-email{
-        margin-left: 75%;
+        margin-left: 71%;
+        width: 18;
     }
 }
 @media screen and (min-width: 1231px) and (max-width: 1309px) {
@@ -1198,12 +1207,15 @@ section.statement{
     }
     .info-header{
         margin-left: 28.5%;
+        width: 25%;
     }
     .phone-number{
-        margin-left: 59%;
+        margin-left: 55%;
+        width: 12%;
     }
     .header-email{
-        margin-left: 71%;
+        margin-left: 68%;
+        width: 14%;
     }
 }
 @media screen and (min-width: 1310px) and (max-width: 1429px) {
@@ -1212,12 +1224,15 @@ section.statement{
     }
     .info-header{
         margin-left: 28.5%;
+        width: 24%;
     }
     .phone-number{
-        margin-left: 57%;
+        margin-left: 54%;
+        width: 10%;
     }
     .header-email{
-        margin-left: 68%;
+        margin-left: 65%;
+        width: 13%;
     }
 }
 @media screen and (min-width: 1430px) and (max-width:1560px) {
@@ -1226,12 +1241,15 @@ section.statement{
     }
     .info-header{
         margin-left: 28.5%;
+        width: 21%;
     }
     .phone-number{
-        margin-left: 54%;
+        margin-left: 51%;
+        width: 10%;
     }
     .header-email{
-        margin-left: 64%;
+        margin-left: 63%;
+        width: 13%;
     }
 }
 @media screen and (min-width: 1561px) and (max-width:1690px) {
@@ -1240,12 +1258,15 @@ section.statement{
     }
     .info-header{
         margin-left: 28.5%;
+        width: 19%;
     }
     .phone-number{
-        margin-left: 52%;
+        margin-left: 49%;
+        width: 8.3%;
     }
     .header-email{
-        margin-left: 61%;
+        margin-left: 59%;
+        width: 12%;
     }
 }
 @media screen and (min-width: 1691px) and (max-width:1820px) {
@@ -1254,12 +1275,15 @@ section.statement{
     }
     .info-header{
         margin-left: 28.5%;
+        width: 18%;
     }
     .phone-number{
-        margin-left: 51%;
+        margin-left: 48%;
+        width: 8%;
     }
     .header-email{
-        margin-left: 60%;
+        margin-left: 57%;
+        width: 10.4%;
     }
 }
 
