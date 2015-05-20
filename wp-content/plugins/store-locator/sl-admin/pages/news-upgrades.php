@@ -24,7 +24,7 @@ __("Latest News", SL_TEXT_DOMAIN).
 </thead>
 <tr>
 <td width='50%'>
-<div style='overflow:scroll; height:450px; padding:7px;'>
+<div style='overflow:scroll; height:550px; padding:7px;'>
 
 <script src='http://feeds2.feedburner.com/Viadat?format=sigpro' type='text/javascript' ></script><!--noscript><p>Subscribe to RSS headline updates from: <a href='http://feeds2.feedburner.com/Viadat'></a><br/>Powered by FeedBurner</p> </noscript-->";
 
@@ -82,7 +82,7 @@ print "</td>
 __("Addons & Themes", SL_TEXT_DOMAIN).
 "</th></tr></thead>
 <tr>
-<td><div style='overflow:scroll; height:460px; padding:7px; padding-top:0px;'>";
+<td><div style='overflow:scroll; height:560px; padding:7px; padding-top:0px;'>";
 ?>
 <?php
 
@@ -93,10 +93,46 @@ $rss = new lastRSS;
 // setup transparent cache
 $rss->cache_dir = SL_CACHE_PATH; 
 $rss->cache_time = 3600; // one hour
+//$rss->cache_time = 0; // one hour
 
 // load some RSS file
 if ($rs = $rss->get('http://www.viadat.com/index.php?rss=true&action=product_list&category_id=7')) {
 	//var_dump($rs);
+	
+/*$sl_vars = sl_data("sl_vars");
+if (empty($sl_vars['addons_disp_ver'])) {
+	$addons_disp_ver = mt_rand(1,2);
+	$sl_vars['addons_disp_ver'] = $addons_disp_ver;
+	sl_data("sl_vars", "update", $sl_vars);
+} else {
+	$addons_disp_ver = $sl_vars['addons_disp_ver'];
+}*/
+	
+/*if ($addons_disp_ver == 1) {
+#1
+$c=1; $bgcol = '#fff';
+foreach ($rs['items'] as $value) {
+//var_dump($value);
+    if ($c<=100) { 
+	print "<div style='background-color: $bgcol; padding: 10px; border-radius:7px; '><li style='list-style-type:none; margin-top:0px; margin-bottom:0px;'><A href=\"$value[link]?adv=1\" target='_blank' class='home_rss' style='font-size:14px; font-family: Georgia;'>
+	<b>$value[title]</b></a>
+	<!--a href='".str_replace("thumbnails/", "", $value['image'])."' rel='sl_pop' title=\"$value[title]\"--><a href=\"$value[link]?adv=1\" target='_blank' ><img src='".$value['image']."' style='float:left; padding: 5px 10px 0 0; height: 70px; border: 0'></a>
+	</li>
+	<!--br-->
+	<div class='home_rss'> ".
+	str_replace("]]>","",str_replace("</p>", "", html_entity_decode(nl2br($value['description'])))). 
+	"</div><br style='clear:both'>";
+    } else {
+	if ($c<=4)
+	print "<li style='font-size:10px; color:black; position:relative; left:10px'><A href=\"$value[link]\" target='_blank' class='home_rss' style='font-size:11px'>$value[title]</a></li>";
+    }
+    $c++;
+    $bgcol = ($bgcol != "#fff")? '#fff' : '#f0f0f0' ;
+    print "</div>";
+	
+}
+} elseif ($addons_disp_ver == 2) {*/
+#2
 $c=1;
 foreach ($rs['items'] as $value) {
 
@@ -114,6 +150,8 @@ else {
 	}
 $c++;
 	}	
+//}
+
 }
 
 print "

@@ -1,4 +1,9 @@
 <?php
+
+if ( ! defined( 'ABSPATH' ) ) {
+    exit; // disable direct access
+}
+
 /**
  * Helper class for resizing images, returning the correct URL to the image etc
  */
@@ -48,6 +53,9 @@ class MetaSliderImageHelper {
                 $this->crop_type = 'standard'; // smart crop enabled
                 break;
             case "disabled":
+                $this->crop_type = 'disabled'; // cropping disabled
+                break;
+            case "disabled_pad":
                 $this->crop_type = 'disabled'; // cropping disabled
                 break;
             case "true":

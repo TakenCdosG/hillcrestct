@@ -1,3 +1,8 @@
+/*
+= Store Locator Stylesheet =
+1. You can modify this default 'store-locator.css' in `/wp-content/plugins/store-locator/css/` and copy it to `/wp-content/uploads/sl-uploads/custom-css/` to use your own custom styling
+2. Store Locator will give priority to the 'store-locator.css' in the `/wp-content/uploads/sl-uploads/custom-css/` folder over the default 'store-locator.css' in the main `/plugins/store-locator/` folder. This allows you to preserve custom styles when updating the Store Locator plugin.
+*/
 /***** Area Above Map DIV. Contains Search Form Inputs *****/
 .sl_header img, .sl_header td, .sl_header #addressSubmit {
 border: none;
@@ -89,6 +94,9 @@ background-color:transparent !important;
 	font-weight:normal;
 	overflow:hidden;
 	margin: 0px;
+}
+#sl_map img {
+	max-width: none !important;
 }
 
 /***** Popup Info Window for Specific Location *****/

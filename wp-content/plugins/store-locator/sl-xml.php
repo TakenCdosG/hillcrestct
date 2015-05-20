@@ -25,22 +25,24 @@ foreach ($sl_ap_xml as $value){ if (!empty($_GET[$value])){ unset($_GET[$value])
 
 $sl_custom_fields = (!empty($sl_xml_columns))? ", ".implode(", ", $sl_xml_columns) : "" ;
 
-if (!empty($_GET)) { extract($_GET); unset($_GET['mode']); unset($_GET['lat']); unset($_GET["lng"]); unset($_GET["radius"]); unset($_GET["edit"]);}
+if (!empty($_GET)) { $_sl = $_GET; unset($_GET['mode']); unset($_GET['lat']); unset($_GET["lng"]); unset($_GET["radius"]); unset($_GET["edit"]);}
 $_GET=array_filter($_GET); //removing any empty $_GET items that may disrupt query
 
 $sl_param_where_clause="";
+$sl_param_order_clause="";
 if (function_exists("do_sl_hook")){ do_sl_hook("sl_xml_query"); }
 
-if (!empty($mode) && $mode=='gen') {
+$num_initial_displayed=(trim($sl_vars['num_initial_displayed'])!="" && preg_match("@^[0-9]+$@", $sl_vars['num_initial_displayed']))? $sl_vars['num_initial_displayed'] : "25";
+
+if (!empty($_sl['mode']) && $_sl['mode']=='gen') {
 	// Get parameters from URL
-	$center_lat = $lat;
-	$center_lng = $lng;
-	$radius = $radius;
+	$center_lat = $_sl['lat'];
+	$center_lng = $_sl['lng'];
+	$radius = $_sl['radius'];
 	
 	$multiplier=3959;
 	$multiplier=($sl_vars['distance_unit']=="km")? ($multiplier*1.609344) : $multiplier;
 
-	$num_initial_displayed=(trim($sl_vars['num_initial_displayed'])!="")? $sl_vars['num_initial_displayed'] : "25";
 	// Select all the rows in the markers table
 	$query = sprintf(
 	"SELECT sl_address, sl_address2, sl_store, sl_city, sl_state, sl_zip, sl_latitude, sl_longitude, sl_description, sl_url, sl_hours, sl_phone, sl_fax, sl_email, sl_image, sl_tags".
@@ -49,20 +51,23 @@ if (!empty($mode) && $mode=='gen') {
 	" FROM ".SL_TABLE.
 	" WHERE sl_store<>'' AND sl_longitude<>'' AND sl_latitude<>''".
 	" $sl_param_where_clause".
-	" HAVING sl_distance < '%s' ORDER BY sl_distance LIMIT $num_initial_displayed",
+	" HAVING sl_distance < '%s' ORDER BY sl_distance LIMIT %d",
 	esc_sql($center_lat),
 	esc_sql($center_lng),
 	esc_sql($center_lat),
-	esc_sql($radius)); //die($query);
+	esc_sql($radius),
+	esc_sql($num_initial_displayed)); //die($query);
 } else {
-	$num_initial_displayed=(trim($sl_vars['num_initial_displayed'])!="")? $sl_vars['num_initial_displayed'] : "25";
 	// Select all the rows in the markers table
-	$query = "SELECT sl_address, sl_address2, sl_store, sl_city, sl_state, sl_zip, sl_latitude, sl_longitude, sl_description, sl_url, sl_hours, sl_phone, sl_fax, sl_email, sl_image, sl_tags".
+	$query =  sprintf(
+	"SELECT sl_address, sl_address2, sl_store, sl_city, sl_state, sl_zip, sl_latitude, sl_longitude, sl_description, sl_url, sl_hours, sl_phone, sl_fax, sl_email, sl_image, sl_tags".
 	" $sl_custom_fields".
 	" FROM ".SL_TABLE.
 	" WHERE sl_store<>'' AND sl_longitude<>'' AND sl_latitude<>''".
 	" $sl_param_where_clause".
-	" LIMIT $num_initial_displayed"; //die($query);
+	" $sl_param_order_clause".
+	" LIMIT %d",
+	esc_sql($num_initial_displayed)); //die($query);
 }
 
 //die($query);
@@ -75,6 +80,7 @@ echo "<markers>\n";
 while ($row = @mysql_fetch_assoc($result)){
   $addr2=(trim($row['sl_address2'])!="")? " ".parseToXML($row['sl_address2']) : "" ;
   $row['sl_distance']=(!empty($row['sl_distance']))? $row['sl_distance'] : "" ;
+  $row['sl_url']=(!url_test($row['sl_url']) && trim($row['sl_url'])!="")? "http://".$row['sl_url'] : $row['sl_url'] ;
   // ADD TO XML DOCUMENT NODE
   echo '<marker ';
   echo 'name="' . parseToXML($row['sl_store']) . '" ';

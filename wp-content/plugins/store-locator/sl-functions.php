@@ -86,7 +86,182 @@ $xmlStr=str_replace("&",'&amp;',$xmlStr);
 $xmlStr=str_replace("," ,"&#44;" ,$xmlStr);
 return $xmlStr; 
 } 
+/*-----------------*/
+function filter_sl_mdo($the_arr) {
+	$input_zone_clause = ( !isset($the_arr['input_zone']) || !isset($GLOBALS['input_zone_type']) || ($the_arr['input_zone'] == $GLOBALS['input_zone_type']) );
+	
+	$output_zone_clause = ( !isset($the_arr['output_zone']) || !isset($GLOBALS['output_zone_type']) || (!is_array($the_arr['output_zone']) && $the_arr['output_zone'] == $GLOBALS['output_zone_type']) ||  (is_array($the_arr['output_zone']) && in_array($GLOBALS['output_zone_type'], $the_arr['output_zone']) ) );
+	
+	return ($input_zone_clause && $output_zone_clause);
+}
 
+function sl_md_initialize() {
+	global $sl_vars;
+	include(SL_INCLUDES_PATH."/mapdesigner-options.php");
+	
+	foreach ($sl_mdo as $value) {
+		//if (isset($value['input_template'])) { unset($value['input_template']); }
+		
+		if (isset($value['field_name']) && !is_array($value['field_name']) ) {
+			$value['default'] = (!isset($value['default']))? "" : $value['default'];
+			
+			$default_not_set = !isset($sl_vars[$value['field_name']]);
+			$default_set_but_value_set_to_blank = (isset($sl_vars[$value['field_name']]) && strlen(trim($sl_vars[$value['field_name']])) == 0);
+			
+			if ( ($default_not_set || $default_set_but_value_set_to_blank) ) {
+				//If default value isn't set yet in $sl_vars, and field_name definition isn't an array
+				$sl_vars[$value['field_name']] = $value['default'];
+			} 
+						
+			$varname = "sl_".$value['field_name'];  //e.g. "$varname = sl_icon"
+			global $$varname;
+			$$varname = $sl_vars[$value['field_name']]; //e.g "$sl_icon = $sl_vars['sl_icon']"
+			
+		} elseif (isset($value['field_name']) && is_array($value['field_name']) ) {
+		   
+			$value['default'] = (!isset($value['default']))? array_fill(0, count($value['field_name']), "") : $value['default'];
+		
+			//If default value isn't set yet in $sl_vars, and field_name definition is an array of fields
+			$ctr = 0;	
+			foreach ($value['default'] as $the_default) {
+				
+				$the_field = $value['field_name'][$ctr];
+				$d_n_s = !isset($sl_vars[$the_field]);
+				$d_s_b_v_s_t_b = (isset($sl_vars[$the_field]) && strlen(trim($sl_vars[$the_field])) == 0);
+		
+				if ( ($d_n_s || $d_s_b_v_s_t_b) ) {
+					$sl_vars[$the_field] = $the_default;
+				}
+				
+				$varname = "sl_".$the_field;  //e.g. "$varname = sl_icon"
+				global $$varname;
+				$$varname = $sl_vars[$the_field];
+				$ctr++;
+			} 
+		    
+		}
+	}
+}
+
+function sl_md_save($data) {
+	global $sl_vars;
+	
+	//MapDesigner header inputs & Geolocate true/false (based on Auto-locate value)
+	$sl_vars['map_language']=$_POST['sl_map_language'];
+	
+	$sl_map_region_arr=explode(":", $_POST['map_region']);
+	$sl_vars['google_map_country']=$sl_map_region_arr[0];
+	$sl_vars['google_map_domain']=$sl_map_region_arr[1];
+	$sl_vars['map_region']=$sl_map_region_arr[2];
+	$sl_vars['api_key']=$_POST['sl_api_key'];
+	
+	$sl_vars['sensor']=(empty($_POST['sl_geolocate']))? "false" : "true";
+	//end
+
+	foreach ($data as $value) {
+	    
+	    if (!empty($value['field_name'])) {
+		$fname = $value['field_name'];
+	
+		if (!empty($value['field_type']) && $value['field_type'] == "checkbox") {
+			//checkbox submissions need to save unchecked (empty) $_POST values as zero
+			if (is_array($fname)) {
+				foreach ($fname as $the_field) {
+					$sl_vars[$the_field] = (empty($_POST["sl_".$the_field]))? 0 : $_POST["sl_".$the_field] ;
+				}
+			} else {
+				$sl_vars[$fname] = (empty($_POST["sl_".$fname]))? 0 : $_POST["sl_".$fname] ;
+			}
+		} else {
+			if (is_array($fname)) {
+				$fctr = 0;
+				foreach ($fname as $the_field) {
+					$post_data = (isset($_POST["sl_".$the_field]))? $_POST["sl_".$the_field] : $_POST[$the_field] ;
+					$post_data = (!empty($value['stripslashes'][$fctr]) && $value['stripslashes'][$fctr] == 1)? stripslashes($post_data) : $post_data;
+					$post_data = (!empty($value['numbers_only'][$fctr]) && $value['numbers_only'][$fctr] == 1)? preg_replace("@[^0-9]@", "", $post_data) : $post_data;
+					$sl_vars[$the_field] = $post_data;
+					$fctr++;
+				}
+			} else {
+				$post_data = (isset($_POST["sl_".$fname]))? $_POST["sl_".$fname] : $_POST[$fname] ;
+				$post_data = (!empty($value['stripslashes']) && $value['stripslashes'] == 1)? stripslashes($post_data) : $post_data;
+				$post_data = (!empty($value['numbers_only']) && $value['numbers_only'] == 1)? preg_replace("@[^0-9]@", "", $post_data) : $post_data;
+				$sl_vars[$fname] = $post_data;
+			}
+		}
+	    }
+	    
+	}
+
+	sl_data('sl_vars', 'update', $sl_vars);
+	
+}
+
+function sl_md_display($data, $input_zone, $template, $additional_classes = "") {
+    print "<table class='map_designer_section {$additional_classes}'>";
+    
+    $GLOBALS['input_zone_type'] = $input_zone;
+    $filtered_data = array_filter($data, "filter_sl_mdo");
+    unset($GLOBALS['input_zone_type']);
+    
+    $labels_ctr = 0;
+    foreach ($filtered_data as $key => $value) {
+      
+      //if ($value['input_zone'] == $input_zone) {
+    
+    	if ($template == 1) {
+		//foreach ($data as $key => $value) {
+		$the_row_id = (!empty($value["row_id"]))? " id = '$value[row_id]' " : "";
+		$hide_row = (!empty($value['hide_row']) && $value['hide_row'] == true)? "style='display:none' " : "" ;
+		$colspan = (!empty($value['colspan']) && $value['colspan'] > 1)? "colspan = '$value[colspan]'" : "" ;
+		
+		print "<tr {$the_row_id} {$hide_row}>
+			<td {$colspan}>".$value['label'];
+		if (!empty($value['more_info_label'])) {
+			print "&nbsp;(<a href='#$value[more_info_label]' rel='sl_pop'>?</a>)&nbsp;";
+		}
+		print "</td>";
+	   if (empty($value['colspan']) || $value['colspan'] < 2) {
+		print "<td>".$value['input_template'];
+		if (!empty($value['more_info'])) {
+			print "<div style='display:none;' id='$value[more_info_label]'>";
+			print $value['more_info'];
+			print "</div>";
+		}
+		print "</td>";
+	    }
+	    print "</tr>";
+		//}
+    	} elseif ($template == 2) {
+		
+		//foreach ($data as $key => $value) {
+		if ($labels_ctr % 3 == 0) {
+			$the_row_id = (!empty($value["row_id"]))? " id = '$value[row_id]' " : "";
+			print "<tr {$the_row_id}>";
+		}	
+		$the_more_info_label = (!empty($value['more_info_label']))? "&nbsp;(<a href='#$value[more_info_label]' rel='sl_pop'>?</a>)&nbsp;" : "" ;
+		
+		print "<td>".$value['input_template']."<br><span style='font-size:80%'>".$value['label']."{$the_more_info_label}</span>";
+	
+		if (!empty($value['more_info'])) {
+			print "<div style='display:none;' id='$value[more_info_label]'>";
+			print $value['more_info'];
+			print "</div>";
+		}
+		print "</td>";
+		if (($labels_ctr+1) % 3 == 0) {
+			print "</tr>";
+		}
+		$labels_ctr++;
+	//}
+    	}
+    	
+      //}
+    	
+    }
+    
+    print "</table>";
+}
 /*-----------------*/
 function sl_initialize_variables() {
 
@@ -97,7 +272,8 @@ global $sl_radius_label, $sl_website_label, $sl_directions_label, $sl_num_initia
 global $sl_distance_unit, $sl_map_overview_control, $sl_admin_locations_per_page, $sl_instruction_message;
 global $sl_map_character_encoding, $sl_start, $sl_map_language, $sl_map_region, $sl_sensor, $sl_geolocate;
 global $sl_map_type, $sl_remove_credits, $sl_api_key, $sl_location_not_found_message, $sl_no_results_found_message; 
-global $sl_load_results_with_locations_default, $sl_vars, $sl_city_dropdown_label;
+global $sl_load_results_with_locations_default, $sl_vars, $sl_city_dropdown_label, $sl_scripts_load, $sl_scripts_load_home, $sl_scripts_load_archives_404;
+global $sl_hours_label, $sl_phone_label, $sl_fax_label, $sl_email_label;
 
 $sl_vars=sl_data('sl_vars'); //important, otherwise may reset vars to default (?) - 11/13/13
 //$sl_google_map_domain=sl_data('sl_google_map_domain');
@@ -106,93 +282,16 @@ if (empty($sl_vars)){
 	$sl_vars['height']=sl_data('sl_map_height'); $sl_vars['width']=sl_data('sl_map_width'); $sl_vars['width_units']=sl_data('sl_map_width_units'); $sl_vars['height_units']=sl_data('sl_map_height_units'); $sl_vars['radii']=sl_data('sl_map_radii'); $sl_vars['icon']=sl_data('sl_map_home_icon'); $sl_vars['icon2']=sl_data('sl_map_end_icon2'); $sl_vars['google_map_domain']=sl_data('sl_google_map_domain'); $sl_vars['google_map_country']=sl_data('sl_google_map_country'); $sl_vars['theme']=sl_data('sl_map_theme'); $sl_vars['location_table_view']=sl_data('sl_location_table_view'); $sl_vars['search_label']=sl_data('sl_search_label'); $sl_vars['zoom_level']=sl_data('sl_zoom_level'); $sl_vars['use_city_search']=sl_data('sl_use_city_search'); $sl_vars['use_name_search']=sl_data('sl_use_name_search'); $sl_vars['name']=sl_data('sl_name'); $sl_vars['radius_label']=sl_data('sl_radius_label'); $sl_vars['website_label']=sl_data('sl_website_label'); $sl_vars['directions_label']=sl_data('sl_directions_label'); $sl_vars['num_initial_displayed']=sl_data('sl_num_initial_displayed'); $sl_vars['load_locations_default']=sl_data('sl_load_locations_default'); $sl_vars['distance_unit']=sl_data('sl_distance_unit'); $sl_vars['map_overview_control']=sl_data('sl_map_overview_control'); $sl_vars['admin_locations_per_page']=sl_data('sl_admin_locations_per_page'); $sl_vars['instruction_message']=sl_data('sl_instruction_message'); $sl_vars['map_character_encoding']=sl_data('sl_map_character_encoding'); $sl_vars['start']=sl_data('sl_start'); $sl_vars['map_language']=sl_data('sl_map_language'); $sl_vars['map_region']=sl_data('sl_map_region'); $sl_vars['sensor']=sl_data('sl_sensor'); $sl_vars['geolocate']=sl_data('sl_geolocate'); $sl_vars['map_type']=sl_data('sl_map_type'); $sl_vars['remove_credits']=sl_data('sl_remove_credits'); $sl_vars['api_key']=sl_data('store_locator_api_key'); $sl_vars['load_results_with_locations_default']=sl_data('sl_load_results_with_locations_default'); $sl_vars['city_dropdown_label']=sl_data('sl_city_dropdown_label'); 
 }
 
-if (strlen(trim($sl_vars['geolocate'])) == 0) {	$sl_vars['geolocate']="0";	}
-$sl_geolocate=$sl_vars['geolocate'];
+### From MapDesigner Options
+sl_md_initialize();
 
+### Dependent Variables
 if (strlen(trim($sl_vars['sensor'])) == 0) {	$sl_vars['sensor'] = ($sl_vars['geolocate'] == '1')? "true" : "false";	}
 $sl_sensor=$sl_vars['sensor'];
 
-if ($sl_vars['map_region'] === NULL) {	$sl_vars['map_region']="";	}
-$sl_map_region=$sl_vars['map_region'];
-
-if (strlen(trim($sl_vars['map_language'])) == 0) {	$sl_vars['map_language']="en";	}
-$sl_map_language=$sl_vars['map_language'];
-
-if (strlen(trim($sl_vars['start'])) == 0) { 	$sl_vars['start']=date("Y-m-d H:i:s"); 	} 
-$sl_start=$sl_vars['start']; 
-
-if ($sl_vars['map_character_encoding'] === NULL) {	$sl_vars['map_character_encoding']="";		}
-$sl_map_character_encoding=$sl_vars['map_character_encoding'];
-
-if ($sl_vars['instruction_message'] === NULL) {	$sl_vars['instruction_message']="Enter Your Address or Zip Code Above.";	}
-$sl_instruction_message=$sl_vars['instruction_message'];
-
-if (strlen(trim($sl_vars['city_dropdown_label'])) == 0) {	 $sl_vars['city_dropdown_label']="--".__("Search By City", SL_TEXT_DOMAIN)."--";	}
-$sl_city_dropdown_label=$sl_vars['city_dropdown_label'];
-
-if (empty($sl_vars['location_not_found_message']) || $sl_vars['location_not_found_message'] === NULL) {	$sl_vars['location_not_found_message']="";	}
-$sl_location_not_found_message=$sl_vars['location_not_found_message'];
-
-if (empty($sl_vars['no_results_found_message']) || $sl_vars['no_results_found_message'] === NULL) {	$sl_vars['no_results_found_message']="No Results Found";	}
-$sl_no_results_found_message=$sl_vars['no_results_found_message'];
-
-if (strlen(trim($sl_vars['admin_locations_per_page'])) == 0) {	$sl_vars['admin_locations_per_page']="100";	}
-$sl_admin_locations_per_page=$sl_vars['admin_locations_per_page'];
-
-if (strlen(trim($sl_vars['map_overview_control'])) == 0) {	$sl_vars['map_overview_control']="0";	}
-$sl_map_overview_control=$sl_vars['map_overview_control'];
-
-if (strlen(trim($sl_vars['distance_unit'])) == 0) {	$sl_vars['distance_unit']="miles";	}
-$sl_distance_unit=$sl_vars['distance_unit'];
-
-if (strlen(trim($sl_vars['load_locations_default'])) == 0) {	$sl_vars['load_locations_default']="1";	}
-$sl_load_locations_default=$sl_vars['load_locations_default'];
-
-if (strlen(trim($sl_vars['load_results_with_locations_default'])) == 0) {	$sl_vars['load_results_with_locations_default']="1";	}
-$sl_load_results_with_locations_default=$sl_vars['load_results_with_locations_default'];
-
-if (strlen(trim($sl_vars['num_initial_displayed'])) == 0) {	$sl_vars['num_initial_displayed']="100";	}
-$sl_num_initial_displayed=$sl_vars['num_initial_displayed'];
-
-if (strlen(trim($sl_vars['website_label'])) == 0) {	$sl_vars['website_label']="Website";	}
-$sl_website_label=$sl_vars['website_label'];
-
-if (strlen(trim($sl_vars['directions_label'])) == 0) {	$sl_vars['directions_label']="Directions";	}
-$sl_directions_label=$sl_vars['directions_label'];
-
-if (strlen(trim($sl_vars['radius_label'])) == 0) {	$sl_vars['radius_label']="Radius";	}
-$sl_radius_label=$sl_vars['radius_label'];
-
-if (strlen(trim($sl_vars['map_type'])) == 0) {	$sl_vars['map_type']="google.maps.MapTypeId.ROADMAP";}
-elseif ($sl_vars['map_type']=="G_NORMAL_MAP"){	$sl_vars['map_type']='google.maps.MapTypeId.ROADMAP';}
-elseif ($sl_vars['map_type']=="G_SATELLITE_MAP"){	$sl_vars['map_type']='google.maps.MapTypeId.SATELLITE';}
-elseif ($sl_vars['map_type']=="G_HYBRID_MAP"){	$sl_vars['map_type']='google.maps.MapTypeId.HYBRID';}
-elseif ($sl_vars['map_type']=="G_PHYSICAL_MAP"){	$sl_vars['map_type']='google.maps.MapTypeId.TERRAIN';}
-$sl_map_type=$sl_vars['map_type'];
-
-if (strlen(trim($sl_vars['remove_credits'])) == 0) {	$sl_vars['remove_credits']="0";	}
-$sl_remove_credits=$sl_vars['remove_credits'];
-
-if (strlen(trim($sl_vars['use_name_search'])) == 0) {	$sl_vars['use_name_search']="0";	}
-$sl_use_name_search=$sl_vars['use_name_search'];
-
-if (strlen(trim($sl_vars['use_city_search'])) == 0) {	$sl_vars['use_city_search']="1";	}
-$sl_use_city_search=$sl_vars['use_city_search'];
-
-if (strlen(trim($sl_vars['name'])) == 0) {	$sl_vars['name']="LotsOfLocales";	}  
-$sl_name=$sl_vars['name'];
-
-if (strlen(trim($sl_vars['zoom_level'])) == 0) {	$sl_vars['zoom_level']="4";	}
-$sl_zoom_level=$sl_vars['zoom_level'];
-
-if (strlen(trim($sl_vars['search_label'])) == 0) {	$sl_vars['search_label']="Address";	}
-$sl_search_label=$sl_vars['search_label'];
-
-if (strlen(trim($sl_vars['location_table_view'])) == 0) {	$sl_vars['location_table_view']="Normal";	}
-$sl_location_table_view=$sl_vars['location_table_view'];
-
-if ($sl_vars['theme'] === NULL) {	$sl_vars['theme']="";	}
-$sl_theme=$sl_vars['theme'];
+### MapDesigner header row inputs
+if ($sl_vars['api_key'] === NULL) {	$sl_vars['api_key']="";	}
+$sl_api_key=$sl_vars['api_key'];
 
 if (strlen(trim($sl_vars['google_map_country'])) == 0) {	$sl_vars['google_map_country']="United States";}
 $sl_google_map_country=$sl_vars['google_map_country'];
@@ -200,34 +299,44 @@ $sl_google_map_country=$sl_vars['google_map_country'];
 if (strlen(trim($sl_vars['google_map_domain'])) == 0) {	$sl_vars['google_map_domain']="maps.google.com";}
 $sl_google_map_domain=$sl_vars['google_map_domain'];
 
-if (strlen(trim($sl_vars['icon2'])) == 0) {	$sl_vars['icon2']=SL_ICONS_BASE."/droplet_red.png";}
-$sl_icon2=$sl_vars['icon2'];
+if ($sl_vars['map_region'] === NULL) {	$sl_vars['map_region']="";	}
+$sl_map_region=$sl_vars['map_region'];
 
-if (strlen(trim($sl_vars['icon'])) == 0) {	$sl_vars['icon']=SL_ICONS_BASE."/droplet_green.png";}
-$sl_icon=$sl_vars['icon'];
+if (strlen(trim($sl_vars['map_language'])) == 0) {	$sl_vars['map_language']="en";	}
+$sl_map_language=$sl_vars['map_language'];
 
-if (strlen(trim($sl_vars['height'])) == 0) {	$sl_vars['height']="350";	}
-$sl_height=$sl_vars['height'];
+if ($sl_vars['map_character_encoding'] === NULL) {	$sl_vars['map_character_encoding']="";		}
+$sl_map_character_encoding=$sl_vars['map_character_encoding'];
 
-if (strlen(trim($sl_vars['height_units'])) == 0) {	$sl_vars['height_units']="px";	}
-$sl_height_units=$sl_vars['height_units'];
+### Meta
+if (strlen(trim($sl_vars['start'])) == 0) { 	$sl_vars['start']=date("Y-m-d H:i:s"); 	} 
+$sl_start=$sl_vars['start']; 
 
-if (strlen(trim($sl_vars['width'])) == 0) {	$sl_vars['width']="100";	}
-$sl_width=$sl_vars['width'];
+if (strlen(trim($sl_vars['name'])) == 0) {	$sl_vars['name']="LotsOfLocales";	}  
+$sl_name=$sl_vars['name'];
 
-if (strlen(trim($sl_vars['width_units'])) == 0) {	$sl_vars['width_units']="%";	}
-$sl_width_units=$sl_vars['width_units'];
+### Location Management Page View Control
+if (strlen(trim($sl_vars['admin_locations_per_page'])) == 0) {	$sl_vars['admin_locations_per_page']="100";	}
+$sl_admin_locations_per_page=$sl_vars['admin_locations_per_page'];
 
-if (strlen(trim($sl_vars['radii'])) == 0) {	$sl_vars['radii']="1,5,10,25,(50),100,200,500";	}
-$sl_radii=$sl_vars['radii'];
+if (strlen(trim($sl_vars['location_table_view'])) == 0) {	$sl_vars['location_table_view']="Normal";	}
+$sl_location_table_view=$sl_vars['location_table_view'];
 
-if ($sl_vars['api_key'] === NULL) {	$sl_vars['api_key']="";	}
-$sl_api_key=$sl_vars['api_key'];
-	
+### Maps V2 -> V3 Transition
+if (strlen(trim($sl_vars['map_type'])) == 0) {	$sl_vars['map_type']="google.maps.MapTypeId.ROADMAP";}
+elseif ($sl_vars['map_type']=="G_NORMAL_MAP"){	$sl_vars['map_type']='google.maps.MapTypeId.ROADMAP';}
+elseif ($sl_vars['map_type']=="G_SATELLITE_MAP"){	$sl_vars['map_type']='google.maps.MapTypeId.SATELLITE';}
+elseif ($sl_vars['map_type']=="G_HYBRID_MAP"){	$sl_vars['map_type']='google.maps.MapTypeId.HYBRID';}
+elseif ($sl_vars['map_type']=="G_PHYSICAL_MAP"){	$sl_vars['map_type']='google.maps.MapTypeId.TERRAIN';}
+$sl_map_type=$sl_vars['map_type'];
+
+/*if (strlen(trim($sl_vars['use_name_search'])) == 0) {	$sl_vars['use_name_search']="0";	}
+$sl_use_name_search=$sl_vars['use_name_search'];*/
+
 	sl_data('sl_vars', 'add', $sl_vars);
 }
 /*--------------------------*/
-function choose_units($unit, $input_name) {
+function sl_choose_units($unit, $input_name) {
 	$unit_arr[]="%";$unit_arr[]="px";$unit_arr[]="em";$unit_arr[]="pt";
 	$select_field="<select name='$input_name'>";
 	
@@ -247,7 +356,8 @@ function sl_install_tables() {
 	global $wpdb, $sl_db_version, $sl_path, $sl_uploads_path, $sl_hook;
 
 	if (!defined("SL_TABLE") || !defined("SL_TAG_TABLE") || !defined("SL_SETTING_TABLE")){ 
-		add_option("sl_db_prefix", $wpdb->prefix); $sl_db_prefix = get_option('sl_db_prefix'); 
+		//add_option("sl_db_prefix", $wpdb->prefix); $sl_db_prefix = get_option('sl_db_prefix'); 
+		$sl_db_prefix = $wpdb->prefix; //better this way, in case prefix changes vs storing option - 1/29/15
 	}
 	if (!defined("SL_TABLE")){ define("SL_TABLE", $sl_db_prefix."store_locator");}
 	if (!defined("SL_TAG_TABLE")){ define("SL_TAG_TABLE", $sl_db_prefix."sl_tag"); }
@@ -317,27 +427,37 @@ function sl_install_tables() {
 }
 /*-------------------------------*/
 function sl_head_scripts() {
-	global $sl_dir, $sl_base, $sl_uploads_base, $sl_path, $sl_uploads_path, $wpdb, $sl_version, $pagename, $sl_map_language, $post, $sl_vars, $sl_version; 		
+	global $sl_dir, $sl_base, $sl_uploads_base, $sl_path, $sl_uploads_path, $wpdb, $pagename, $sl_map_language, $post, $sl_vars; 		
 	
-	print "\n<!-- ========= WordPress Store Locator (v$sl_version) | http://www.viadat.com/store-locator/ ========== -->\n";
+	print "\n<!-- ========= WordPress Store Locator (v".SL_VERSION.") | http://www.viadat.com/store-locator/ ========== -->\n";
 	//print "<!-- ========= Learn More & Download Here: http://www.viadat.com/store-locator ========== -->\n";
-		
-	//Check if currently on page with shortcode
-	if(empty($_GET['p'])){ $_GET['p']=""; } if(empty($_GET['page_id'])){ $_GET['page_id']=""; }
-	$on_sl_page=$wpdb->get_results("SELECT post_name, post_content FROM ".SL_DB_PREFIX."posts WHERE LOWER(post_content) LIKE '%[store-locator%' AND (post_name='$pagename' OR ID='".esc_sql($_GET['p'])."' OR ID='".esc_sql($_GET['page_id'])."')", ARRAY_A);		
-	//Checking if code used in posts	
-	$sl_code_is_used_in_posts=$wpdb->get_results("SELECT post_name, ID FROM ".SL_DB_PREFIX."posts WHERE LOWER(post_content) LIKE '%[store-locator%' AND post_type='post'", ARRAY_A);
-	//If shortcode used in posts, put post IDs into array of numbers
-	if ($sl_code_is_used_in_posts) {
-		$sl_post_ids=$sl_code_is_used_in_posts;
-		foreach ($sl_post_ids as $val) { $post_ids_array[]=$val['ID'];}
-	} else {		
-		$post_ids_array=array(pow(10,15)); //post number that'll never be reached
-	}
-	//print_r($post_ids_array);
 	
-	//If on page with store locator shortcode, on an archive, search, or 404 page while shortcode has been used in a post, on the front page, or a specific post with shortcode, display code, otherwise, don't
-	if ($on_sl_page || is_search() || ((is_archive() || is_404()) && $sl_code_is_used_in_posts) || is_front_page() || is_single($post_ids_array) || !is_singular(array('page', 'attachment', 'post')) || function_exists('show_sl_scripts') || is_page_template()) {
+	$on_sl_page=""; $sl_code_is_used_in_posts=""; $post_ids_array="";
+	if (empty($sl_vars['scripts_load']) || $sl_vars['scripts_load'] != 'all') {
+		//Check if currently on page with shortcode
+		if (empty($_GET['p'])){ $_GET['p']=""; } if (empty($_GET['page_id'])){ $_GET['page_id']=""; }
+		$on_sl_page=$wpdb->get_results("SELECT post_name, post_content FROM ".SL_DB_PREFIX."posts WHERE LOWER(post_content) LIKE '%[store-locator%' AND (post_name='$pagename' OR ID='".esc_sql($_GET['p'])."' OR ID='".esc_sql($_GET['page_id'])."')", ARRAY_A);		
+		//Checking if code used in posts	
+		$sl_code_is_used_in_posts=$wpdb->get_results("SELECT post_name, ID FROM ".SL_DB_PREFIX."posts WHERE LOWER(post_content) LIKE '%[store-locator%' AND post_type='post'", ARRAY_A);
+		//If shortcode used in posts, put post IDs into array of numbers
+		if ($sl_code_is_used_in_posts) {
+			$sl_post_ids=$sl_code_is_used_in_posts;
+			foreach ($sl_post_ids as $val) { $post_ids_array[]=$val['ID'];}
+		} else {		
+			$post_ids_array=array(pow(10,15)); //post number that'll never be reached
+		}
+		//print_r($post_ids_array);
+	}
+	
+	//If loading on all pages is selected (via MapDesigner), on page with store locator shortcode, on an archive, search, or 404 page while shortcode has been used in a post, on the front page, or a specific post with shortcode, is a custom post type of some kind, or is a using a page template, display code, otherwise, don't
+	$show_on_all_pages = ( !empty($sl_vars['scripts_load']) && $sl_vars['scripts_load'] == 'all' );
+	$show_on_front_page = ( is_front_page() && (!isset($sl_vars['scripts_load_home']) || $sl_vars['scripts_load_home']==1) );
+	$show_on_archive_404_pages = ( (is_archive() || is_404()) && $sl_code_is_used_in_posts && (!isset($sl_vars['scripts_load_archives_404']) || $sl_vars['scripts_load_archives_404']==1) );
+	$show_on_custom_post_types = ( is_singular() && !is_singular(array('page', 'attachment', 'post')) && !is_front_page() );
+	$show_on_page_templates = ( is_page_template() && !is_front_page() );
+	$on_sl_post = is_single($post_ids_array);
+	
+	if ($show_on_all_pages || $on_sl_page || is_search() || $show_on_archive_404_pages || $show_on_front_page || $on_sl_post || $show_on_custom_post_types || function_exists('show_sl_scripts') || $show_on_page_templates) {
 		$GLOBALS['is_on_sl_page'] = 1;
 		$google_map_domain=($sl_vars['google_map_domain']!="")? $sl_vars['google_map_domain'] : "maps.google.com";
 		
@@ -348,8 +468,8 @@ function sl_head_scripts() {
 		$key=(!empty($sl_vars['api_key']))? "&amp;key=".$sl_vars['api_key'] : "" ;
 		print "<script src='https://maps.googleapis.com/maps/api/js?v=3{$sens}{$lang_loc}{$region_loc}{$key}' type='text/javascript'></script>\n";
 		//print "<script src='//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js'></script>\n";
-		print "<script src='".SL_JS_BASE."/functions.js?v=$sl_version' type='text/javascript'></script>\n";
-		if (empty($_POST) && 1==2) {
+		print "<script src='".SL_JS_BASE."/functions.js?v=".SL_VERSION."' type='text/javascript'></script>\n";
+		if (empty($_POST) && 1==2) { //skip, for now always (1==2), dynamic file always causes trouble for some
 			$nm=(!empty($post->post_name))? $post->post_name : $pagename ;
 			$p=(!empty($post->ID))? $post->ID : esc_sql($_GET['p']) ;
 			//$pg=(!empty($post->page_ID))? $post->post_ID : esc_sql($_GET['page_id']) ;
@@ -358,24 +478,24 @@ function sl_head_scripts() {
 			//sl_dyn_js($on_sl_page[0]['post_content']);
 			sl_dyn_js();
 		}
-		print "<script src='".SL_JS_BASE."/store-locator.js?v=$sl_version' type='text/javascript'></script>\n";
+		print "<script src='".SL_JS_BASE."/store-locator.js?v=".SL_VERSION."' type='text/javascript'></script>\n";
 		//if store-locator.css exists in custom-css/ folder in uploads/ dir it takes precedence over, store-locator.css in store-locator plugin directory to allow for css customizations to be preserved after updates
 		$has_custom_css=(file_exists(SL_CUSTOM_CSS_PATH."/store-locator.css"))? SL_CUSTOM_CSS_BASE : SL_CSS_BASE; 
-		print "<link  href='".$has_custom_css."/store-locator.css' type='text/css' rel='stylesheet'/>\n";
+		print "<link  href='".$has_custom_css."/store-locator.css?v=".SL_VERSION."' type='text/css' rel='stylesheet'/>\n";
 		$theme=$sl_vars['theme'];
-		if ($theme!="") {print "<link  href='".SL_THEMES_BASE."/$theme/style.css' rel='stylesheet' type='text/css'/>\n";}
+		if ($theme!="") {print "<link  href='".SL_THEMES_BASE."/$theme/style.css?v=".SL_VERSION."' rel='stylesheet' type='text/css'/>\n";}
 		if (function_exists("do_sl_hook")){do_sl_hook('sl_addon_head_styles');}
 		//print "<style></style>";
 		sl_move_upload_directories();
 	} else {
+		print "<!-- No store locator on this page, so no unnecessary scripts for better site performance. -->\n";
+	}
+	print "<!-- ========= End WordPress Store Locator (";
 		$sl_page_ids=$wpdb->get_results("SELECT ID FROM ".SL_DB_PREFIX."posts WHERE LOWER(post_content) LIKE '%[store-locator%' AND post_status='publish'", ARRAY_A);
-		print "<!-- No store locator on this page, so no unnecessary scripts for better site performance. (";
-		if ($sl_page_ids) {
+		if (!empty($sl_page_ids)) {
 			foreach ($sl_page_ids as $value) { print "$value[ID],";}
 		}
-		print ")-->\n";
-	}
-	print "<!-- ========= End WordPress Store Locator ========== -->\n\n";
+		print ") ========== -->\n\n";
 }
 function sl_footer_scripts(){
 	if (!did_action('wp_head')){ sl_head_scripts();} //if wp_head missing
@@ -402,10 +522,86 @@ add_action('the_content', 'sl_jq_missing_wp_head', 1000000); */
 /*commented out - 11/7/14 - causing errors with some themes' jQuery / image porfolios (Jupiter); not critical function*/
 /*-----------------------------------*/
 function sl_add_options_page() {
-	global $sl_dir, $sl_base, $sl_uploads_base, $text_domain, $sl_top_nav_links;
+	global $sl_dir, $sl_base, $sl_uploads_base, $text_domain, $sl_top_nav_links, $sl_vars, $sl_version;
 	$parent_url = SL_PARENT_URL; //SL_PAGES_DIR.'/information.php';
+	$warning_count = 0;
+	$warning_title = __("Update(s) currently available for Store Locator", SL_TEXT_DOMAIN) . ":";
 	
-	$sl_menu_pages['main'] = array('title' => __("Store Locator", SL_TEXT_DOMAIN), 'capability' => 'administrator', 'page_url' =>  $parent_url, 'icon' => SL_BASE.'/images/logo.ico.png', 'menu_position' => 47);
+	####Base Plugin Update Notification in WP Menu =============
+   // if (function_exists("plugins_api")) {
+	$sl_vars['sl_latest_version_check_time'] = (empty($sl_vars['sl_latest_version_check_time']))? date("Y-m-d H:i:s") : $sl_vars['sl_latest_version_check_time'];
+	if (empty($sl_vars['sl_latest_version']) || (time() - strtotime($sl_vars['sl_latest_version_check_time']))/60>=(60*12)){ //12-hr db caching of version info
+		/*if (!function_exists("plugins_api")) {
+			$plugin_install_url = ABSPATH."wp-admin/includes/plugin-install.php"; //die($plugin_install_url);
+			include_once($plugin_install_url);
+		}*/ // Causing fatal errors in some installs -- so must assume it's available to all already -- 2/23/15
+		//$sl_api = plugins_api('plugin_information', array('slug' => 'store-locator', 'fields' => array('sections' => false) ) ); 
+		$sl_api = sl_remote_data(array(
+			'host' => 'api.wordpress.org',
+			'url' => '/plugins/info/1.0/store-locator',
+			'ua' => 'none'), 'serial');
+		
+		/*need 'true' if trying to include changelog info in future*/
+		//var_dump($sl_api); die();
+		$sl_latest_version = $sl_api->version; //$sl_version="2.6";
+		//$sl_latest_changelog = $sl_api->sections['changelog']; //var_dump($sl_latest_changelog); die();
+		//preg_match_all("@<ul>(.*)</ul>@", $sl_latest_changelog, $sl_version_matches); var_dump($sl_version_matches); die();
+	
+		$sl_vars['sl_latest_version_check_time'] = date("Y-m-d H:i:s");
+		$sl_vars['sl_latest_version'] = $sl_latest_version;
+	} else {
+		$sl_latest_version = $sl_vars['sl_latest_version'];
+	}
+	//$sl_version = 2.6; //testing purposes
+	if (strnatcmp($sl_latest_version, $sl_version) > 0) { 
+		$warning_title .= "\n- Store Locator v{$sl_latest_version} " . __("is available, you are using", SL_TEXT_DOMAIN). " v{$sl_version}";
+		$warning_count++;
+		
+		$sl_plugin = SL_DIR . "/store-locator.php";
+		$sl_update_link = admin_url('update.php?action=upgrade-plugin&plugin=' . $sl_plugin);
+		$sl_update_link_nonce = wp_nonce_url($sl_update_link, 'upgrade-plugin_' . $sl_plugin);
+		$sl_update_msg = "&nbsp;&gt;&nbsp;<a href='$sl_update_link_nonce' style='color:#900; font-weight:bold;' onclick='confirmClick(\"".__("You will now be updating to Store Locator", SL_TEXT_DOMAIN)." v$sl_latest_version, ".__("click OK or Confirm to continue", SL_TEXT_DOMAIN).".\", this.href); return false;'>".__("Update to", SL_TEXT_DOMAIN)." $sl_latest_version</a>";
+	} else {
+		$sl_update_msg = "";
+	}
+  //   }	
+	
+	####Addons Platform Update Notification in WP Menu (increases warning count) ===========
+	if ( defined("SL_ADDONS_PLATFORM_DIR") ) {
+	   $sl_vars['sl_latest_ap_check_time'] = (empty($sl_vars['sl_latest_ap_check_time']))? date("Y-m-d H:i:s") : $sl_vars['sl_latest_ap_check_time'];
+
+	   if ( (empty($sl_vars['sl_latest_ap_version']) || (time() - strtotime($sl_vars['sl_latest_ap_check_time']))/60>=(60*12)) ) { //12-hr db caching of version info
+		$ap_update = sl_remote_data(array(
+			'pagetype' => 'ap',
+			'dir' => SL_ADDONS_PLATFORM_DIR, 
+			'key' => sl_data('sl_license_' . SL_ADDONS_PLATFORM_DIR)
+		));
+		$ap_latest_version = (!empty($ap_update[0]))? preg_replace("@\.zip|".SL_ADDONS_PLATFORM_DIR."\.@", "", $ap_update[0]['filename']) : 0;
+		//var_dump($ap_update); die();
+		
+		$sl_vars['sl_latest_ap_check_time'] = date("Y-m-d H:i:s");
+		$sl_vars['sl_latest_ap_version'] = $ap_latest_version;
+	   } else {
+		$ap_latest_version = $sl_vars['sl_latest_ap_version'];
+	   }
+
+	   $ap_readme = SL_ADDONS_PLATFORM_PATH."/readme.txt"; 
+	   if (file_exists($ap_readme)) {
+		$rm_txt = file_get_contents($ap_readme);
+		preg_match("/\n[ ]*stable tag:[ ]?([^\n]+)(\n)?/i", $rm_txt, $cv); //var_dump($rm_txt); var_dump($cv);
+		$ap_version = (!empty($cv[1]))? trim($cv[1]) : "1.0" ;
+	   } else {$ap_version = "1.0";}
+
+	   if (strnatcmp($ap_latest_version, $ap_version) > 0) {
+		$ap_title = ucwords(str_replace("-", " ", SL_ADDONS_PLATFORM_DIR));
+		$warning_title .= "\n- $ap_title v{$ap_latest_version} " . __("is available, you are using", SL_TEXT_DOMAIN). " v{$ap_version}";
+		$warning_count++;
+	   }
+	} 
+	
+	$notify = ($warning_count > 0)?  " <span class='update-plugins count-$warning_count' title='$warning_title'><span class='update-count'>" . $warning_count . "</span></span>" : "" ;
+	
+	$sl_menu_pages['main'] = array('title' => __("Store Locator", SL_TEXT_DOMAIN)."$notify", 'capability' => 'administrator', 'page_url' =>  $parent_url, 'icon' => SL_BASE.'/images/logo.ico.png', 'menu_position' => 47);
 	$sl_menu_pages['sub']['information'] = array('parent_url' => $parent_url, 'title' => __("News & Upgrades", SL_TEXT_DOMAIN), 'capability' => 'administrator', 'page_url' => $parent_url);
 	$sl_menu_pages['sub']['locations'] = array('parent_url' => $parent_url, 'title' => __("Locations", SL_TEXT_DOMAIN), 'capability' => 'administrator', 'page_url' => SL_PAGES_DIR.'/locations.php');
 	$sl_menu_pages['sub']['mapdesigner'] = array('parent_url' => $parent_url, 'title' => __("MapDesigner", SL_TEXT_DOMAIN), 'capability' => 'administrator', 'page_url' => SL_PAGES_DIR.'/mapdesigner.php');
@@ -433,9 +629,6 @@ function sl_menu_pages_filter($sl_menu_pages) {
 			}
 		}
 	}
-}
-function sl_where_clause_filter(&$where){
-	if (function_exists("do_sl_hook")) {do_sl_hook("sl_where_clause_filter");}
 }
 /*---------------------------------------------------*/
 function sl_add_admin_javascript() {
@@ -489,8 +682,8 @@ add_action('admin_enqueue_scripts', 'sl_remove_conflicting_scripts');
 
 function sl_add_admin_stylesheet() {
   global $sl_base;
-  print "<link rel='stylesheet' type='text/css' href='".SL_CSS_BASE."/admin.css'>\n";
-  print "<link rel='stylesheet' href='".SL_CSS_BASE."/sl-pop.css' type='text/css' media='screen' charset='utf-8' />\n";
+  print "<link rel='stylesheet' type='text/css' href='".SL_CSS_BASE."/admin.css?v=".SL_VERSION."'>\n";
+  print "<link rel='stylesheet' href='".SL_CSS_BASE."/sl-pop.css?v=".SL_VERSION."' type='text/css' media='screen' charset='utf-8' />\n";
 }
 /*---------------------------------*/
 function sl_set_query_defaults() {
@@ -544,10 +737,11 @@ if (!function_exists('addon_activation_message')) {
 }
 /*-----------------------------------------------------------*/
 function url_test($url){
-	if(strtolower(substr($url,0,7))=="http://")	{
-		return TRUE; }
-	else{
-		return FALSE; }
+	if (preg_match("@^https?://@i", $url)) {
+		return TRUE; 
+	} else {
+		return FALSE; 
+	}
 }
 /*---------------------------------------------------------------*/
 function sl_neat_title($ttl,$separator="_") {
@@ -740,66 +934,203 @@ function sl_data($setting_name, $i_u_d_s="select", $setting_value="") {
 		$q = $wpdb->prepare("SELECT sl_setting_value FROM ".SL_SETTING_TABLE." WHERE sl_setting_name = %s", $setting_name);
 		$r = $wpdb->get_var($q);
 		$r = (@unserialize($r) !== false || $r === 'b:0;')? unserialize($r) : $r;  //checking if stored in serialized form
-		return $r;
+		/*if (function_exists("apply_filters")) {
+			return apply_filters( 'option_' . $setting_name, $r);  //Compability for WPML or any plugin that uses option_(option_name) hooks
+		} else {*/
+			return $r;
+		//}
 	}
 }
 /*----------------------------------------------------------------*/
+function sl_md_output($output_zone) {
+	include(SL_INCLUDES_PATH."/mapdesigner-options.php");
+	
+	$GLOBALS['output_zone_type'] = $output_zone;
+	$output_arr = array_filter($sl_mdo, "filter_sl_mdo");
+ 	unset($GLOBALS['output_zone_type']);
+	unset($sl_mdo);
+	
+	if ($output_zone == 'sl_dyn_js') {
+		foreach ($output_arr as $value) {
+			if (!is_array($value['output_zone'])) {
+				$the_field = $value['field_name'];
+				$$the_field = (trim($sl_vars[$the_field]) != "")? parseToXML($sl_vars[$the_field]) : $value['default'];
+			} else {
+				$position_arr = array_keys($value['output_zone'], $output_zone); //array position of this sl_dyn_js output_zone, if an array
+				foreach ($position_arr as $pos_value) {
+					$the_field = $value['field_name'][$pos_value];
+					$$the_field = (trim($sl_vars[$the_field]) != "")? parseToXML($sl_vars[$the_field]) : $value['default'][$pos_value];
+				}
+			}
+		}
+	}
+}
 function sl_dyn_js($post_content=""){
 	global $sl_dir, $sl_base, $sl_uploads_base, $sl_path, $sl_uploads_path, $wpdb, $sl_version, $pagename, $sl_map_language, $post, $sl_vars;
 	print "<script type=\"text/javascript\">\n//<![CDATA[\n";
 
-	$zl=(trim($sl_vars['zoom_level'])!="")? $sl_vars['zoom_level'] : 4;
-	$mt=(trim($sl_vars['map_type'])!="")? $sl_vars['map_type'] : "google.maps.MapTypeId.ROADMAP"; $mt=(preg_match("@G\_@", $mt))? "'$mt'" : $mt;
-	$wl=(trim($sl_vars['website_label'])!="")? parseToXML($sl_vars['website_label']) : "Website";
-	$dl=(trim($sl_vars['directions_label'])!="")? parseToXML($sl_vars['directions_label']) : "Directions";
-	$du=(trim($sl_vars['distance_unit'])!="")? $sl_vars['distance_unit'] : "miles";
-	$oc=(trim($sl_vars['map_overview_control'])!="")? $sl_vars['map_overview_control'] : 0;
-	$ic=(trim($sl_vars['icon'])!="")? $sl_vars['icon'] : SL_ICONS_BASE."/droplet_green.png";
-	$ic2=(trim($sl_vars['icon2'])!="")? $sl_vars['icon2'] : SL_ICONS_BASE."/droplet_red.png";
+	include(SL_INCLUDES_PATH."/mapdesigner-options.php");
+	
+	$GLOBALS['output_zone_type'] = 'sl_dyn_js';
+	$output_arr = array_filter($sl_mdo, "filter_sl_mdo");
+ 	unset($GLOBALS['output_zone_type']);
+	unset($sl_mdo);
+	
+	//var_dump($output_arr); die();
+	
+	foreach ($output_arr as $value) {
+	    if (isset($value['output_zone'])) {
+		if (!is_array($value['output_zone'])) {
+			$the_field = $value['field_name'];
+			$$the_field = (trim($sl_vars[$the_field]) != "")? $sl_vars[$the_field] : $value['default'];
+		 	//print "//Field: ".$the_field;
+		 	//print " | label?: ".preg_match("@\_label$@", $the_field);
+		 	//print " | message?: ".preg_match("@\_message$@", $the_field)."\n";
+			 if (preg_match("@\_label$@", $the_field)) {
+			 	$$the_field = addslashes($$the_field); //originally parseToXML(); now stripslashes is applied in MD (since v3.56.2)
+			 } elseif (preg_match("@\_message$@", $the_field)) {
+			 	$$the_field = addslashes($$the_field);
+			 }
+		} else {
+			$position_arr = array_keys($value['output_zone'], 'sl_dyn_js'); //array position of this sl_dyn_js output_zone, if an array
+			foreach ($position_arr as $pos_value) {
+				$the_field = $value['field_name'][$pos_value];
+				$$the_field = (trim($sl_vars[$the_field]) != "")? $sl_vars[$the_field] : $value['default'][$pos_value];
+				if (preg_match("@\_label$@", $the_field)) {
+				 	$$the_field = addslashes($$the_field);
+				} elseif (preg_match("@\_message$@", $the_field)) {
+				 	$$the_field = addslashes($$the_field);
+				}
+			}
+		}
+	    }
+	}
+
+	
+	### Defaults
+	//$mt=(trim($sl_vars['map_type'])!="")? $sl_vars['map_type'] : "google.maps.MapTypeId.ROADMAP"; 
+	//$mt=(preg_match("@G\_@", $mt))? "'$mt'" : $mt;
+	//$oc=(trim($sl_vars['map_overview_control'])!="")? $sl_vars['map_overview_control'] : 0;
+	//$lld=(trim($sl_vars['load_locations_default'])!="")? $sl_vars['load_locations_default'] : 1 ;
+	//$lrwld=(trim($sl_vars['load_results_with_locations_default'])!="")? $sl_vars['load_results_with_locations_default'] : 1 ;
+	//$geo=(trim($sl_vars['geolocate'])!="")? $sl_vars['geolocate'] : 0 ;
+	
+	### Labels
+	//$website_label=(trim($sl_vars['website_label'])!="")? parseToXML($sl_vars['website_label']) : "Website";
+	//$directions_label=(trim($sl_vars['directions_label'])!="")? parseToXML($sl_vars['directions_label']) : "Directions";
+	//$hours_label=(trim($sl_vars['hours_label'])!="")? parseToXML($sl_vars['hours_label']) : "Hours";
+	//$phone_label=(trim($sl_vars['phone_label'])!="")? parseToXML($sl_vars['phone_label']) : "Phone";
+	//$fax_label=(trim($sl_vars['fax_label'])!="")? parseToXML($sl_vars['fax_label']) : "Fax";
+	//$email_label=(trim($sl_vars['email_label'])!="")? parseToXML($sl_vars['email_label']) : "Email";	
+	//$no_results_found_message=(trim($sl_vars['no_results_found_message'])!="")? addslashes($sl_vars['no_results_found_message']) : "No Results Found";
+	//$location_not_found_message=(trim($sl_vars['location_not_found_message'])!="")? addslashes($sl_vars['location_not_found_message']) : "";
+	
+	### Dimensions
+	//$zl=(trim($sl_vars['zoom_level'])!="")? $sl_vars['zoom_level'] : 4;
+	//$du=(trim($sl_vars['distance_unit'])!="")? $sl_vars['distance_unit'] : "miles";
+	
+	### Design
+	//$ic=(trim($sl_vars['icon'])!="")? $sl_vars['icon'] : SL_ICONS_BASE."/droplet_green.png";
+	//$ic2=(trim($sl_vars['icon2'])!="")? $sl_vars['icon2'] : SL_ICONS_BASE."/droplet_red.png";
+	
+	### Maps V2 -> V3 Transition
+	//$map_type=(preg_match("@G\_@", $map_type))? "'$map_type'" : $map_type; //Had to remove in v3.56.2 for now -- was causing foreach error for $map_type in mapdesigner-options.php, line 93, which is an array - 4/29/15, 2:16p
+	
+	## MapDesigner header row inputs
 	$gmc=(trim($sl_vars['google_map_country'])!="")? parseToXML($sl_vars['google_map_country']) : "United States" ;
 	$gmd=(trim($sl_vars['google_map_domain'])!="")? $sl_vars['google_map_domain'] : "maps.google.com" ;
-	$lld=(trim($sl_vars['load_locations_default'])!="")? $sl_vars['load_locations_default'] : 1 ;
-	$lrwld=(trim($sl_vars['load_results_with_locations_default'])!="")? $sl_vars['load_results_with_locations_default'] : 1 ;
-	$geo=(trim($sl_vars['geolocate'])!="")? $sl_vars['geolocate'] : 0 ;
-	$nrf=(trim($sl_vars['no_results_found_message'])!="")? addslashes($sl_vars['no_results_found_message']) : "No Results Found";
-	$lnf=(trim($sl_vars['location_not_found_message'])!="")? addslashes($sl_vars['location_not_found_message']) : "";
 	
+
+	//WPML Display Integration
+	if (function_exists('icl_t')) {
+		include(SL_INCLUDES_PATH."/mapdesigner-options.php");
+		$GLOBALS['input_zone_type'] = 'labels';
+		$GLOBALS['output_zone_type'] = 'sl_dyn_js';
+		
+		$labels_arr = array_filter($sl_mdo, "filter_sl_mdo");
+		unset($GLOBALS['input_zone_type']); unset($GLOBALS['output_zone_type']);
+		unset($sl_mdo);
+		//var_dump($labels_arr); die();
+		
+		foreach ($labels_arr as $value) {
+			$the_field = $value['field_name'];
+			$$the_field = addslashes(icl_t(SL_DIR, $value['label'], $$the_field));
+		}
+	}
+	//End WPML
+		
 print  
 "var sl_base='".SL_BASE."';
 var sl_uploads_base='".SL_UPLOADS_BASE."';
 var sl_addons_base=sl_uploads_base+'".str_replace(SL_UPLOADS_BASE, '', SL_ADDONS_BASE)."';
 var sl_includes_base=sl_base+'".str_replace(SL_BASE, '', SL_INCLUDES_BASE)."';
-var sl_map_home_icon='".$ic."'; 
-var sl_map_end_icon='".$ic2."'; 
 var sl_google_map_country='".$gmc."'; 
-var sl_google_map_domain='".$gmd."'; 
+var sl_google_map_domain='".$gmd."';\n";
+
+$icon_array = array('icon' => 'map_home_icon', 'icon2' => 'map_end_icon');
+$without_quotes = array('map_type', 'zoom_level'); //Google map type, zoom level can't have quotes around theme
+
+foreach ($output_arr as $value) {
+	if (isset($value['output_zone'])) {
+		if (!is_array($value['output_zone'])) {
+			$the_field = $value['field_name'];
+			$$the_field = (!in_array($the_field, $without_quotes))? "'{$$the_field}'" : $$the_field ;
+			if ( in_array($the_field, array_keys($icon_array)) ) { //if-else needed due to inconsistency between 'icon'/'map_home_icon', etc labels
+				$the_field_converted = $icon_array[$the_field];  
+				print "var sl_{$the_field_converted}=". $$the_field .";\n";
+			} else {
+				print "var sl_{$the_field}=". $$the_field .";\n";
+			}
+		} else {
+			$position_arr = array_keys($value['output_zone'], 'sl_dyn_js'); //array position of this sl_dyn_js output_zone, if an array
+			foreach ($position_arr as $pos_value) {
+				$the_field = $value['field_name'][$pos_value];
+				$$the_field = (!in_array($the_field, $without_quotes))? "'{$$the_field}'" : $$the_field ;
+				if ( in_array($the_field, array_keys($icon_array)) ) { 
+					$the_field_converted = $icon_array[$the_field];  
+					print "var sl_{$the_field_converted}=". $$the_field .";\n";
+				} else {
+					print "var sl_{$the_field}=". $$the_field .";\n";
+				}
+			}
+		}
+	}
+}
+/*print "; 
+var sl_map_home_icon='".$icon."'; 
+var sl_map_end_icon='".$icon2."'
 var sl_zoom_level=$zl; 
 var sl_map_type=$mt; 
-var sl_website_label='$wl'; 
-var sl_directions_label='$dl';
+var sl_website_label='$website_label'; 
+var sl_directions_label='$directions_label';
+var sl_hours_label='$hours_label';
+var sl_phone_label='$phone_label';
+var sl_fax_label='$fax_label';
+var sl_email_label='$email_label';
 var sl_load_locations_default='".$lld."'; 
 var sl_load_results_with_locations_default='".$lrwld."'; 
 var sl_geolocate='".$geo."'; 
 var sl_distance_unit='$du'; 
 var sl_map_overview_control='$oc';
-var sl_no_results_found_message='$nrf';
-var sl_location_not_found_message='$lnf';\n";
-	if (preg_match("@".SL_UPLOADS_BASE."@", $ic)){
-		$home_icon_path=str_replace(SL_UPLOADS_BASE, SL_UPLOADS_PATH, $ic);
+var sl_no_results_found_message='$no_results_found_message';
+var sl_location_not_found_message='$location_not_found_message';\n";*/
+
+	/*if (preg_match("@".SL_UPLOADS_BASE."@", $icon)){
+		$home_icon_path=str_replace(SL_UPLOADS_BASE, SL_UPLOADS_PATH, $icon);
 	} else {
-		$home_icon_path=str_replace(SL_BASE, SL_PATH, $ic);
+		$home_icon_path=str_replace(SL_BASE, SL_PATH, $icon);
 	}
 	$home_size=(function_exists("getimagesize") && file_exists($home_icon_path))? getimagesize($home_icon_path) : array(0 => 26, 1 => 35);
 	print "var sl_map_home_icon_width=$home_size[0];\n";
 	print "var sl_map_home_icon_height=$home_size[1];\n";
-	if (preg_match("@".SL_UPLOADS_BASE."@", $ic2)){
-		$end_icon_path=str_replace(SL_UPLOADS_BASE, SL_UPLOADS_PATH, $ic2);
+	if (preg_match("@".SL_UPLOADS_BASE."@", $icon2)){
+		$end_icon_path=str_replace(SL_UPLOADS_BASE, SL_UPLOADS_PATH, $icon2);
 	} else {
-		$end_icon_path=str_replace(SL_BASE, SL_PATH, $ic2);
+		$end_icon_path=str_replace(SL_BASE, SL_PATH, $icon2);
 	}
 	$end_size=(function_exists("getimagesize") && file_exists($end_icon_path))? getimagesize($end_icon_path) : array(0 => 26, 1 => 35);
 	print "var sl_map_end_icon_width=$end_size[0];\n";
-	print "var sl_map_end_icon_height=$end_size[1];\n";
+	print "var sl_map_end_icon_height=$end_size[1];\n";*/
 	
 	print "//]]>\n</script>\n";
 	if (function_exists("do_sl_hook")){do_sl_hook('sl_addon_head_scripts'); }
@@ -885,7 +1216,9 @@ function sl_add_location() {
 /*--------------------------------------------------*/
 function sl_define_db_tables() {
 	//since it can't use sl_data() in the sl-define.php, placed here
-	$sl_db_prefix = get_option('sl_db_prefix'); 
+	//$sl_db_prefix = get_option('sl_db_prefix'); 
+	global $wpdb; 
+	$sl_db_prefix = $wpdb->prefix; //better this way, in case prefix changes vs storing option - 1/29/15
 	if (!defined('SL_DB_PREFIX')){ define('SL_DB_PREFIX', $sl_db_prefix); }
 	if (!empty($sl_db_prefix)) {
 		if (!defined('SL_TABLE')){ define('SL_TABLE', SL_DB_PREFIX."store_locator"); }
@@ -986,11 +1319,11 @@ $txt=str_replace(" ===", "</h2>", $txt);
 $txt=str_replace("== ", "<table class='widefat' ><thead>$th_start", $txt);
 $txt=str_replace(" ==", "</th></thead></table><!--a style='float:right' href='#readme_toc'>Table of Contents</a-->", $txt);
 $txt=str_replace("= ", "$h3_start", $txt);
-$txt=str_replace(" =", "</h3><a style='float:right; position:relative; top:-1.5em; font-size:10px' href='#readme_toc'>table of contents</a>", $txt);
+$txt=str_replace(" =", "</h3><a style='float:right; position:relative; top:-1.5em; font-size:10px' href='#readme_toc'>".__("table of contents", SL_TEXT_DOMAIN)."</a>", $txt);
 $txt=preg_replace("@Tags:[ ]?[^\r\n]+\r\n@", "", $txt);
 
 //TOC pt. 2
-$txt=str_replace("</h2>", "</h2><a name='readme_toc'></a><div style='float:right;  width:500px; border-radius:1em; border:solid silver 1px; padding:7px; padding-top:0px; margin:10px; margin-right:0px;'><h3>Table of Contents</h2>$toc_cont</div>", $txt);
+$txt=str_replace("</h2>", "</h2><a name='readme_toc'></a><div style='float:right;  width:500px; border-radius:1em; border:solid silver 1px; padding:7px; padding-top:0px; margin:10px; margin-right:0px;'><h3>".__("Table of Contents", SL_TEXT_DOMAIN)."</h2>$toc_cont</div>", $txt);
 $txt=preg_replace_callback("@$h2_start<u>([^<.]*)</u></h1>@s", create_function('$matches', 
 	'return "<h2 style=\'font-family:Georgia; margin-bottom:0.05em;\'><a name=\'".comma($matches[1])."\'></a>$matches[1]</u></h1>";'), $txt);
 $txt=preg_replace_callback("@$th_start([^<.]*)</th>@s", create_function('$matches',
@@ -1188,22 +1521,22 @@ function sl_permissions_check() {
 		}
 	}
 	
-	$button_note = "Note: Clicking this button should update permissions, however, if it doesn\'t, you may need to update permissions by using an FTP program.  Click &quot;OK&quot; or &quot;Confirm&quot; to continue ...";
+	$button_note = __("Note: Clicking this button should update permissions, however, if it doesn\'t, you may need to update permissions by using an FTP program.  Click &quot;OK&quot; or &quot;Confirm&quot; to continue ...", SL_TEXT_DOMAIN);
 	
 	if ($needs > 0){
 		$output = "";
-		print "<br><div class='sl_admin_warning' style='width:97%'><b>Important Note:</b><br>Some of your folders / files may need updating to the proper permissions (folders: 755 / files: 644), otherwise, all functionality may not work as intended.  View folders / files below - <a href='#' onclick='show(\"file_perm_table\"); return false;'>display / hide list of folders & files</a>:<br>
-		<div style='float:right'>(<a href='".$_SERVER['REQUEST_URI']."&file_perm_msg=1'>Hide This Notice Permanently</a>)</div><br><br><table cellpadding='7px' id='file_perm_table' style='display:none;'><tr>";
+		print "<br><div class='sl_admin_warning' style='width:97%'><b>".__("Important Note", SL_TEXT_DOMAIN).":</b><br>".__("Some of your folders / files may need updating to the proper permissions (folders: 755 / files: 644), otherwise, all functionality may not work as intended.  View folders / files below", SL_TEXT_DOMAIN)." - <a href='#' onclick='show(\"file_perm_table\"); return false;'>".__("display / hide list of folders & files", SL_TEXT_DOMAIN)."</a>:<br>
+		<div style='float:right'>(<a href='".$_SERVER['REQUEST_URI']."&file_perm_msg=1'>".__("Hide This Notice Permanently", SL_TEXT_DOMAIN)."</a>)</div><br><br><table cellpadding='7px' id='file_perm_table' style='display:none;'><tr>";
 	}
 	if (!empty($needs_update["folder"])) {
-		$output .= "<td style='vertical-align: top; width:50%'><form method='post' onsubmit=\"return confirm('".$button_note."');\"><strong>Folders:</strong><br><input type='submit' class='button-primary' value=\"Update Checked Folders' Permissions\"><br><br>";
+		$output .= "<td style='vertical-align: top; width:50%'><form method='post' onsubmit=\"return confirm('".$button_note."');\"><strong>".__("Folders", SL_TEXT_DOMAIN).":</strong><br><input type='submit' class='button-primary' value=\"".__("Update Checked Folders' Permissions", SL_TEXT_DOMAIN)."\"><br><br>";
 		foreach ($needs_update["folder"] as $value) {
 			$output .= "\n<input name='sl_folder_permission[]' checked='checked' type='checkbox' value='".substr($value, 0, -13)."'>&nbsp;/".str_replace(ABSPATH, '', $value)."<br>"; // "-13", removes 13 chars: " - <b> 777 </b>" at end of value
 		}
 		$output .= "</form></td>";	
 	}
 	if (!empty($needs_update["file"])) {
-		$output .= "<td style='vertical-align: top; style: 50%;'><form method='post' onsubmit=\"return confirm('".$button_note."');\"><strong>Files:</strong><br><input type='submit' class='button-primary' value=\"Update Checked Files' Permissions\"><br><br>";
+		$output .= "<td style='vertical-align: top; style: 50%;'><form method='post' onsubmit=\"return confirm('".$button_note."');\"><strong>".__("Files", SL_TEXT_DOMAIN).":</strong><br><input type='submit' class='button-primary' value=\"".__("Update Checked Files' Permissions", SL_TEXT_DOMAIN)."\"><br><br>";
 		foreach ($needs_update["file"] as $value) {
 			$output .= "\n<input name='sl_file_permission[]' checked='checked' type='checkbox' value='".substr($value, 0, -13)."'>&nbsp;/".str_replace(ABSPATH, '', $value)."<br>";
 		}
@@ -1219,6 +1552,55 @@ function sl_permissions_check() {
 		$sl_vars['perms_need_update'] = 0;
 	}
 	
+}
+/*---------------------------------------------------------------*/
+function sl_remote_data($val_arr, $decode_mode = 'json') {
+	$pagetype = (!empty($val_arr['pagetype']))? $val_arr['pagetype'] : "none" ;
+	$dir = (!empty($val_arr['dir']))? $val_arr['dir'] : "none" ;
+	$key = (!empty($val_arr['key']))? "__".$val_arr['key'] : "" ;
+	$start = (!empty($val_arr['start']))? $val_arr['start'] : 0 ;
+	$val_host = (!empty($val_arr['host']))? $val_arr['host'] : 'viadat.com' ;
+	$val_url = (!empty($val_arr['url']))? $val_arr['url'] : "/show-data/". $pagetype ."/". $dir ."$key" ."/". $start ;
+	$useragent = (!empty($val_arr['ua']))? $val_arr['ua'] : "LotsOfLocales Store Locator Plugin" ;
+	
+	$target = "http://" . $val_host . $val_url;
+  	//exit($target);
+	$remote_access_fail = false;
+	if (extension_loaded("curl") && function_exists("curl_init")) {
+    			ob_start();
+    			$ch = curl_init();
+    			if (!empty($useragent) && $useragent != 'none'){ curl_setopt($ch, CURLOPT_USERAGENT, $useragent); }
+    			curl_setopt($ch, CURLOPT_URL,$target);
+    			curl_exec($ch);
+		    	$returned_value = ob_get_contents();
+			//exit($returned_value);
+   			ob_end_clean();
+		} else {
+	  		$request = '';
+	  		$http_request  = "GET ". $val_url ." HTTP/1.0\r\n";
+			$http_request .= "Host: ".$val_host."\r\n";
+			$http_request .= "Content-Type: application/x-www-form-urlencoded; charset=" . SL_BLOG_CHARSET . "\r\n";
+			$http_request .= "Content-Length: " . strlen($request) . "\r\n";
+			if (!empty($useragent) && $useragent != 'none'){ $http_request .= "User-Agent: $useragent\r\n"; }
+			$http_request .= "\r\n";
+			$http_request .= $request;
+			$response = '';
+			if (false != ( $fs = @fsockopen($val_host, 80, $errno, $errstr, 10) ) ) {
+				fwrite($fs, $http_request);
+				while ( !feof($fs) )
+					$response .= fgets($fs, 1160); // One TCP-IP packet
+				fclose($fs);
+			}
+			$returned_value = trim($response);
+	}
+	//die($val_url);
+	//var_dump(json_decode($returned_value, true));
+	if (!empty($returned_value)) {
+		$the_data = ($decode_mode != "serial")? json_decode($returned_value, true) : unserialize($returned_value);
+		return $the_data;
+	} else {
+		return false;
+	}
 }
 /*-----------------------------------------------*/
 ### Loading SL Variables ###
@@ -1255,7 +1637,7 @@ if (defined('SL_ADDONS_PLATFORM_FILE') && file_exists(SL_ADDONS_PLATFORM_FILE)) 
 
 /*-----------------------------------*/
 if (!function_exists("sl_do_geocoding")){
- function sl_do_geocoding($address,$sl_id="") {
+ function sl_do_geocoding($address, $sl_id="") {
    if (empty($_POST['no_geocode']) || $_POST['no_geocode']!=1){
 	global $wpdb, $text_domain, $sl_vars;
 
@@ -1297,7 +1679,7 @@ if (!function_exists("sl_do_geocoding")){
 	//End of new code
 
 	$resp = json_decode($resp_json, true); //var_dump($resp);
-    $status = $resp['status'];
+    $status = $resp['status']; //$status = "";
     $lat = (!empty($resp['results'][0]['geometry']['location']['lat']))? $resp['results'][0]['geometry']['location']['lat'] : "" ;
     $lng = (!empty($resp['results'][0]['geometry']['location']['lng']))? $resp['results'][0]['geometry']['location']['lng'] : "" ;
 	//die("<br>compare: ".strcmp($status, "OK")."<br>status: $status<br>");
@@ -1323,7 +1705,11 @@ if (!function_exists("sl_do_geocoding")){
 		// failure to geocode
 		$geocode_pending = false;
 		echo __("Address " . $address . " <font color=red>failed to geocode</font>. ", SL_TEXT_DOMAIN);
-		echo __("Received status " . $status , SL_TEXT_DOMAIN)."\n<br>";
+		//if (!empty($status)) {
+			echo __("Received status " . $status , SL_TEXT_DOMAIN)."\n<br>";
+		/*} else {
+			echo __("No status received from Google", SL_TEXT_DOMAIN)."\n<br>"; 
+		}*/
     }
     usleep($delay);
   } else {
@@ -1343,13 +1729,43 @@ if (!function_exists("sl_template")){
 		$height=($sl_vars['height'])? $sl_vars['height'] : "500" ;
 		$width=($sl_vars['width'])? $sl_vars['width'] : "100" ;
 		$radii=($sl_vars['radii'])? $sl_vars['radii'] : "1,5,10,(25),50,100,200,500" ;
+		$r_array=explode(",", $radii);
 		$height_units=($sl_vars['height_units'])? $sl_vars['height_units'] : "px";
 		$width_units=($sl_vars['width_units'])? $sl_vars['width_units'] : "%";
-		$sl_instruction_message=($sl_vars['instruction_message'])? $sl_vars['instruction_message'] : "Enter Your Address or Zip Code Above.";
-	
-		$r_array=explode(",", $radii);
-		$search_label=($sl_vars['search_label'])? $sl_vars['search_label'] : "Address" ;
 		
+		$sl_instruction_message=($sl_vars['instruction_message'])? $sl_vars['instruction_message'] : "Enter Your Address or Zip Code Above.";
+		$sl_radius_label=$sl_vars['radius_label'];
+		$sl_search_label=($sl_vars['search_label'])? $sl_vars['search_label'] : "Address" ;
+		$sl_city_dropdown_label=$sl_vars['city_dropdown_label'];
+		
+		$sl_search_button = "search_button.png";
+		$sl_search_button_down = "search_button_down.png";
+		$sl_search_button_over = "search_button_over.png";
+
+		//WPML Display Integration
+		if (function_exists('icl_t')) { 
+			include(SL_INCLUDES_PATH."/mapdesigner-options.php");
+			$GLOBALS['input_zone_type'] = 'labels';
+			$GLOBALS['output_zone_type'] = 'sl_template';
+		
+			$labels_arr = array_filter($sl_mdo, "filter_sl_mdo");
+			unset($GLOBALS['input_zone_type']); unset($GLOBALS['output_zone_type']);
+			//var_dump($labels_arr); die();
+		
+			foreach ($labels_arr as $value) {
+				$the_field = $value['field_name'];
+				$varname = "sl_".$the_field;
+				
+				$$varname = icl_t(SL_DIR, $value['label'], $$varname);
+			}
+			
+			### Search Button States
+			$sl_search_button = icl_t(SL_DIR,"Search Button Filename", $sl_search_button);
+			$sl_search_button_down = icl_t(SL_DIR,"Search Button Filename (Down State)", $sl_search_button_down);
+			$sl_search_button_over = icl_t(SL_DIR,"Search Button Filename (Over State)", $sl_search_button_over);
+		}
+		//End WPML
+				
 		$unit_display=($sl_vars['distance_unit']=="km")? "km" : "mi";
 		$r_options="";
 		foreach ($r_array as $value) {
@@ -1366,6 +1782,8 @@ if (!function_exists("sl_template")){
 				foreach($cs_array as $value) {
 $cs_options.="<option value='$value[city_state]'>$value[city_state]</option>";
 				}
+			} else {
+				$sl_vars['use_city_search']=0; // if no full city-state combos to populate dropdown, turn off - 2/4/15 - v.3.32
 			}
 		}
 		/*if ($sl_vars['use_name_search']==1) {
@@ -1386,15 +1804,16 @@ $cs_options.="<option value='$value[city_state]'>$value[city_state]</option>";
 		$theme_base=SL_UPLOADS_BASE."/images";
 		$theme_path=SL_UPLOADS_PATH."/images";
 	}
-	if (!file_exists($theme_path."/search_button.png")) {
+	
+	if (!file_exists($theme_path."/".$sl_search_button)) {
 		$theme_base=SL_BASE."/images";
 		$theme_path=SL_PATH."/images";
 	}
-	$submit_img=$theme_base."/search_button.png";
+	$submit_img=$theme_base."/".$sl_search_button;
 	$loading_img=(file_exists(SL_UPLOADS_PATH."/images/loading.gif"))? SL_UPLOADS_BASE."/images/loading.gif" : SL_BASE."/images/loading.gif"; //for loading/processing gif image
-	$mousedown=(file_exists($theme_path."/search_button_down.png"))? "onmousedown=\"this.src='$theme_base/search_button_down.png'\" onmouseup=\"this.src='$theme_base/search_button.png'\"" : "";
-	$mouseover=(file_exists($theme_path."/search_button_over.png"))? "onmouseover=\"this.src='$theme_base/search_button_over.png'\" onmouseout=\"this.src='$theme_base/search_button.png'\"" : "";
-	$button_style=(file_exists($theme_path."/search_button.png"))? "type='image' src='$submit_img' $mousedown $mouseover" : "type='submit'";
+	$mousedown=(file_exists($theme_path."/".$sl_search_button_down))? "onmousedown=\"this.src='$theme_base/".$sl_search_button_down."'\" onmouseup=\"this.src='$theme_base/".$sl_search_button."'\"" : "";
+	$mouseover=(file_exists($theme_path."/".$sl_search_button_over))? "onmouseover=\"this.src='$theme_base/".$sl_search_button_over."'\" onmouseout=\"this.src='$theme_base/".$sl_search_button."'\"" : "";
+	$button_style=(file_exists($theme_path."/".$sl_search_button))? "type='image' src='$submit_img' $mousedown $mouseover" : "type='submit'";
 	$button_style.=" onclick=\"showLoadImg('show', 'loadImg');\""; //added 3/30/12 for loading/processing gif image
 	//print "$submit_img | ".SL_UPLOADS_PATH."/themes/".$sl_vars['theme']."/search_button.png";
 	$hide=($sl_vars['remove_credits']==1)? "display:none;" : "";
@@ -1403,7 +1822,7 @@ $form="
 <div id='sl_div'>
   <form onsubmit='searchLocations(); return false;' id='searchForm' action=''>
     <table border='0' cellpadding='3px' class='sl_header' style='width:$width$width_units;'><tr>
-	<td valign='top' id='search_label'>$search_label&nbsp;</td>
+	<td valign='top' id='search_label'>$sl_search_label&nbsp;</td>
 	<td ";
 	
 	if ($sl_vars['use_city_search']!=1) {$form.=" colspan='4' ";}
@@ -1418,8 +1837,8 @@ $form="
 	if (!empty($cs_array) && $sl_vars['use_city_search']==1) {
 		$form.="<td id='addressInput2_container' colspan='2'>";
 		$form.="<select id='addressInput2' onchange='aI=document.getElementById(\"searchForm\").addressInput;if(this.value!=\"\"){oldvalue=aI.value;aI.value=this.value;}else{aI.value=oldvalue;}'>";
-		if (!empty($sl_vars['city_dropdown_label'])) {
-			$form.="<option value=''>".$sl_vars['city_dropdown_label']."</option>";
+		if (!empty($sl_city_dropdown_label)) {
+			$form.="<option value=''>".$sl_city_dropdown_label."</option>";
 		}
 		$form.="$cs_options</select></td>";
 	}
@@ -1439,7 +1858,7 @@ $form="
 	//$form.="<input name='addressInput3'><input type='hidden' value='1' name='name_search'></td>";
 	}*/
 	
-	$sl_radius_label=$sl_vars['radius_label'];
+	
 	$form.="
 	</tr><tr>
 	 <td id='radius_label'>".__("$sl_radius_label", SL_TEXT_DOMAIN)."</td>

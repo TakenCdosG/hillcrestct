@@ -1,33 +1,33 @@
 === WordPress Store Locator ===
 Contributors: viadat
-Tags: business locations, admin, dealer locator, dealer locater, store locator, post, store locater, mapping, mapper, google, google maps, locator, ajax, shop locator, shop finder, shortcode, location finder, places, widget, proximity, zipcode locator, geocoder, stores, plugin, maps, coordinates, latitude, longitude, posts, geo, geocoding, jquery, shops, page, zipcode, zip code, zip code search, store finder, address map, address location map, map maker, proximity search, map creator, mapping software, map tools, zip code locator, mapping tools, locator maps, map of addresses, map multiple locations, wordpress locator, zipcode search, store locator map
+Tags: business locations, admin, dealer locator, dealer locater, store locator, post, store locater, mapping, mapper, google, google maps, locator, ajax, shop locator, shop finder, shortcode, location finder, places, widget, proximity, zipcode locator, geocoder, stores, plugin, maps, coordinates, latitude, longitude, posts, geo, best google maps, geocoding, jquery, shops, page, zipcode, zip code, zip code search, custom google maps, store finder, address map, google map, address location map, map maker, proximity search, map creator, gmaps, mapping software, google map plugin, map tools, google maps, google map widget, zip code locator, mapping tools, locator maps, map of addresses, map multiple locations, wordpress locator, zipcode search, store locator map
 Requires at least: 3.3
-Tested up to: 4.0
-Stable tag: 3.18.1
+Tested up to: 4.2.2
+Stable tag: 3.68.1
 
 A WordPress-integrated map & location management interface. Quickly create store locator maps -- provides several top-level addon features
 
 == Description ==
-Power your site with this WordPress-integrated map making & location management system possessing mapping tools to create store locators, store finders, and other location address maps. Manage and display a few or thousands of your important stores, points of interest, or product locations anywhere on Earth using Google Maps. 
+Power your site with this WordPress-integrated map making & location management system possessing some of the best free mapping tools to create store locators, store finders, and other location address maps. Manage and display a few or thousands of your important stores, points of interest, or product locations anywhere on Earth using Google Maps. 
 
 Its strength is best seen in its flexibility to allow you to easily manage any number of locations from your WordPress admin interface and the several addons featuring top-level features that are available to further boost its capabilities. Also referred to as an address map, address location map, locator map, store finder, dealer locator (locater), shop finder, and zip code or zipcode search. 
 
 = Important Links =
 [All Downloads](http://www.viadat.com/store-locator/) | [Addons & Themes](http://www.viadat.com/products-page/) | [New Features & Updates Blog](http://www.viadat.com/category/store-locator/) | [Documentation](http://docs.viadat.com/)
 
-= New in Version 3 (Released March 20, 2014) =
+= New in Version 3 =
 * __New:__ [Individual Addons](http://www.viadat.com/products-page/early-access/) -- select addons to use as needed
 * __New:__ [Addons Platform Lite](http://docs.viadat.com/Addons_Platform_Lite) -- All the power of the full Addons Platform to power your addons, at a fraction of the price.
 * __New:__ [Super Geocoder](http://docs.viadat.com/Super_Geocoder) addon -- Avoid upgrading to more expensive hosting, or buying dedicated IP addresses -- successfully geocodes even when the default geocoder runs in Google's geocoding quotas (requires Store Locator v3.0+)
 * Now, in addition to using the shortcode `[STORE-LOCATOR]` on Pages & Posts, display on Store Locator in PHP page templates if needed (explained in changelog & [docs](http://docs.viadat.com)). 
 * Several new icons with shadowing; several current icons refreshed with shadowing for 3D effect on map
 
-= New in Version 2 (Released August 3rd, 2013) =
+= New in Version 2 =
 * __Now uses Google Maps V3__
 * Streamlined admin interface (more powerful yet much simplier)
 * Implemented much faster code (reduced database use {insert/update/delete} in code by 81.4% & applied fastest functions throughout)
 * __Admin Dashboard:__ Pull-out interface that provides you with the latest Store Locator news, installation & usage instructions, your website's hosting server information, available shortcode parameters to create multiple maps of specific groups of locations, general settings, and the activation interface for the Addons Platform & G1 (Generation 1) addons
-* __Availability of the Addons Platform:__ (more details in Other Notes)
+* __Availability of the [Addons Platform](http://docs.viadat.com/Addons_Platform):__
 * Ability to auto-locate your website visitors in order to show locations based on where visitor is currently located
 * 40+ new Google Maps country domains
 * New address map icons
@@ -51,39 +51,41 @@ Its strength is best seen in its flexibility to allow you to easily manage any n
 If you need additional features, enhance your store locator with addons & themes. [Upgrade Here](http://www.viadat.com/products-page/)
 
 = Addons Platform =
-The [Addons Platform](http://docs.viadat.com/Main_Page#Addons) provides you with a growing number of Generation 2 (G2; comes with the Addons Platform) addons & themes to save you time, provide you highly-advanced features, and impress your clients. Below is a list of the G2 addons available ([view documentation](http://docs.viadat.com/Main_Page#Addons) for more details on each):
+The [Addons Platform](http://docs.viadat.com/Addons_Platform) provides you with a growing number of Generation 2 (G2; comes with the Addons Platform) addons & themes to save you time, provide you highly-advanced features, and impress your clients. Below is a list of the G2 addons available ([view documentation](http://docs.viadat.com/Main_Page#Addons) for more details on each):
 
-* Categorizer
-* Multiple Mapper
-* Advanced Theme Manager
-* Location Pages
-* CSV Importer/Exporter G2
-* DB Importer G2
-* Multiple-Field Updater G2
-* Custom Field Manager
-* Super Geocoder
+* [Categorizer](http://docs.viadat.com/Categorizer)
+* [Multiple Mapper](http://docs.viadat.com/Multiple_Mapper)
+* [Advanced Theme Manager](http://docs.viadat.com/Advanced_Theme_Manager)
+* [Location Pages](http://docs.viadat.com/Location_Pages)
+* [CSV Importer/Exporter G2](http://docs.viadat.com/CSV_Importer_Exporter_G2)
+* [DB Importer G2](http://docs.viadat.com/DB_Importer_G2)
+* [Multiple-Field Updater G2](http://docs.viadat.com/Multiple_Field_Updater_G2)
+* [Custom Field Manager](http://docs.viadat.com/Custom_Field_Manager)
+* [Super Geocoder](http://docs.viadat.com/Super_Geocoder)
 * "U.L.S" (bonus addon - [Addons Platform](http://docs.viadat.com/Addons_Platform) users & [Early Access](http://www.viadat.com/products-page/early-access/) members)
 * "F.T" (bonus addon)
 * "S.S" (bonus addon)
 
 All addons available previous to Store Locator 2.0 are now called "G1" (Generation 1) addons, and can still be used, with or without the Addons Platform installed (if you purchased an addon prior to Store Locator 2.0, re-download it via the emailed link of your purchase and install a slighty updated version that allows it to work with 2.0).  
 
-= Special Thanks to Translators (Email new translations to info{at}viadat{dot}com) =
-* Simon Schmid: German (Deutsche), Italian (Italiano), Czech (Cestina), French (Francais)
-* Gwyn Fisher: Spanish (Espanol - es_MX)
-* [Josef Klimosz](http://pepa.rudice.eu/): Czech (Cestina)(updated)
-* [Willem-Jan Korsten](http://www.ezhome.nl/): Dutch (Nederlands)
-* [Marcelo V. Araujo](http://www.mgerais.net/): Portuguese (Portugues)
-* [Reno](http://www.creaprime.fr): French (Francais)(updated)
-* Alf Vidar Snaeland: Norwegian (Norsk)
-* Laifeilim: Simplified Chinese
-* Victor Ukhimenko: Russian
-* [Rene](http://wpwebshop.com): Turkish
-* [Outshine Solutions](http://outshinesolutions.com): Hindi
-* [Diana S.](http://www.wpcouponshop.com): Serbian
-* [Esa Immonen](http://www.probeautyscandinavia.com): Finnish
-* Quickloop: Romanian
-* [Andrew Kurtis - WebHostingHub](http://www.webhostinghub.com/): Spanish (Espanol - es_ES) 
+= Special Thanks to Translators (Email new translations to info {at} viadat {dot} com) =
+* de_DE	| German (Deutsche) - Simon Schmid 
+* it_IT	| Italian (Italiano) - Simon Schmid
+* cs_CZ	| Czech (Čeština) - Simon Schmid; [Josef Klimosz](http://pepa.rudice.eu/) (updated)
+* fr_FR	| French (Français) - Simon Schmid; [Reno](http://www.creaprime.fr) (updated)
+* es_MX	| Mexican Spanish (Español) - Gwyn Fisher
+* nl_NL	| Dutch (Nederlands) - [Willem-Jan Korsten](http://www.ezhome.nl/)
+* pt_BR	| Brazilian Portuguese (Português do Brasil) - [Marcelo V. Araújo](http://www.mgerais.net/)
+* nb_NO	| Norwegian (Norsk bokmål) - Alf Vidar Snæland
+* zh_CN	| Simplified Chinese (简体中文) - Laifeilim
+* ru_RU	| Russian (Русский) - Виктор Юхименко
+* tr_TR	| Turkish (Türkçe) - [Rene](http://wpwebshop.com)
+* hi_IN	| Hindi (हमानक हिन्दी) - [Outshine Solutions](http://outshinesolutions.com)
+* sr_RS	| Serbian (Српски језик) - [Diana S.](http://www.wpcouponshop.com)
+* fi_FI	| Finnish (Suomi) - [Esa Immonen](http://www.probeautyscandinavia.com)
+* ro_RO	| Romanian (Română) - Quickloop
+* es_ES	| Spanish (Español) - [Andrew Kurtis - WebHostingHub](http://www.webhostinghub.com/)
+* zh_TW	| Traditional Chinese (繁體中文) - [Ronnie Wu](http://www.primagefactory.com/howto/)
 
 ([How to submit your translation](http://www.viadat.com/2009/02/store-locator-translation-files-wanted-you-might-just-get-something-nice-in-return/) | If you provide your web address, we'll link back to you)
 
@@ -127,6 +129,245 @@ All addons available previous to Store Locator 2.0 are now called "G1" (Generati
 9. Examples of the Store Locator's Basic and Upgraded User Interfaces
 
 == Changelog ==
+= 3.68.x =
+* Admin notice update - directory advisory for secured installs
+* New data filters - MapDesigner
+* MapDesigner functionality update to create separate layers for data & inputs' displays - JS output zones/objects #2
+* JS library update - with security fix implemented
+
+= 3.66 =
+* [addon] [Super Geocoder](http://docs.viadat.com/Super_Geocoder) - update: Control over display of status / progress panel based on type of operation
+* [addon] [Super Geocoder](http://docs.viadat.com/Super_Geocoder) - update: fix to make sure only active when submitting location vs other form submissions
+* MapDesigner functionality update to create separate layers for data & inputs' displays - JS output zones/objects
+
+= 3.65 =
+* MapDesigner functionality update to create separate layers for data & inputs' displays - JS output zones/objects
+* Admin notice - directory / folder security advisory for select installs
+
+= 3.64 =
+* Improved MapDesigner functionality - JS output zones/controllers
+* MapDesigner functionality update to create separate layers for data & inputs' displays - Data output zone
+
+= 3.63 =
+* MapDesigner functionality update to create separate layers for data & inputs' displays - JS output zones/controllers
+* [update] [Addons Platform](http://docs.viadat.com/Addons_Platform): easier to use 3rd-tier navigation
+* [update] [Addons Platform Lite](http://docs.viadat.com/Addons_Platform_Lite): easier to use 3rd-tier navigation
+
+= 3.62 =
+* [update] [Addons Platform](http://docs.viadat.com/Addons_Platform): modifying default files permission granting upon direct installation for few notices
+* [addon] [Categorizer](http://docs.viadat.com/Categorizer) - update: improvement to Tag filter's tag handling and output
+* Updates to structural files that had been triggering messages in certain users' installs
+
+= 3.61 =
+* [addon] [CSV Importer/Exporter G2](http://docs.viadat.com/CSV_Importer_Exporter_G2) - update: Improved CSV file creation process
+* [addon] [CSV Importer/Exporter G2](http://docs.viadat.com/CSV_Importer_Exporter_G2) - update: No longer needs to create temp file on server, thus no server / directory permissions issues
+* [addon] [CSV Importer/Exporter G2](http://docs.viadat.com/CSV_Importer_Exporter_G2) - update: Handles fields, such as description, that can have line breaks
+* [addon] [CSV Importer/Exporter G2](http://docs.viadat.com/CSV_Importer_Exporter_G2) - update: Added charset encoding to exported CSV which should have largest character set available
+* [addon] [CSV Importer/Exporter G2](http://docs.viadat.com/CSV_Importer_Exporter_G2) - update: Slight CSV file output MIME type update
+* MapDesigner functionality update to create separate layers for data & inputs' displays - Prelim: Data, Scripts, Temp. output zones
+
+= 3.60 =
+* [addon] [Categorizer](http://docs.viadat.com/Categorizer) - update: option to omit tags from tags filter
+* [addon] [Categorizer](http://docs.viadat.com/Categorizer) - update: "Display As" option for tags filter
+* [addon] [Categorizer](http://docs.viadat.com/Categorizer) - update: Categorizer Options page re-organization
+* Added Bolivia, Ecuador, Guatemala, Guyana, Paraguay, Peru, Uruguay
+
+= 3.59 =
+* [addon] [Categorizer](http://docs.viadat.com/Categorizer) - update: empty params properly filtered out from SQL query
+* [addon] [Categorizer](http://docs.viadat.com/Categorizer) - update: dropdown menu option for tags filtering
+
+= 3.58 =
+* [addon] [Super Geocoder](http://docs.viadat.com/Super_Geocoder) - update: Updated addon output, in order to not interfere with other addons or functions printing to the same hook
+* [addon] [Categorizer](http://docs.viadat.com/Categorizer) - update: case-insensitive merging of tags from locations
+* FAQ updates
+
+= 3.57 =
+* Admin notice check interval adjustment - file permissions
+* [addon] [Categorizer](http://docs.viadat.com/Categorizer) - update: search filtering logic updates
+* [addon] [Super Geocoder](http://docs.viadat.com/Super_Geocoder) - update: logic updates during initial importing and status display update
+
+= 3.56.x =
+* Javascript output update - removed icon dimension definitions (no longer needed)
+* map_type variable fix (v3.56.1 - rollback)
+* v3.56.2 - 2nd map_type variable adjustment - removed clashing variable
+* v3.56.2 - MapDesigner and Store Locator interface labels & messages processing update
+
+= 3.55 =
+* MapDesigner functionality update to create separate layers for data & inputs' displays - JS output zone
+* [addon] [Super Geocoder](http://docs.viadat.com/Super_Geocoder) - update: Re-implementing single-func version
+* [addon] [Super Geocoder](http://docs.viadat.com/Super_Geocoder) - update: Script / browser caching update
+
+= 3.54 =
+* [addon] [Super Geocoder](http://docs.viadat.com/Super_Geocoder) - update: Database usage improvement -- cut DB load dramatically when updating location data (90%+ improvement)
+* [addon] [Super Geocoder](http://docs.viadat.com/Super_Geocoder) - update: Adjusted feedback usage, better status information display
+* [addon] [Super Geocoder](http://docs.viadat.com/Super_Geocoder) - update: Logic improvements for significant increase in success rate
+* [addon] [Super Geocoder](http://docs.viadat.com/Super_Geocoder) - update: Using multi-func version of geo (vs single-func version, until smoother)
+
+= 3.53 =
+* [addon] [Super Geocoder](http://docs.viadat.com/Super_Geocoder) - update: highly-improved looping and feedback usage during multi-location processing
+* Important admin dashboard notices improvement and updates
+* WP compatibility bump to v4.2
+
+= 3.52 =
+* [addon] [Super Geocoder](http://docs.viadat.com/Super_Geocoder) - update: functionality & efficiency improvements / updates
+* MapDesigner data - JS output re-organization
+
+= 3.51 =
+* Distance measurements/units text now translatable
+* New functionality clean-up
+
+= 3.50 =
+* [addon] [Super Geocoder](http://docs.viadat.com/Super_Geocoder) - update: Variable scope update for applying user settings
+* Location management filtering update -- needed by [CSV Importer/Exporter G2](http://docs.viadat.com/CSV_Importer_Exporter_G2) to properly show only specific locations during re-geocoding process
+
+= 3.49 =
+* [addon] [Super Geocoder](http://docs.viadat.com/Super_Geocoder) - update: Timing settings now properly applied when re-geocoding via the [CSV Importer/Exporter](http://docs.viadat.com/CSV_Importer_Geocoder_Exporter_XML_Exporter) or [CSV Importer/Exporter G2](http://docs.viadat.com/CSV_Importer_Exporter_G2)
+* MapDesigner functionality update to create separate layers for data & inputs' displays - Labels input zone + JS & Template output zones
+* Prelim. compatibility
+* Update to MapDesigner data display functionality, more efficient data filtering
+
+= 3.48.1 =
+* Update to admin notice logic for files in 'addons' directory
+* MapDesigner functionality update to create separate layers for data & inputs' displays - data initialization functionality
+
+= 3.47.x =
+* [update] [Addons Platform](http://docs.viadat.com/Addons_Platform): Plugged into updated WP admin toolbar functionality to display additional Store Locator links in toolbar menu in addition to the WP admin side menu & Store Locator's horizontal navigation
+* [update] [Addons Platform Lite](http://docs.viadat.com/Addons_Platform_Lite): Plugged into updated WP admin toolbar functionality to display additional Store Locator links in toolbar menu in addition to the WP admin side menu & Store Locator's horizontal navigation
+* [addon] [CSV Importer/Exporter](http://docs.viadat.com/CSV_Importer_Geocoder_Exporter_XML_Exporter) - update: Improved CSV file creation process
+* [addon] [CSV Importer/Exporter](http://docs.viadat.com/CSV_Importer_Geocoder_Exporter_XML_Exporter) - update: No longer needs to create temp file on server, thus no server / directory permissions issues
+* [addon] [CSV Importer/Exporter](http://docs.viadat.com/CSV_Importer_Geocoder_Exporter_XML_Exporter) - update: Handles fields, such as description, that can have line breaks
+* [addon] [CSV Importer/Exporter](http://docs.viadat.com/CSV_Importer_Geocoder_Exporter_XML_Exporter) - update: Added charset encoding to exported CSV which should have largest character set available
+* [addon] [CSV Importer/Exporter](http://docs.viadat.com/CSV_Importer_Geocoder_Exporter_XML_Exporter) - update: Slight CSV file output MIME type update
+* Prefixed functionality used in MapDesigner for choosing map dimensions
+* v3.47.1 - Dashboard update to Activation Keys module for addons. Only displays validation fields if an valid addon folder(s) are properly uploaded to the '/uploads/sl-uploads/addons/' directory
+* v3.47.2, v3.47.3 - New admin notice: instructions to move files placed directly in addons directory to their addons folder
+
+= 3.46.x =
+* MapDesigner functionality update to create separate layers for data & inputs' displays - data saving functionality
+
+= 3.45.x =
+* MapDesigner functionality update to create separate layers for data & inputs' displays - Dimensions & Design input zones
+* Interface design updates
+* v3.45.1 - functionality update
+
+= 3.44 =
+* MapDesigner functionality update to create separate layers for data & inputs' displays - Defaults & Labels input zones
+
+= 3.43 =
+* Remote data interface updates for WP side navigation & SL top navigation
+* Data retrieval functionality improvement
+* Further rewrite/improvement to Store Locator script-loading logic, better fine control
+
+= 3.42 =
+* Additional JS & CSS script loading options for further specifying load pages when selective loading is chosen for more fine control
+* Improved Store Locator script-loading logic
+* New texts wrapped for localization/translation
+
+= 3.41 =
+* Update to remote data retrieval interface for base Store Locator, [Addons Platform](http://docs.viadat.com/Addons_Platform) / [Addons Platform Lite](http://docs.viadat.com/Addons_Platform_Lite) update notifications & information
+* Improvement & re-instatement of notification bubble, update count, and description(s) for Store Locator label in WordPress's main admin menu
+
+= 3.39 =
+* [theme] Debonair Theme - update: Multiple CSS updates to search form elements which had prevented proper inline display in browsers other than Firefox
+* [theme] Debonair Theme - update: Added descriptive header in stylesheet
+* Important update to base Store Locator CSS -- prevents distortion/removal of Google Map elements & images caused by some WordPress theme's stylesheets
+
+= 3.38.x =
+* Added update notification bubble to Store Locator's navigation within WordPress's admin menu; displays number of updates available, along with description 
+* Wrapped new texts for translation
+* v3.38.1, v.3.38.2 - updates to admin menu notification bubble
+
+= 3.37 =
+* [update] [Addons Platform](http://docs.viadat.com/Addons_Platform)
+* [update] [Addons Platform Lite](http://docs.viadat.com/Addons_Platform_Lite) 
+* Added 3rd-tier sub-navigational links to horizontal navigation bar.  Allows user to reach individual addon's settings page in fewer clicks. Displays links when hovering over 'Settings' link under 'Addons' tab for all addons that are currently turned on (requires Store Locator v3.23.1+ to take advantage of 3rd-tier nav functionality)
+
+= 3.36.1 =
+* MapDesigner settings re-organization of variables for user-facing interface presentation
+* Update in sync with website updates
+* New/Updated string labels wrapped for international translations capability
+
+= 3.35 =
+* Hours, Phone, Fax, and Email labels that appear in location markers' infowindows can now be modified via MapDesigner settings
+
+= 3.34 =
+* Important bugfixes/patches -- please update
+* Location-data retrieval updates & improvements
+
+= 3.33.x =
+* Modified Store Locator database interfacing functionality back to default
+* Store Locator template modification / re-organization or functionality, variables
+* v3.33.1 - Pull-out dashboard & Interface updates to match with some website updates
+
+= 3.32.1 =
+* User-facing interface update
+* Initial-condition layout improvement for new users using default display options & for scenario where user has city dropdown on, but no full cities to display, search input field displays in full width
+
+= 3.31 =
+* Update to db prefix definition for better portability during site transfers / migrations
+* Base plugin & [addon] [Location Pages](http://docs.viadat.com/Location_Pages) - update: Accented/foreign characters translation to alphabetical equivalent updated & improved
+
+= 3.30 =
+* Added data filtering hook to Store Locator database interfacing functionality to allow external modification
+* New strings wrapped / prepared for translation
+
+= 3.29.x =
+* [addon] [CSV Importer](http://docs.viadat.com/CSV_Importer_Geocoder_Exporter_XML_Exporter) - update: notice for suggested modifications
+* [addon] [CSV Importer G2](http://docs.viadat.com/CSV_Importer_Exporter_G2) - update: notice for suggested modifications
+* Notices only display for certain CSV Importer (original / G2) users
+* v3.29.1 - additional logic / database validation check to determine whether to display mod notification
+
+= 3.28 =
+* News & Upgrades page updates
+* Version-tested update
+
+= 3.27 =
+* [Addons Platform](http://docs.viadat.com/Addons_Platform) Update notifier re-instated
+* Addons Platform Update notifier data backend improved. Query previously had some missing logic
+* Store Locator notifications updates
+* Debugging info update
+
+= 3.26.x =
+* New MapDesigner option for selective or all-pages JS & CSS script loading, helpful for those with map or CSS style loading issues on a few pages
+* Translator credits / names updates
+* MapDesigner map language dropdown update  
+* v3.26.1 - small update/fix: 'scripts_load' notice for seen by a few for new jS/CSS loading option
+
+= 3.25 =
+* In-CSS custom styling instructions notice
+* FAQs update
+* [Addons Platform](http://docs.viadat.com/Addons_Platform) notifier paused, re-planned. Will show once update occurs again.
+
+= 3.24 =
+* Fix allowing HTTPS-prefixed hyperlinks to display correctly in admin & user interfaces
+* CSS stylesheet caching update on admin & user-interface stylesheets
+
+= 3.23.1 =
+* 3rd-tier navigation preparation for even more friendly UI.  Reduces clicks to reach deeper pages.  Will also speed usage once [Addons Platform](http://docs.viadat.com/Addons_Platform) (Full / LIte) receives updates to maximizes navigational levels.
+* Navigational structure enhancements
+* Admin CSS updates / enhancements
+
+= 3.22.x =
+* Added Traditional Chinese (zh_TW) translation (thank you [Ronnie Wu](http://www.primagefactory.com/howto/)). Copy translation files into `/wp-content/uploads/sl-uploads/languages/`. WP 4.0+ users, go to General > Settings > "Site Language" option to choose language.  Pre-WP 4.0 users, set the 'WPLANG' constant in 'wp-config.php' to the proper language code ('zh_TW', for example) in order to choose language.
+* Translator credits - layout update in readme, better readability
+* v3.22.1 - translation credits/thanks & foreign language names updated to proper spellings
+* v3.22.1 - [Addons Platform](http://docs.viadat.com/Addons_Platform) update notifier 12-hr information caching for less filesystem / data load for more efficient admin pages loading
+
+= 3.21 =
+* [Addons Platform](http://docs.viadat.com/Addons_Platform) update notifier -- displays in navigation, to keep Addons Platform (Full & Lite) users aware when newer versions are available for most up-to-date functionality
+
+= 3.20.x =
+* Admin News page updates
+* Interface improvements
+* v3.20.1 - Finally, much smoother admin pull-out Dashboard appearance & operation in all browsers
+* v3.20.1 - Admin CSS updates
+
+= 3.19.x =
+* Interface updates (v3.19.2 - improved status messages for users when adding locations)
+* Updates to latest notices & text instructions / directions, wrapping for translation-capability (v3.19.1 - translation strings update for line breaks)
+* Increase number locations shown by default due to several inquiries
+* [addon] [Categorizer](http://docs.viadat.com/Categorizer) - update: activating display of Store Locator JS & CSS shows for page(s) containing Category Search Form
+
 = 3.18.x =
 * Updated navigation functionality / flexibility for adding navigational elements
 * Reduced database load coming from navigational header related to notices
@@ -270,13 +511,6 @@ All addons available previous to Store Locator 2.0 are now called "G1" (Generati
 * Uploads directory creation class updated (to avoid collisions with other plugins with the same library)
 * Google Maps API Javascript - `&` in querystring updated to `&amp;` for XHTML validation
 
-= 2.18 =
-* Front-end interface CSS enhancement
-* New Store Locator admin menu for convenient access from WordPress Admin Toolbar
-* Modular & Pull-out Admin Dashboard updates
-* WP Admin dashboard news bugfix
-* Version bump: WP 3.3 (due to menu in WP Admin Toolbar)
-
 = 2.15.x =
 * Several Store Locator admin updates due to significant WP admin interface changes introduced in WordPress v3.8.  Elements fixed include:
 * Pull-Out Dashboard & Modules
@@ -285,30 +519,6 @@ All addons available previous to Store Locator 2.0 are now called "G1" (Generati
 * Addons Platform Settings page
 * Admin CSS fixes
 * Still maintains good appearance for pre-WP v3.8 installs also
-
-= 2.12.x =
-* Fixed issue causing 'geo_success' warning in Firefox. Better auto-location for Firefox browsers now.
-* Addon/Theme Updates:
-* [addon] [Categorizer](http://docs.viadat.com/Categorizer) - updates: category search form; readme file
-
-= 2.11.x =
-* Faster environment load
-* Added debugging abilities
-* Addon/Theme Updates:
-* [addon] [Addons Platform](http://docs.viadat.com/Addons_Platform) - update: navigation flexibility, admin display
-* [addon] [Custom Field Manager](http://docs.viadat.com/Custom_Field_Manager) - enhancement/fix: prefixing when adding new custom field; default db field type filled in
-* [addon] [Location Pages](http://docs.viadat.com/Location_Pages) - enhancement: new display filtering feature
-* [addon] [Advanced Theme Manager](http://docs.viadat.com/Advanced_Theme_Manager) - enhancement: new display filtering feature
-* [theme] Compact RIght - custom search button
-
-= 2.6.x =
-* Added Romanian translation (thank you Quickloop). Copy translation into `/wp-content/uploads/sl-uploads/languages/` to use
-* Store Locator CSS updates
-* v1.x -> v2.x transition updates/improvements
-
-= 2.5.x =
-* Added Finnish translation (Thank you [Esa Immonen](http://www.probeautyscandinavia.com)). Copy translation into `/wp-content/uploads/sl-uploads/languages/` to use
-* Store Locator CSS updates/improvements
 
 = 2.0 =
 * Fully Uses Google Maps API V3 -- both for displaying maps, geocoding locations, and performing reverse geocoding.  Transition from V2 is automatic and seamless -- no extra steps on your part.
@@ -325,6 +535,13 @@ All addons available previous to Store Locator 2.0 are now called "G1" (Generati
 == Frequently Asked Questions ==
 Make sure to check http://docs.viadat.com for the most updated information
 
+= My Store Locator seems to all of a sudden not display locations / My addon isn't validating -- just a spinning image in the pull-out Dashboard =
+* Are you 'hardening' / blocking your 'wp-content' directory with a security plugin, php.ini, robots.txt or .htaccess (sometimes wp-content/.htaccess)?  Blocking wp-content functionality completely will disrupt proper Store Locator & addon operation.
+* For Store Locator not displaying locations:  when on your Store Locator page, turn on Firefox Firebug or Google Chrome Developer Tools, and view Console > All.  Oftentimes you may see 'Multiple instances of Google API' error, which is caused by another plugin or your theme including it a 2nd time, or you will see a number of other JavaScript errors that your website is outputing (usually from other plugins) that can affect the map's display -- resolving these usually fixes most problems. 
+
+= Can I display {certain information} in search results? =
+* Yes, the [Advanced Theme Manager addon](http://docs.viadat.com/Advanced_Theme_Manager), which comes with a complimentary theme, called 'SL Starter'. Copy 'sl-starter' folder from your 'advanced-theme-manager' folder into 'wp-content/uploads/sl-uploads/themes/', select SL Starter under 'Design' section in MapDesigner, and modify its templates under Store Locator > Addons > Settings > Advanced Theme Manager as needed
+
 = I'm getting 'failed to geocode' error messages -- why? =
 * Have you updated your Store Locator? [It's mandatory to be using Store Locator v2.x](http://www.viadat.com/2013/10/important-update-store-locator-v2-uses-google-maps-api-v3) if you want anything to work
 * Since Store Locator v3.0, the [Super Geocoder](http://docs.viadat.com/Super_Geocder) addon geocodes locations not geocoding due to reaching Google geocoding quota limits (based on your website's IP address)
@@ -338,7 +555,7 @@ Make sure to check http://docs.viadat.com for the most updated information
 = Is this plugin USA-only? / Does it support locations in multiple countries? =
 This plugin in not USA-only, and yes, it supports locations all over the world -- as long as the Google Maps API properly supports it:
 
-* On the MapDesigner admin page (v2.x), you can select your main country. This gives the Google Maps API a region to focus on
+* On the MapDesigner admin page (v2.x+), you can select your main country. This gives the Google Maps API a region to focus on
 * [For non-USA addresses, use the 'State' field for the Country / Region](http://docs.viadat.com/Main_Page#How_do_I_enter_non-US_addresses.3F) containing the city & location you are submitting (regions, such as country, province, territory, arrondissement, protectorate, S.A.R, state, etc.). When you use any of these types of regions, the Google Maps API will still geocode (give coordinates) to them
 * [It has been translated](http://docs.viadat.com/Main_Page#Special_Thanks_to_Translators) into 15+ languages -- if you would like to [provide a new or updated translation](http://www.viadat.com/2009/02/store-locator-translation-files-wanted-you-might-just-get-something-nice-in-return/), please do so
 
@@ -353,7 +570,7 @@ This plugin in not USA-only, and yes, it supports locations all over the world -
 * No. You won't lose them. And make sure to re-select your home & end map markers in MapDesigner after renaming
 
 = How can I have more than one Store Locator map on my website? =
-* The [Multiple Mapper addon](http://docs.viadat.com/Multiple_Mapper)
+* Yes, the [Multiple Mapper addon](http://docs.viadat.com/Multiple_Mapper)
 
 = I would like to show different icons for different locations -- can that be done? =
 * Yes, the [Categorizer addon](http://docs.viadat.com/Categorizer)
@@ -366,7 +583,8 @@ Since Store Locator v2.x, which uses Google Maps API v3, it is not required like
 
 = How Do I use a Translation? =
 1. Place .po & .mo translation files into the `/wp-content/uploads/sl-uploads/languages` folder, and then change the `WPLANG` constant to the corresponding language abbreviation in the `wp-config.php` file in the root wordpress directory
-2. Example: to use French, make sure `lol-fr_FR.po` & `lol-fr_FR.mo` are in the `/wp-content/uploads/sl-uploads/languages` folder, then make sure to update the code in `wp-config.php` to read `define('WPLANG', 'fr_FR')`, and Voila, Il sera en francais (It will be in French).
+2. Example - using French (pre-WP 4.0): make sure `lol-fr_FR.po` & `lol-fr_FR.mo` are in the `/wp-content/uploads/sl-uploads/languages` folder, then make sure to update the code in `wp-config.php` to read `define('WPLANG', 'fr_FR')`, and Voila, Il sera en francais (It will be in French).
+3. Example - using French (WP 4.0+):  go to General > Settings > "Site Language" option to choose French language (may need to first install language pack)
 
 = Which countries is this compatible with? =
 This plugin is compatible with all countries that have Google Map domains. This includes:
@@ -407,6 +625,7 @@ This plugin is compatible with all countries that have Google Map domains. This 
 * Hungary
 * India
 * Indonesia
+* Israel
 * Italy
 * Japan
 * Kenya

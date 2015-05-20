@@ -81,6 +81,8 @@ if(file_exists(SL_ADDONS_PATH."/csv-xml-importer-exporter/re-geo-query.php")){
 	include(SL_ADDONS_PATH."/csv-xml-importer-exporter/re-geo-query.php");
 }
 
+if (function_exists("do_sl_hook")) {do_sl_hook("sl_where_clause_filter");} // 4/20/15, 12:15a - v3.50 - needed here to actually filter WHERE clause displaying locations on Locations > Manage page. Should've been here since v2.0
+
 //for search links
 	$numMembers=$wpdb->get_results("SELECT sl_id FROM ".SL_TABLE." $where");
 	$numMembers2=count($numMembers); 

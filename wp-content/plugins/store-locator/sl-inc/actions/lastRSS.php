@@ -46,7 +46,7 @@ class lastRSS {
 	// Private variables
 	// -------------------------------------------------------------------
 	var $channeltags = array ('title', 'link', 'description', 'language', 'copyright', 'managingEditor', 'webMaster', 'lastBuildDate', 'rating', 'docs');
-	var $itemtags = array('title', 'link', 'description', 'author', 'category', 'comments', 'enclosure', 'guid', 'pubDate', 'source');
+	var $itemtags = array('title', 'link', 'description', 'author', 'category', 'comments', 'enclosure', 'guid', 'pubDate', 'source', 'image');
 	var $imagetags = array('title', 'url', 'link', 'width', 'height');
 	var $textinputtags = array('title', 'description', 'name', 'link');
 
@@ -186,7 +186,7 @@ class lastRSS {
 			$rss_items = $items[2];
 			$i = 0;
 			$result['items'] = array(); // create array even if there are no items
-			foreach($rss_items as $rss_item) {
+			foreach($rss_items as $rss_item) { //print $rss_item;
 				// If number of items is lower then limit: Parse one item
 				if ($i < $this->items_limit || $this->items_limit == 0) {
 					foreach($this->itemtags as $itemtag) {

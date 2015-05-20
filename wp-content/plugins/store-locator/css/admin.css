@@ -190,7 +190,7 @@ pre {
     background-image: -moz-linear-gradient(center bottom , #5589AA, #619BBB);
 }
 .top_sub_nav {
-	/*padding:px;*/ height:33px;
+	/*padding:px;*/ min-height:33px;
 	border-bottom: solid #5589AA 1px;
 	background-color: #5589AA;
 	overflow: hidden;
@@ -234,13 +234,31 @@ pre {
 	/*needed only for drop-down*/
 	/*background-color:#21759B;*/
 }
-.top_sub_nav a#current_sub_link {
+.top_sub_nav a.current_sub_link {
 	font-weight: bold;
 	text-shadow: 1px 1px 0.2em #333;
 	/*padding:4px;*/
 }
 .sub_nav_link {
 	background-color:maroon; padding:3px; color:white; font-weight:bold; text-decoration:none; border-radius:3px;
+}
+#level3_nav {
+	z-index:9999;
+	background-color:white; 
+	border: solid #21759B 2px; 
+	padding: 0 7px 14px 7px; 
+	border-radius: 0 0 7px 7px;
+	box-shadow: 10px 10px 25px #888;
+}
+#level3_nav a {
+	display: block; 
+	color: #21759B; 
+	font-size: 12px;
+}
+#level3_nav a:hover {
+	text-shadow: 1px 1px 0.2em #333;
+	color:white;
+	background-color:#21759B;
 }
 /*---- End - Top Navigation Tabs ----*/
 
@@ -297,6 +315,7 @@ pre {
 #slidecontainer {
 	display:none;
 	background-color:white;
+	margin: 7px;
 }
 #licenseForm td {
     padding-left: 2px;

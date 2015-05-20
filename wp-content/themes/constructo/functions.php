@@ -668,7 +668,7 @@ function wpcf7_custom_form_action_url($url)
  */
 global $fbaddr,$twaddr,$ptaddr,$gpaddr,$beaddr;
 
-$twaddr = get_field('twaddr','5');
+/*$twaddr = get_field('twaddr','5');
 $ptaddr = get_field('ptaddr','5');
 $gpaddr = get_field('gpaddr','5');
-$beaddr = get_field('beaddr','5');
+$beaddr = get_field('beaddr','5');*/

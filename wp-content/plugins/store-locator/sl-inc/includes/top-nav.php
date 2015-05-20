@@ -31,12 +31,13 @@ foreach ($sl_top_nav_links as $key=>$value) {
 	if (preg_match("@$_GET[page]@",$key)){
 		//$style_var .= "sl_top_nav_init(tsn_link_arr);\n";
 	}
-print "<li class=\"top_nav_li $sl_top_nav_hash[$ctr]\" id=\"$current_var\"><a href=\"$key\"  id='__$sl_top_nav_hash[$ctr]' class='top_nav_a' style=''>$value</a></li>\n";
+	//top-level nav
+	print "<li class=\"top_nav_li $sl_top_nav_hash[$ctr]\" id=\"$current_var\"><a href=\"$key\"  id='__$sl_top_nav_hash[$ctr]' class='top_nav_a' style=''>$value</a></li>\n";
 
 	$tsn_links_js.="tsn_link_arr['$sl_top_nav_hash[$ctr]']='';";
 
 	if (!empty($sl_top_nav_sub_links[$sl_top_nav_hash[$ctr]])) {
-		$cur = "";
+		$cur = ""; $ctr2=0;
 		foreach ($sl_top_nav_sub_links[$sl_top_nav_hash[$ctr]] as $key2=>$value2) {
 			if (preg_match("@$sl_top_nav_hash[$ctr]@", $_SERVER['REQUEST_URI'])) {
 				if (empty($_GET['pg']) && !preg_match("@&pg@", $value2)) {
@@ -46,9 +47,18 @@ print "<li class=\"top_nav_li $sl_top_nav_hash[$ctr]\" id=\"$current_var\"><a hr
 				}  else {
 					$cur = "";
 				}
-				$tsn_links_output.="<a href='$value2' id='$cur'>$key2</a>";
+				$tsn_links_output.="<a href='$value2' class='$cur'>$key2</a>";
 			}
-			$tsn_links_js.="tsn_link_arr['$sl_top_nav_hash[$ctr]']+=\"<a href='$value2' id='$cur'>$key2</a>\";";
+			//sub-nav
+			$tsn_links_js .= "tsn_link_arr['$sl_top_nav_hash[$ctr]']+=\"<a href='$value2' class='top_nav_sub_a $cur' id='$sl_top_nav_hash[$ctr]_$ctr2' onmouseover='level3_links(this, &quot;__$sl_top_nav_hash[$ctr]&quot;, &quot;show&quot;)' onmouseout='level3_links(this, &quot;__$sl_top_nav_hash[$ctr]&quot;, &quot;hide&quot;)'>$key2</a>\";";
+				if (!empty($sl_top_nav_sub2_links[$value2])) {
+					$tsn_links_js.= "tsn_link_arr['$sl_top_nav_hash[$ctr]_$ctr2']='';";
+					foreach ($sl_top_nav_sub2_links[$value2] as $level3_title => $level3_url) {
+						//3rd-level nav
+						$tsn_links_js.= "tsn_link_arr['{$sl_top_nav_hash[$ctr]}_{$ctr2}']+=\"<a href='$level3_url' class='' id=''>$level3_title</a>\"; " ;
+					}
+				}
+			$ctr2++;
 		}
 	}
 	$ctr++;
@@ -64,13 +74,19 @@ if (empty($thnks_ct) || $thnks_ct<=20){
 $tsn_links_js.="jQuery(document).ready(function(){ {$style_var} });\n";
 $tsn_links_js.="</script>";
 
-//update plugin link creation
+#Update plugin link creation
 $sl_vars['sl_latest_version_check_time'] = (empty($sl_vars['sl_latest_version_check_time']))? date("Y-m-d H:i:s") : $sl_vars['sl_latest_version_check_time'];
 if (empty($sl_vars['sl_latest_version']) || (time() - strtotime($sl_vars['sl_latest_version_check_time']))/60>=(60*12)){ //12-hr db caching of version info
-	$plugin_install_url = ABSPATH."wp-admin/includes/plugin-install.php"; //die($plugin_install_url);
-	include_once($plugin_install_url);
-	$sl_api = plugins_api('plugin_information', array('slug' => 'store-locator', 'fields' => array('sections' => false) ) ); 
+	/*if (!function_exists("plugins_api")) {
+		$plugin_install_url = ABSPATH."wp-admin/includes/plugin-install.php"; //die($plugin_install_url);
+		include_once($plugin_install_url);
+	}
+	$sl_api = plugins_api('plugin_information', array('slug' => 'store-locator', 'fields' => array('sections' => false) ) ); */
 	/*need 'true' if trying to include changelog info in future*/
+	$sl_api = sl_remote_data(array(
+			'host' => 'api.wordpress.org',
+			'url' => '/plugins/info/1.0/store-locator',
+			'ua' => 'none'), 'serial');
 	//var_dump($sl_api); die();
 	$sl_latest_version = $sl_api->version; //$sl_version="2.6";
 	//$sl_latest_changelog = $sl_api->sections['changelog']; //var_dump($sl_latest_changelog); die();
@@ -86,19 +102,51 @@ if (strnatcmp($sl_latest_version, $sl_version) > 0) {
 	$sl_plugin = SL_DIR . "/store-locator.php";
 	$sl_update_link = admin_url('update.php?action=upgrade-plugin&plugin=' . $sl_plugin);
 	$sl_update_link_nonce = wp_nonce_url($sl_update_link, 'upgrade-plugin_' . $sl_plugin);
-	$sl_update_msg = "&nbsp;&gt;&nbsp;<a href='$sl_update_link_nonce' style='color:#900; font-weight:bold;' onclick='confirmClick(\"You will now be updating to Store Locator v$sl_latest_version, click OK or Confirm to continue.\", this.href); return false;'>Update to $sl_latest_version</a>";
+	$sl_update_msg = "&nbsp;&gt;&nbsp;<a href='$sl_update_link_nonce' style='color:#900; font-weight:bold;' onclick='confirmClick(\"".__("You will now be updating to Store Locator", SL_TEXT_DOMAIN)." v$sl_latest_version, ".__("click OK or Confirm to continue", SL_TEXT_DOMAIN).".\", this.href); return false;'>".__("Update to", SL_TEXT_DOMAIN)." $sl_latest_version</a>";
 } else {
 	$sl_update_msg = "";
 }
 
+#Notice for Addons Platform update
+if ( defined("SL_ADDONS_PLATFORM_DIR") ) {
+	$sl_vars['sl_latest_ap_check_time'] = (empty($sl_vars['sl_latest_ap_check_time']))? date("Y-m-d H:i:s") : $sl_vars['sl_latest_ap_check_time'];
 
-print "<span style='padding-left:10px; color:gray; position:relative; top:10px; font-size:11px; cursor:help;' title='Store Locator Version $sl_version and PHP Version ".phpversion()."'>SL v$sl_version{$sl_update_msg}&nbsp;|&nbsp;PHP v".phpversion()."</span></ul>\n";
+	if ( (empty($sl_vars['sl_latest_ap_version']) || (time() - strtotime($sl_vars['sl_latest_ap_check_time']))/60>=(60*12)) ) { //12-hr db caching of version info
+		$ap_update = sl_remote_data(array(
+			'pagetype' => 'ap',
+			'dir' => SL_ADDONS_PLATFORM_DIR, 
+			'key' => sl_data('sl_license_' . SL_ADDONS_PLATFORM_DIR)
+		));
+		$ap_latest_version = (!empty($ap_update[0]))? preg_replace("@\.zip|".SL_ADDONS_PLATFORM_DIR."\.@", "", $ap_update[0]['filename']) : 0;
+		//var_dump($ap_update); die();
+		
+		$sl_vars['sl_latest_ap_check_time'] = date("Y-m-d H:i:s");
+		$sl_vars['sl_latest_ap_version'] = $ap_latest_version;
+	} else {
+		$ap_latest_version = $sl_vars['sl_latest_ap_version'];
+	}
+
+	$ap_readme = SL_ADDONS_PLATFORM_PATH."/readme.txt"; 
+	if (file_exists($ap_readme)) {
+		$rm_txt = file_get_contents($ap_readme);
+		preg_match("/\n[ ]*stable tag:[ ]?([^\n]+)(\n)?/i", $rm_txt, $cv); //var_dump($rm_txt); var_dump($cv);
+		$ap_version = (!empty($cv[1]))? trim($cv[1]) : "1.0" ;
+	} else {$ap_version = "1.0";}
+	
+	$ap_title = ucwords(str_replace("-", " ", SL_ADDONS_PLATFORM_DIR));
+	$ap_update_msg = ucwords(str_replace("-", " ", SL_ADDONS_PLATFORM_DIR))." Version $ap_latest_version is available";
+	$ap_update = (strnatcmp($ap_latest_version, $ap_version) > 0)? "&nbsp;|&nbsp;<a href='#' style='color:#900; font-weight: bold;' onclick='alert(\"$ap_title v$ap_latest_version ".__("is available for download -- you are currently using v$ap_version. \\n\\n\\t1) Please re-use the download link from the email receipt sent to you for your $ap_title purchase, \\n\\n\\t2) Extract the zip file to your computer, then \\n\\n\\t3) Upload the &apos;".SL_ADDONS_PLATFORM_DIR."&apos; folder to &apos;".SL_ADDONS_PATH."&apos; on your website using FTP for the latest $ap_title functionality", SL_TEXT_DOMAIN).".\"); return false;' title='$ap_update_msg'>Get AP v{$ap_latest_version}</a>" : "" ;
+} else { $ap_update = ""; }
+
+
+
+print "<span style='padding-left:10px; color:gray; position:relative; top:10px; font-size:11px; cursor:help;' title='".__("Store Locator Version", SL_TEXT_DOMAIN)." $sl_version ".__("and", SL_TEXT_DOMAIN)." ".__("PHP Version", SL_TEXT_DOMAIN)." ".phpversion()."'>SL v$sl_version{$sl_update_msg}&nbsp;|&nbsp;PHP v".phpversion()."{$ap_update}</span></ul>\n";
 //if (preg_match("@addon-settings@", $_GET['page'])){
-	print "<div class='top_sub_nav' id='top_sub_nav'><div id='inner_div' style='display:inline; height:inherit;'>$tsn_links_js{$tsn_links_output}</div>";
+	print "<div class='top_sub_nav' id='top_sub_nav'><div id='inner_div' style='display:inline; height:inherit;'>$tsn_links_js{$tsn_links_output}  </div><div id='level3_nav' style='display:none;' ></div>";
 	if (function_exists("do_sl_hook")) { do_sl_hook("sl_nav_buttons_right"); }
 	if ($sl_thanks!="false" && $sl_thanks!="true") {
 		//&& $tm_st
-		print "<input rel='sl_pop' type='button' class='button-primary' onclick='return false;' id='thanks_button' href='".SL_INCLUDES_BASE."/thank-you.php?ajax=true' style='margin-right:10px; font-weight:bold; margin:5px; background:green; float:right;' value='My Views'/>";
+		print "<input rel='sl_pop' type='button' class='button-primary' onclick='return false;' id='thanks_button' href='".SL_INCLUDES_BASE."/thank-you.php?ajax=true' style='margin-right:10px; font-weight:bold; margin:5px; background:green; float:right;' value='".__("My Views", SL_TEXT_DOMAIN)."'/>";
 	}
 	print "</div>";
 //}
@@ -106,7 +154,8 @@ print "<span style='padding-left:10px; color:gray; position:relative; top:10px; 
 /*<li style="margin-left:15px; margin-bottom:0px;"><strong>Introducing: </strong><a href="#" onclick="window.parent.open('http://'+'www.viadat.com/products-page/early-access/');return false;">Early Access Stage 1 - Individual Addons</a> -- Limited access; first come, first serve</li>*/
 
 # v3.0 -- What's New
-if (!empty($_GET['sl_a_s_v3']) && $_GET['sl_a_s_v3'] == 1){$sl_vars['sl_a_s_check_v3'] = 'hide'; }
+$sl_notice_id = 'sl_a_s_v3';
+if (!empty($_GET[$sl_notice_id]) && $_GET[$sl_notice_id] == 1){$sl_vars['sl_a_s_check_v3'] = 'hide'; }
 if ( (empty($sl_vars['sl_a_s_check_v3']) || $sl_vars['sl_a_s_check_v3'] != 'hide') && sl_data('sl_a_s_check_v3')!='hide' ) { 
 //shifted to $sl_vars in v3.18, but sl_data('sl_a_s_check_v3')!='hide' left there so it won't show again to those who've already hidden it
 print "<br><div class='sl_admin_success' style='line-height: 22px; width:97%'>
@@ -117,45 +166,114 @@ print "<br><div class='sl_admin_success' style='line-height: 22px; width:97%'>
 <div style='padding:7px'><strong style='font-size:1.0em'>D.</strong>&nbsp;<b>New Icons & Back to 3D w/Shadowing:</b> refreshed icons that provide some depth to your map's interface.</div>
 <div style='background-color:lightYellow; border-top:solid gold 1px; border-bottom:solid gold 1px; padding:7px;'><b>Note:</b> To display the Store Locator, type <strong style='font-size:1.0em'>[STORE-LOCATOR]</strong> into a <a href='".admin_url("edit.php?post_type=page")."'>Page</a> or <a href='".admin_url("edit.php")."'>Post</a> <br>or use the code <b>&lt;?php if (function_exists('sl_template')) {print sl_template('[STORE-LOCATOR]');} ?&gt;</b> in a page template.</div> 
 <br>
-(<a href='".$_SERVER['REQUEST_URI']."&sl_a_s_v3=1'>Hide Message</a>)
+(<a href='".$_SERVER['REQUEST_URI']."&{$sl_notice_id}=1'>".__("Hide Message", SL_TEXT_DOMAIN)."</a>)
 </div>
 
  <div id='las-info' style='display:none; line-height:20px;'>
- <b style='font-size:1.3em'><br>LotsOfLocales&trade; Addons Platform</b>
+ <b style='font-size:1.3em'><br>LotsOfLocales&trade; ".__("Addons Platform", SL_TEXT_DOMAIN)."</b>
 <ol style='line-height:20px'>
- <li>Provides you with an addons management page for updating settings and activating each of your addons</li>
- <li>Allows you to conveniently browse and install addons directly from this admin area from the Addons Marketplace to enhance your Store Locator's abilities</li>
-<li>Create multiple Store locators on different Pages or Posts on your website using the format: <div class='code sl_code'>[STORE-LOCATOR {tag_name}={tag_value}, ...] (One of the many addon features available)</div> </li>
-<li>Backwards-compatible with addons purchased before version 2.0, including the CSV Importer, DB Importer, & Multiple Field Updater</li>
-<li>Learn more about G2 Addons that come with the purchase of the LotsOfLocales&trade; Addons Platform from the 'ReadMe Instructions' in the pull-out Dashboard</li>
+ <li>".__("Provides you with an addons management page for updating settings and activating each of your addons", SL_TEXT_DOMAIN)."</li>
+ <li>".__("Allows you to conveniently browse and install addons directly from this admin area from the Addons Marketplace to enhance your Store Locator's abilities", SL_TEXT_DOMAIN)."</li>
+<li>".__("Create multiple Store locators on different Pages or Posts on your website using the format: <div class='code sl_code'>[STORE-LOCATOR {tag_name}={tag_value}, ...] (One of the many addon features available)</div> ", SL_TEXT_DOMAIN)."</li>
+<li>".__("Backwards-compatible with addons purchased before version 2.0, including the CSV Importer, DB Importer, & Multiple Field Updater", SL_TEXT_DOMAIN)."</li>
+<li>".__("Learn more about G2 Addons that come with the purchase of the LotsOfLocales&trade; Addons Platform from the 'ReadMe Instructions' in the pull-out Dashboard", SL_TEXT_DOMAIN)."</li>
 </ol>
 </div>";
 }
 
 # Notice about having cURL off
+$sl_notice_id = 'curl_msg';
 if (!extension_loaded("curl")) {
-	if (!empty($_GET['curl_msg']) && $_GET['curl_msg'] == 1){$sl_vars['curl_msg'] = 'hide'; }
-	if (empty($sl_vars['curl_msg']) || $sl_vars['curl_msg'] != 'hide') {
-		print "<br><div class='sl_admin_warning' style='line-height: 22px; width:97%'><b>Important Note:</b><br>
-		It appears that you do not have <a href='http://us3.php.net/manual/en/book.curl.php' target='_blank'>cURL</a> actively running on this website.  cURL or <a href='http://us3.php.net/manual/en/function.file-get-contents.php' target='_blank'>file_get_contents()</a> needs to be active in order to receive coordinates for locations, validate addons, and other important actions performed by Store Locator.
+	if (!empty($_GET[$sl_notice_id]) && $_GET[$sl_notice_id] == 1){$sl_vars[$sl_notice_id] = 'hide'; }
+	if (empty($sl_vars[$sl_notice_id]) || $sl_vars[$sl_notice_id] != 'hide') {
+		print "<br><div class='sl_admin_warning' style='line-height: 22px; width:97%'><b>".__("Important Note", SL_TEXT_DOMAIN).":</b><br>
+		".__("It appears that you do not have <a href='http://us3.php.net/manual/en/book.curl.php' target='_blank'>cURL</a> actively running on this website.  cURL or <a href='http://us3.php.net/manual/en/function.file-get-contents.php' target='_blank'>file_get_contents()</a> needs to be active in order to receive coordinates for locations, validate addons, and other important actions performed by Store Locator", SL_TEXT_DOMAIN).".
 		<br>
-(<a href='".$_SERVER['REQUEST_URI']."&curl_msg=1'>Hide Message</a>)
+(<a href='".$_SERVER['REQUEST_URI']."&{$sl_notice_id}=1'>".__("Hide Message", SL_TEXT_DOMAIN)."</a>)
 		</div>";
 			
 	}
 }
 
 # Notice about file permissions
-if (!empty($_GET['file_perm_msg']) && $_GET['file_perm_msg'] == 1){$sl_vars['file_perm_msg'] = 'hide'; }
-if (empty($sl_vars['file_perm_msg']) || $sl_vars['file_perm_msg'] != 'hide') {
+$sl_notice_id = 'file_perm_msg';
+if (!empty($_GET[$sl_notice_id]) && $_GET[$sl_notice_id] == 1){$sl_vars[$sl_notice_id] = 'hide'; }
+if (empty($sl_vars[$sl_notice_id]) || $sl_vars[$sl_notice_id] != 'hide') {
 	$sl_vars['file_perm_check_time'] = (empty($sl_vars['file_perm_check_time']))? date("Y-m-d H:i:s") : $sl_vars['file_perm_check_time'];
 	
-	if (!isset($sl_vars['perms_need_update']) || $sl_vars['perms_need_update'] == 1 || ($sl_vars['perms_need_update'] == 0 && (time() - strtotime($sl_vars['file_perm_check_time']))/60 >= (60*1)) ) { // 1-hr checks, when last check showed no files needed permissions updates
+	if (!isset($sl_vars['perms_need_update']) || $sl_vars['perms_need_update'] == 1 || ($sl_vars['perms_need_update'] == 0 && (time() - strtotime($sl_vars['file_perm_check_time']))/60 >= (60*6)) ) { // 6-hr checks, when last check showed no files needed permissions updates (1-hr checks feel like it's a bit too often / pestering
 		//print "test";
 		sl_permissions_check();
 		$sl_vars['file_perm_check_time'] = date("Y-m-d H:i:s");
 	}
 }
+
+#Notice for CSV Importer
+$sl_notice_id = 'csv_imp_msg';
+if (!empty($_GET[$sl_notice_id]) && $_GET[$sl_notice_id] == 1){$sl_vars[$sl_notice_id] = 'hide'; }
+if (empty($sl_vars[$sl_notice_id]) || $sl_vars[$sl_notice_id] != 'hide') {
+	$max_input_vars_value = ini_get('max_input_vars');
+	$max_input_default = ( !empty($max_input_vars_value) && $max_input_vars_value <= 1000 ); 
+	$csv_needs_mod = 
+	( 
+		( (file_exists(SL_ADDONS_PATH."/csv-xml-importer-exporter/csv-xml-importer-exporter.php") 
+			&& sl_data('sl_activation_csv-xml-importer-exporter')!==NULL) 
+			|| (file_exists(SL_ADDONS_PATH."/csv-importer-exporter-g2/csv-importer-exporter-g2.php") 
+			&& sl_data('sl_activation_csv-importer-exporter-g2')!==NULL)
+		) 
+		&& strnatcmp(phpversion(), '5.3.9') >= 0 
+		&& $max_input_default
+	);
+	
+	if ($csv_needs_mod) {
+		print "<br><div class='sl_admin_warning' style='line-height: 22px; width:97%'><b>".__("Important Note", SL_TEXT_DOMAIN).":</b><br>
+		".__("You have the CSV Importer installed.  Due to a new directive added to PHP 5.3.9 called 'max_input_vars', which restricts maximum array sizes to 1000 by default, you may need to update your 'php.ini' & '.htaccess' files to allow for larger imports (<b>Your current 'max_input_vars' value is", SL_TEXT_DOMAIN)." $max_input_vars_value</b>). <a href='http://docs.viadat.com/CSV_Importer_Geocoder_Exporter_XML_Exporter#When_I_try_to_upload_a_CSV_file.2C_nothing_happens.2C_I_get_no_error_message_and_remain_on_the_.22Add_Locations.22_page.2C_or_I_get_a_blank_screen' target='_blank'>".__("View instructions on making updates", SL_TEXT_DOMAIN)."</a>.
+		<br><br>
+(<a href='".$_SERVER['REQUEST_URI']."&{$sl_notice_id}=1'>".__("Hide Message", SL_TEXT_DOMAIN)."</a>)
+		</div>";
+	}
+}
+
+# Notice for addon files being in '/wp-content/uploads/sl-uploads/addons/'. There should only be folders (excludes index.php & zip files)
+$sl_notice_id = 'files_in_addons_dir';
+if (!empty($_GET[$sl_notice_id]) && $_GET[$sl_notice_id] == 1){$sl_vars[$sl_notice_id] = 'hide'; }
+if (empty($sl_vars[$sl_notice_id]) || $sl_vars[$sl_notice_id] != 'hide') {
+	$addons_contents = glob(SL_ADDONS_PATH."/*.*", GLOB_NOSORT);
+	if (!empty($addons_contents)) {
+	   foreach ($addons_contents as $a_item) {
+		$the_a_file = str_replace(SL_ADDONS_PATH."/", "", $a_item);
+		if (!is_dir($a_item) && $the_a_file != "index.php" && $the_a_file != "dummy.php" && !preg_match("@\.zip$@", $the_a_file) && !preg_match("@error@", $the_a_file) ) {
+			$not_a_dir[] = $the_a_file;
+		}
+	   }
+	   if (!empty($not_a_dir)) {
+		print "<br><div class='sl_admin_warning' style='line-height: 22px; width:97%'><b>".__("Important Note", SL_TEXT_DOMAIN).":</b><br>
+		".__("You have placed files in your 'addons' directory here", SL_TEXT_DOMAIN).": <b>/".str_replace(ABSPATH, "", SL_ADDONS_PATH)."/</b>. ".__("There should only be folders.  All addon-related files need to be inside of their proper addon folder in order to work with Store Locator", SL_TEXT_DOMAIN).". (<b>e.g.</b> <b style='color:DarkGreen'>".__("Correct", SL_TEXT_DOMAIN).":</b> /addons<b>/addons-platform/</b>addons-platform.php, <b style='color: DarkRed'>".__("Incorrect", SL_TEXT_DOMAIN).":</b> /addons/addons-platform.php) <br><br><b>".__("Files that need to be moved", SL_TEXT_DOMAIN)."</b>: ";
+		print "".implode($not_a_dir, ",  ");
+		print "<br><div style='float:right'>
+(<a href='".$_SERVER['REQUEST_URI']."&{$sl_notice_id}=1'>".__("Hide Message Permanently", SL_TEXT_DOMAIN)."</a>)</div>
+<br clear='all'>
+		</div>";
+	   }
+      }
+}
+
+#Notice for wp-content hardening
+$sl_notice_id = 'wp_content_harden';
+if (!empty($_GET[$sl_notice_id]) && $_GET[$sl_notice_id] == 1){$sl_vars[$sl_notice_id] = 'hide'; }
+if (empty($sl_vars[$sl_notice_id]) || $sl_vars[$sl_notice_id] != 'hide') {
+	$wp_content_security = (file_exists(WP_CONTENT_DIR."/.htaccess"));
+	
+	if ($wp_content_security) {
+		print "<br><div class='sl_admin_warning' style='line-height: 22px; width:97%'><b>".__("Important Note", SL_TEXT_DOMAIN).":</b><br>
+		".__("It appears that you have a <b>.htaccess</b> file in your 'wp-content' directory here", SL_TEXT_DOMAIN).": <b>".WP_CONTENT_DIR."/</b><br>  If you're using a security plugin or other security method to 'harden' or block PHP files from working in  wp-content, it will probably block Store Locator from fully working.  This includes (1) validating addons and (2) displaying locations.
+		<br><br>
+(<a href='".$_SERVER['REQUEST_URI']."&{$sl_notice_id}=1'>".__("Hide Message", SL_TEXT_DOMAIN)."</a>)
+		</div>";
+	}
+}
+
+
 
 if (!empty($_POST) && function_exists("do_sl_hook")){ do_sl_hook("sl_admin_form_post"); /*print "<br>";*/ }
 if (function_exists("do_sl_hook")) { do_sl_hook("sl_admin_data"); } 

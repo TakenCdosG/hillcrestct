@@ -10,8 +10,8 @@ if (is_dir(SL_ADDONS_PATH)) {
 	$ao_dir=opendir(SL_ADDONS_PATH); $ctr=0;
 	print "<table width='95%' border='0'><tr>"; 
 	while (false !== ($a_lic=readdir($ao_dir))) {
-		if (in_array($a_lic, $g1) || preg_match("/addons\-platform/", $a_lic)) {
-			$a_lic=(preg_match("/addons\-platform/", $a_lic))? str_replace(".php","",$a_lic) : $a_lic ;
+		if (in_array($a_lic, $g1) || (preg_match("/^addons\-platform/", $a_lic) && is_dir(SL_ADDONS_PATH."/".$a_lic)) ) {
+			$a_lic=(preg_match("/^addons\-platform/", $a_lic))? str_replace(".php","",$a_lic) : $a_lic ;
 
 			$style="style='border:red; background-color:salmon'";
 			if (sl_data('sl_activation_'.$a_lic)!="") {
