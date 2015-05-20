@@ -202,7 +202,7 @@ function anps_get_header() {
                 </div>
                 <div class="info-header">
                     <div class="clock-icon"><img src="<?php echo get_template_directory_uri(); ?>/images/social-logos/clock.png"></div>
-                    <div class="info-header-text"><p>Model Hours: Sat. & Sun. 12 PM – 5 PM</p></div>
+                    <div class="info-header-text"><p>Model Hours: </p></div>
                 </div>
                 <div class="phone-number">
                     <div class="phone-icon"><img src="<?php echo get_template_directory_uri(); ?>/images/social-logos/phone-icon.png"></div>
