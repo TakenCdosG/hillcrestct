@@ -119,11 +119,11 @@ function anps_recent_portfolio_slider_func($atts, $content) {
     
     $portfolio_data = "";   
     $portfolio_data .= "<div class='container'>";
-    $portfolio_data .= "<div class='row owly'><div class='col-md-6 col-xs-6'>";
+    $portfolio_data .= "<div class='row owly'>";
     if($recent_title) {
         $portfolio_data .= "<h2 style='color:$title_color;'>".$recent_title."</h2>";
     }
-    $portfolio_data .= "</div><div class='col-xs-6 col-md-6 align-right'><a class='owlprev' style='background:".$nex_prev_bg_color.";'><i class='fa fa-chevron-left' style='color:".$nex_prev_color.";'></i></a><a class='owlnext' style='background:".$nex_prev_bg_color.";'><i class='fa fa-chevron-right' style='color:".$nex_prev_color.";'></i></a></div>";
+    $portfolio_data .= "<div class='col-xs-6 col-md-6 align-right'><a class='owlprev' style='background:".$nex_prev_bg_color.";'><i class='fa fa-chevron-left' style='color:".$nex_prev_color.";'></i></a><a class='owlnext' style='background:".$nex_prev_bg_color.";'><i class='fa fa-chevron-right' style='color:".$nex_prev_color.";'></i></a></div>";
     $portfolio_data .= "</div></div>";
 
     $portfolio_data .= "<ul class='owl-carousel recentportfolio clearfix' data-col=".$number_in_row.">";

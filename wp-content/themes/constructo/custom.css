@@ -1308,3 +1308,33 @@ section.statement{
         top: 20%;
         }
 }
+
+/*
+* RECENT PORTFOLIO ARROWS
+*/
+div.recent-portfolio-slider-custom div div.container, div.recent-portfolio-slider-custom div div.container div.row.owly{
+    width: 100%;
+}
+div.recent-portfolio-slider-custom div div.container div.row.owly div.col-xs-6.col-md-6.align-right{
+    width: 100%;
+    position: absolute;
+}
+div.recent-portfolio-slider-custom div div.container div.row.owly div.col-xs-6.col-md-6.align-right a.owlprev{
+    position: relative;
+    top:180px;
+    float: left;
+    background: none !important;
+    z-index: 999;
+}
+div.recent-portfolio-slider-custom div div.container div.row.owly div.col-xs-6.col-md-6.align-right a.owlnext{
+    position: relative;
+    top: 180px;
+    z-index: 999;
+    background: none !important;
+}
+a.owlprev i, a.owlnext i{
+    color: #ffffff !important;
+    opacity: 1.25;
+}
+
+
