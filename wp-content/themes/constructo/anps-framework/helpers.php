@@ -189,7 +189,7 @@ function anps_get_header() {
         <div class="nav-wrap<?php echo $menu_left_center_right_class; ?>">
             <div class="upper-header">
                 <?php
-                    global $fbaddr,$twaddr,$ptaddr,$gpaddr,$beaddr;
+                    global $fbaddr,$twaddr,$ptaddr,$gpaddr,$beaddr, $contact_email, $model_hours, $contact_tel;
                 ?>
                 <div class="social-icons-header">
                     <div class="social-icons-container">
@@ -202,15 +202,15 @@ function anps_get_header() {
                 </div>
                 <div class="info-header">
                     <div class="clock-icon"><img src="<?php echo get_template_directory_uri(); ?>/images/social-logos/clock.png"></div>
-                    <div class="info-header-text"><p>Model Hours: </p></div>
+                    <div class="info-header-text"><p>Model Hours: <?php echo $model_hours; ?> </p></div>
                 </div>
                 <div class="phone-number">
                     <div class="phone-icon"><img src="<?php echo get_template_directory_uri(); ?>/images/social-logos/phone-icon.png"></div>
-                    <div class="phone-number-text"><a href="tel:8606215455">(860) 621-5455</a></div>
+                    <div class="phone-number-text"><a href="tel:<?php $chars = array("(",")","-"," "); echo str_replace($chars,'',$contact_tel); ?>"><?php echo $contact_tel; ?></a></div>
                 </div>
                 <div class="header-email">
                     <div class="mail-icon"><img src="<?php echo get_template_directory_uri(); ?>/images/social-logos/mail-icon.png"></div>
-                    <div class="header-email-text"><a href="mailto:HillCrest@Calcagni.com"> <p>HillCrest@Calcagni.com</p></a></div>
+                    <div class="header-email-text"><a href="mailto:<?php echo $contact_email; ?>"> <p><?php echo $contact_email; ?></p></a></div>
                 </div>
             </div>
             <div class="container"><?php anps_get_sticky_logo() . anps_get_site_header();?></div>
