@@ -131,7 +131,7 @@ ul.recentportfolio li.item.item-type-line{
 }
 
 .upper-header{
-	height: 64px;
+	height: 110px;
 	background-color: #f9f9f9;
 	position: relative;
 	top: -20px;
@@ -180,7 +180,7 @@ ul.recentportfolio li.item.item-type-line{
 .info-header{
 	position: absolute;
 	margin-left: 40%;
-	height:85px;
+	height:110px;
 	width: 303px;
 	border-left:1px solid #e6e6e6;
 	border-right: 1px solid #e6e6e6;
