@@ -1337,4 +1337,18 @@ a.owlprev i, a.owlnext i{
     opacity: 1.25;
 }
 
+.flxmap-directions{
+margin-top : 10px;
+}
 
+.flxmap-directions p{
+font-family: "adobe-garamond-pro";
+  color: #003d79;
+  font-size: 20px !important;
+  font-weight: 700;
+}
+
+.flxmap-directions .wpcf7-submit{
+float : none;
+margin-left : 8px;
+}
