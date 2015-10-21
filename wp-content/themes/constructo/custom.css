@@ -1,8 +1,11 @@
+
+
+
 /*** Write your CSS structure here. ***/
 /*
 * TEMPORAL SOCIAL ICON REMOVAL
 */
-.social-icons-container,.footer-social-icons{
+.footer-social-icons{
     display: none;
 }
 
@@ -145,7 +148,6 @@ ul.recentportfolio li.item.item-type-line{
 	width: 181px;
 	border-left:1px solid #e6e6e6;
 	border-right: 1px solid #e6e6e6;
-    display: none;
 }
 
 .facebook-icon{
