@@ -669,8 +669,8 @@ section.statement{
         top:-18px;
     }
     .facebook-icon{
-        margin-left: 30px;
-        top: 20px;
+        margin-left: 20%;
+        top: 80px;
     }
     .twitter-icon{
         margin-left: 50px;
@@ -870,8 +870,8 @@ section.statement{
         top:-18px;
     }
     .facebook-icon{
-        margin-left: 30px;
-        top: 20px;
+        margin-left: 20%;
+        top: 80px;
     }
     .twitter-icon{
         margin-left: 50px;
@@ -1520,9 +1520,9 @@ ul.recentportfolio li.item.item-type-line{
 }
 
 .facebook-icon{
-	position: absolute;
-	margin-left: 28px;
-	top:20px;
+	position: relative;
+	margin-left: 2px;
+	top:40px;
 }
 
 .twitter-icon{
@@ -2142,8 +2142,8 @@ section.statement{
         top:-18px;
     }
     .facebook-icon{
-        margin-left: 30px;
-        top: 20px;
+        margin-left: 20%;
+        top: 80px;
     }
     .twitter-icon{
         margin-left: 50px;
@@ -2392,9 +2392,9 @@ section.statement{
         top:-4px;
     }
     .facebook-icon{
-        position: absolute;
-        margin-left: 28px;
-        top:20px;
+        position: relative;
+        margin-left: 32%;
+        top:72px;
     }
 
     .twitter-icon{
