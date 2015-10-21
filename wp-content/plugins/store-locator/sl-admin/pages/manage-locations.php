@@ -93,7 +93,9 @@ if (function_exists("do_sl_hook")) {do_sl_hook("sl_where_clause_filter");} // 4/
 
 print "</td></tr></table>";
 
-print "<form name='locationForm' method='post'>";
+//action = $_SERVER['REQUEST_URI'] added to get rid of hash portion of url so it doesn't scroll down to location upon update - v3.73, 7/10/15
+$lf_action = (!empty($_GET['edit']))? " action ='$_SERVER[REQUEST_URI]' " : "" ;
+print "<form name='locationForm' method='post' $lf_action>";
 
 if(empty($_GET['d'])) {$_GET['d']="";} if(empty($_GET['o'])) {$_GET['o']="";}
 

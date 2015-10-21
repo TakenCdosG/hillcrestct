@@ -84,6 +84,7 @@ $xmlStr=str_replace('"','&quot;',$xmlStr);
 $xmlStr=str_replace("'",'&#39;',$xmlStr); 
 $xmlStr=str_replace("&",'&amp;',$xmlStr); 
 $xmlStr=str_replace("," ,"&#44;" ,$xmlStr);
+$xmlStr=str_replace(array("\r\n", "\n", "\r"), "||sl-nl||", $xmlStr); //v3.76 - done 8/7/15 11:10a
 return $xmlStr; 
 } 
 /*-----------------*/
@@ -95,12 +96,13 @@ function filter_sl_mdo($the_arr) {
 	return ($input_zone_clause && $output_zone_clause);
 }
 
-function sl_md_initialize() {
-	global $sl_vars;
+function sl_md_initialize(&$sl_vars) {
+	//global $sl_vars;
 	include(SL_INCLUDES_PATH."/mapdesigner-options.php");
 	
 	foreach ($sl_mdo as $value) {
 		//if (isset($value['input_template'])) { unset($value['input_template']); }
+		//var_dump($value['field_name']);
 		
 		if (isset($value['field_name']) && !is_array($value['field_name']) ) {
 			$value['default'] = (!isset($value['default']))? "" : $value['default'];
@@ -141,6 +143,7 @@ function sl_md_initialize() {
 		    
 		}
 	}
+	//sl_data('sl_vars', 'add', $sl_vars);
 }
 
 function sl_md_save($data) {
@@ -198,7 +201,9 @@ function sl_md_save($data) {
 }
 
 function sl_md_display($data, $input_zone, $template, $additional_classes = "") {
-    print "<table class='map_designer_section {$additional_classes}'>";
+    global $sl_vars;
+    
+    print "<table class='mapdesigner_section {$additional_classes}'>";
     
     $GLOBALS['input_zone_type'] = $input_zone;
     $filtered_data = array_filter($data, "filter_sl_mdo");
@@ -222,6 +227,17 @@ function sl_md_display($data, $input_zone, $template, $additional_classes = "") 
 		}
 		print "</td>";
 	   if (empty($value['colspan']) || $value['colspan'] < 2) {
+	   	if (!empty($value['field_type']) && $value['field_type'] == 'checkbox') {
+	   		if (!is_array($value['field_name'])){
+		   		//need to add checked='checked' if value is checked
+		   		$value['input_template'] = (isset($sl_vars[$value['field_name']]) && $sl_vars[$value['field_name']] == 1)? preg_replace("@>@", " checked='checked'>", $value['input_template']) : $value['input_template'] ;
+		   	} /*else {
+		   		foreach ($value['field_name'] as $fname) {
+		   			$value['']
+		   		}
+		   	}*/
+	   	}
+	   
 		print "<td>".$value['input_template'];
 		if (!empty($value['more_info'])) {
 			print "<div style='display:none;' id='$value[more_info_label]'>";
@@ -283,7 +299,7 @@ if (empty($sl_vars)){
 }
 
 ### From MapDesigner Options
-sl_md_initialize();
+sl_md_initialize($sl_vars);
 
 ### Dependent Variables
 if (strlen(trim($sl_vars['sensor'])) == 0) {	$sl_vars['sensor'] = ($sl_vars['geolocate'] == '1')? "true" : "false";	}
@@ -453,11 +469,12 @@ function sl_head_scripts() {
 	$show_on_all_pages = ( !empty($sl_vars['scripts_load']) && $sl_vars['scripts_load'] == 'all' );
 	$show_on_front_page = ( is_front_page() && (!isset($sl_vars['scripts_load_home']) || $sl_vars['scripts_load_home']==1) );
 	$show_on_archive_404_pages = ( (is_archive() || is_404()) && $sl_code_is_used_in_posts && (!isset($sl_vars['scripts_load_archives_404']) || $sl_vars['scripts_load_archives_404']==1) );
-	$show_on_custom_post_types = ( is_singular() && !is_singular(array('page', 'attachment', 'post')) && !is_front_page() );
-	$show_on_page_templates = ( is_page_template() && !is_front_page() );
+	$show_on_custom_post_types = ( is_singular() && !is_singular(array('page', 'attachment', 'post')) && !is_front_page() && !(is_archive() || is_404()) );
+	$show_on_page_templates = ( is_page_template() && !is_front_page() && !(is_archive() || is_404()) );
 	$on_sl_post = is_single($post_ids_array);
+	$sl_scripts_function_exists = ( function_exists('show_sl_scripts') && !is_front_page() && !(is_archive() || is_404()) ); //empty sl_scripts() function can be created to force loading of scripts
 	
-	if ($show_on_all_pages || $on_sl_page || is_search() || $show_on_archive_404_pages || $show_on_front_page || $on_sl_post || $show_on_custom_post_types || function_exists('show_sl_scripts') || $show_on_page_templates) {
+	if ($show_on_all_pages || $on_sl_page || is_search() || $show_on_archive_404_pages || $show_on_front_page || $on_sl_post || $show_on_custom_post_types || $sl_scripts_function_exists || $show_on_page_templates) {
 		$GLOBALS['is_on_sl_page'] = 1;
 		$google_map_domain=($sl_vars['google_map_domain']!="")? $sl_vars['google_map_domain'] : "maps.google.com";
 		
@@ -1043,7 +1060,9 @@ function sl_dyn_js($post_content=""){
 
 	//WPML Display Integration
 	if (function_exists('icl_t')) {
+		ob_start();
 		include(SL_INCLUDES_PATH."/mapdesigner-options.php");
+		ob_end_clean(); //elimating any output that could disrupt dynamic js
 		$GLOBALS['input_zone_type'] = 'labels';
 		$GLOBALS['output_zone_type'] = 'sl_dyn_js';
 		
@@ -1154,18 +1173,18 @@ function sl_location_form($mode="add", $pre_html="", $post_html=""){
 		".__("Address (Street - Line1)", SL_TEXT_DOMAIN)."<br>
 		".__("Address (Street - Line2 - optional)", SL_TEXT_DOMAIN)."<br>
 		".__("City, State Zip", SL_TEXT_DOMAIN)."</i></span><br><hr>
-		".__("Name of Location", SL_TEXT_DOMAIN)."<br><input name='sl_store' size=40><br><br>
+		".__("Name of Location", SL_TEXT_DOMAIN)."<br><input name='sl_store' size=45><br><br>
 		".__("Address", SL_TEXT_DOMAIN)."<br><input name='sl_address' size=21>&nbsp;<small>(".__("Street - Line1", SL_TEXT_DOMAIN).")</small><br>
 		<input name='sl_address2' size=21>&nbsp;<small>(".__("Street - Line 2 - optional", SL_TEXT_DOMAIN).")</small><br>
-		<table cellpadding='0px' cellspacing='0px'><tr><td style='padding-left:0px' class='nobottom'><input name='sl_city' size='21'><br><small>".__("City", SL_TEXT_DOMAIN)."</small></td>
+		<table cellpadding='0px' cellspacing='0px' style='width:200px'><tr><td style='padding-left:0px' class='nobottom'><input name='sl_city' size='21'><br><small>".__("City", SL_TEXT_DOMAIN)."</small></td>
 		<td><input name='sl_state' size='7'><br><small>".__("State", SL_TEXT_DOMAIN)."</small></td>
 		<td><input name='sl_zip' size='10'><br><small>".__("Zip", SL_TEXT_DOMAIN)."</small></td></tr></table><br>
 		</div><div style='display:inline; width:50%'>
 		".__("Additional Information", SL_TEXT_DOMAIN)."<br>
-		<textarea name='sl_description' rows='5' cols='17'></textarea>&nbsp;<small>".__("Description", SL_TEXT_DOMAIN)."</small><br>
+		<textarea name='sl_description' rows='5' cols='18'></textarea>&nbsp;&nbsp;<small>".__("Description", SL_TEXT_DOMAIN)."</small><br>
 		<input name='sl_tags'>&nbsp;<small>".__("Tags (seperate with commas)", SL_TEXT_DOMAIN)."</small><br>		
 		<input name='sl_url'>&nbsp;<small>".__("URL", SL_TEXT_DOMAIN)."</small><br>
-		<input name='sl_hours'>&nbsp;<small>".__("Hours", SL_TEXT_DOMAIN)."</small><br>
+		<textarea name='sl_hours' rows='1' cols='18'></textarea>&nbsp;&nbsp;<small>".__("Hours", SL_TEXT_DOMAIN)."</small><br>
 		<input name='sl_phone'>&nbsp;<small>".__("Phone", SL_TEXT_DOMAIN)."</small><br>
 		<input name='sl_fax'>&nbsp;<small>".__("Fax", SL_TEXT_DOMAIN)."</small><br>
 		<input name='sl_email'>&nbsp;<small>".__("Email", SL_TEXT_DOMAIN)."</small><br>
@@ -1234,14 +1253,14 @@ function sl_single_location_info($value, $colspan, $bgcol) {
 	
 	print "<tr style='background-color:$bgcol' id='sl_tr_data-$value[sl_id]'>";
 	
-	print "<td colspan='$colspan'><form name='manualAddForm' method=post>
+	print "<td colspan='$colspan'><form name='manualAddForm' method='post'>
 	<a name='a$value[sl_id]'></a>
 	<table cellpadding='0' class='manual_update_table'>
 	<tr>
-		<td style='vertical-align:top !important; width:30%'><b>".__("Name of Location", SL_TEXT_DOMAIN)."</b><br><input name='sl_store-$value[sl_id]' id='sl_store-$value[sl_id]' value='$value[sl_store]' size=30><br><br>
+		<td style='vertical-align:top !important; width:20%'><b>".__("Name of Location", SL_TEXT_DOMAIN)."</b><br><input name='sl_store-$value[sl_id]' id='sl_store-$value[sl_id]' value='$value[sl_store]' size=30><br><br>
 		<b>".__("Address", SL_TEXT_DOMAIN)."</b><br><input name='sl_address-$value[sl_id]' id='sl_address-$value[sl_id]' value='$value[sl_address]' size='13'>&nbsp;<small>(".__("Street - Line1", SL_TEXT_DOMAIN).")</small><br>
 		<input name='sl_address2-$value[sl_id]' id='sl_address2-$value[sl_id]' value='$value[sl_address2]' size='13'>&nbsp;<small>(".__("Street - Line 2 - optional", SL_TEXT_DOMAIN).")</small><br>
-		<table cellpadding='0px' cellspacing='0px'><tr><td style='padding-left:0px' class='nobottom'><input name='sl_city-$value[sl_id]' id='sl_city-$value[sl_id]' value='$value[sl_city]' size='13'><br><small>".__("City", SL_TEXT_DOMAIN)."</small></td>
+		<table cellpadding='0px' cellspacing='0px' style='width:200px'><tr><td style='padding-left:0px' class='nobottom'><input name='sl_city-$value[sl_id]' id='sl_city-$value[sl_id]' value='$value[sl_city]' size='13'><br><small>".__("City", SL_TEXT_DOMAIN)."</small></td>
 		<td><input name='sl_state-$value[sl_id]' id='sl_state-$value[sl_id]' value='$value[sl_state]' size='4'><br><small>".__("State", SL_TEXT_DOMAIN)."</small></td>
 		<td><input name='sl_zip-$value[sl_id]' id='sl_zip-$value[sl_id]' value='$value[sl_zip]' size='6'><br><small>".__("Zip", SL_TEXT_DOMAIN)."</small></td></tr></table>";
 		
@@ -1252,16 +1271,16 @@ function sl_single_location_info($value, $colspan, $bgcol) {
 		$cancel_onclick = "location.href=\"".str_replace("&edit=$_GET[edit]", "",$_SERVER['REQUEST_URI'])."\"";
 		print "<br><br>
 		<nobr><input type='submit' value='".__("Update", SL_TEXT_DOMAIN)."' class='button-primary'><input type='button' class='button' value='".__("Cancel", SL_TEXT_DOMAIN)."' onclick='$cancel_onclick'></nobr>
-		</td><td style='width:30%; vertical-align:top !important;'>
+		</td><td style='width:40%; vertical-align:top !important;'>
 		<b>".__("Additional Information", SL_TEXT_DOMAIN)."</b><br>
-		<textarea name='sl_description-$value[sl_id]' id='sl_description-$value[sl_id]' rows='5' cols='17'>$value[sl_description]</textarea>&nbsp;<small>".__("Description", SL_TEXT_DOMAIN)."</small><br>
-		<input name='sl_tags-$value[sl_id]' id='sl_tags-$value[sl_id]' value='$value[sl_tags]' size='13'>&nbsp;<small>".__("Tags (seperate with commas)", SL_TEXT_DOMAIN)."</small><br>		
-		<input name='sl_url-$value[sl_id]' id='sl_url-$value[sl_id]' value='$value[sl_url]' size='13'>&nbsp;<small>".__("URL", SL_TEXT_DOMAIN)."</small><br>
-		<input name='sl_hours-$value[sl_id]' id='sl_hours-$value[sl_id]' value='$value[sl_hours]' size='13'>&nbsp;<small>".__("Hours", SL_TEXT_DOMAIN)."</small><br>
-		<input name='sl_phone-$value[sl_id]' id='sl_phone-$value[sl_id]' value='$value[sl_phone]' size='13'>&nbsp;<small>".__("Phone", SL_TEXT_DOMAIN)."</small><br>
-		<input name='sl_fax-$value[sl_id]' id='sl_fax-$value[sl_id]' value='$value[sl_fax]' size='13'>&nbsp;<small>".__("Fax", SL_TEXT_DOMAIN)."</small><br>
-		<input name='sl_email-$value[sl_id]' id='sl_email-$value[sl_id]' value='$value[sl_email]' size='13'>&nbsp;<small>".__("Email", SL_TEXT_DOMAIN)."</small><br>
-		<input name='sl_image-$value[sl_id]' id='sl_image-$value[sl_id]' value='$value[sl_image]' size='13'>&nbsp;<small>".__("Image URL (shown with location)", SL_TEXT_DOMAIN)."</small>";
+		<textarea name='sl_description-$value[sl_id]' id='sl_description-$value[sl_id]' rows='5' cols='18'>$value[sl_description]</textarea>&nbsp;&nbsp;<small>".__("Description", SL_TEXT_DOMAIN)."</small><br>
+		<input name='sl_tags-$value[sl_id]' id='sl_tags-$value[sl_id]' value='$value[sl_tags]' >&nbsp;<small>".__("Tags (seperate with commas)", SL_TEXT_DOMAIN)."</small><br>		
+		<input name='sl_url-$value[sl_id]' id='sl_url-$value[sl_id]' value='$value[sl_url]' >&nbsp;<small>".__("URL", SL_TEXT_DOMAIN)."</small><br>
+		<textarea name='sl_hours-$value[sl_id]' id='sl_hours-$value[sl_id]' rows='1' cols='18'>$value[sl_hours]</textarea>&nbsp;&nbsp;<small>".__("Hours", SL_TEXT_DOMAIN)."</small><br>
+		<input name='sl_phone-$value[sl_id]' id='sl_phone-$value[sl_id]' value='$value[sl_phone]' >&nbsp;<small>".__("Phone", SL_TEXT_DOMAIN)."</small><br>
+		<input name='sl_fax-$value[sl_id]' id='sl_fax-$value[sl_id]' value='$value[sl_fax]' >&nbsp;<small>".__("Fax", SL_TEXT_DOMAIN)."</small><br>
+		<input name='sl_email-$value[sl_id]' id='sl_email-$value[sl_id]' value='$value[sl_email]' >&nbsp;<small>".__("Email", SL_TEXT_DOMAIN)."</small><br>
+		<input name='sl_image-$value[sl_id]' id='sl_image-$value[sl_id]' value='$value[sl_image]' >&nbsp;<small>".__("Image URL (shown with location)", SL_TEXT_DOMAIN)."</small>";
 		
 		print "</td><td style='vertical-align:top !important; width:40%'>";
 	if (function_exists("do_sl_hook")) {do_sl_hook("sl_single_location_edit", "select-top");}
@@ -1494,7 +1513,7 @@ function sl_permissions_check() {
 	}
 
 	//checks permissions of files & folders
-	$f_to_check = array(SL_UPLOADS_PATH);
+	$f_to_check = array(SL_ADDONS_PATH, SL_THEMES_PATH);
 	
 	foreach ($f_to_check as $slf) {
 		$dir_iterator = new RecursiveDirectoryIterator($slf);
@@ -1630,8 +1649,8 @@ if (!is_array($sl_vars)) {
 ### Addons Platform Load ###
 if (defined('SL_ADDONS_PLATFORM_FILE') && file_exists(SL_ADDONS_PLATFORM_FILE)) {
 // && (preg_match("@$sl_dir@", $_SERVER['REQUEST_URI']) || preg_match('@widgets@', $_SERVER['REQUEST_URI']) || !preg_match('@wp-admin@', $_SERVER['REQUEST_URI']))) {
-	sl_initialize_variables(); // needed
 	include_once(SL_ADDONS_PLATFORM_FILE);
+	sl_initialize_variables(); // needed
 }
 ######
 
@@ -1688,6 +1707,8 @@ if (!function_exists("sl_do_geocoding")){
 		$geocode_pending = false;
 		$lat = $resp['results'][0]['geometry']['location']['lat'];
 		$lng = $resp['results'][0]['geometry']['location']['lng'];
+		
+		$GLOBALS['sdg_reply'] = '1st_attempt'; //message to control refreshing of page after successful geocode in processLocationData.php
 
 		if ($sl_id==="") {
 			$query = sprintf("UPDATE ".SL_TABLE." SET sl_latitude = '%s', sl_longitude = '%s' WHERE sl_id = '%s' LIMIT 1;", esc_sql($lat), esc_sql($lng), esc_sql($wpdb->insert_id)); //die($query); 
@@ -1710,12 +1731,64 @@ if (!function_exists("sl_do_geocoding")){
 		/*} else {
 			echo __("No status received from Google", SL_TEXT_DOMAIN)."\n<br>"; 
 		}*/
+		//var_dump($_POST);
+		if (!isset($_POST['total_entries']) && (empty($_POST['sl_id']) || !is_array($_POST['sl_id']) || (is_array($_POST['sl_id']) && (empty($_POST['act']) || $_POST['act'] != 'regeocode'))) ) {sl_second_pass($address, $sl_id); }
+		//|| (is_array($_POST['sl_id']) && count($_POST['sl_id']) == 1) - removed for now
     }
     usleep($delay);
   } else {
   	//print __("Geocoding bypassed ", SL_TEXT_DOMAIN);
   } @ob_flush(); flush();
  }
+}
+/*-------------------------------*/
+function sl_second_pass($address, $sl_id) {
+	global $sl_vars, $wpdb;
+	
+	$the_sl_id = ($sl_id==="")? $wpdb->insert_id : $sl_id;
+	$the_edit = (!empty($_GET['edit']))? $_GET['edit'] : "" ;
+	
+	print "<br><b>Second Attempt ...</b> <span id='sl_second_pass_status-$the_sl_id'></span><br><br>";
+	
+	//if (empty($GLOBALS['sp_first_fun']) || $GLOBALS['sp_first_fun'] == 0) {
+		$sens=(!empty($sl_vars['sensor']) && ($sl_vars['sensor'] === "true" || $sl_vars['sensor'] === "false" ))? "&amp;sensor=".$sl_vars['sensor'] : "&amp;sensor=false" ;
+		$lang_loc=(!empty($sl_vars['map_language']))? "&amp;language=".$sl_vars['map_language'] : "" ; 
+		$region_loc=(!empty($sl_vars['map_region']))? "&amp;region=".$sl_vars['map_region'] : "" ;
+		$key=(!empty($sl_vars['api_key']))? "&amp;key=".$sl_vars['api_key'] : "" ;
+		print "<script src='https://maps.googleapis.com/maps/api/js?v=3{$sens}{$lang_loc}{$region_loc}{$key}' type='text/javascript'></script>\n";
+		//print "<script src='".SL_JS_BASE."/store-locator.js?v=".SL_VERSION."'>";
+	//}
+
+	print "<script type='text/javascript'>
+	    jQuery(document).ready(function() {
+		sl_geocoder = new google.maps.Geocoder();
+		sl_geocoder.geocode( {'address': \"".trim($address)."\"}, function(results, status) {
+			//alert(status);
+			if (status == google.maps.GeocoderStatus.OK) {
+				center = results[0].geometry.location;
+				
+				jQuery.get('".SL_INCLUDES_BASE."/sl-geo.php?sl_id=".$the_sl_id."&lat=' + center.lat() + '&lng=' + center.lng() + '&_wpnonce=".wp_create_nonce('second-pass-geo_'.$the_sl_id)."', function() {
+					document.getElementById('sl_second_pass_status-{$the_sl_id}').innerHTML = \"<font color='DarkGreen'>Success!</font>\"; ";	
+				
+					if (!empty($_GET['edit'])) {
+						print "document.getElementById('sl_second_pass_status-{$the_sl_id}').innerHTML += \"<br><br>This page will refresh this in <span id='time_left_span'>5</span> secs ...\";
+						setTimeout(function(){location.replace('".str_replace("&edit={$the_edit}", "", $_SERVER['REQUEST_URI'])."#a".$the_edit."');}, 5000);";
+					}
+						
+			print "});
+					
+			} else {
+				document.getElementById('sl_second_pass_status-{$the_sl_id}').innerHTML = \"<font color='red'>Failed again</font>, with status \" + status + \". Check <a href='https://".$sl_vars['google_map_domain']."?q=".urlencode(trim($address))."' target='_blank'>Google search</a> to make sure address is valid.\";";  
+				/*if (!empty($_GET['edit'])) {
+					print "document.getElementById('sl_second_pass_status-{$the_sl_id}').innerHTML += \"<br><br>This page will refresh this in <span id='time_left_span'>10</span> secs ...\";
+					setTimeout(function(){location.replace('".str_replace("&edit={$the_edit}", "", $_SERVER['REQUEST_URI'])."#a".$the_edit."');}, 10000);";
+				}*/
+				
+		print "}
+		});
+	    });
+	</script>";
+	//$GLOBALS['sp_first_run'] = 1;
 }
 /*-------------------------------*/
 if (!function_exists("sl_template")){

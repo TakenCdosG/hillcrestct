@@ -64,7 +64,10 @@ div.feedburnerFeedBlock .feedflare {
 	padding-bottom: 30px;
 }
 
-.map_designer_section td {
+.mapdesigner_section {
+	border-collapse: collapse;
+}
+.mapdesigner_section td {
 	border-bottom:none;
 }
 .manual_add_table td, .manual_add_table td td, .manual_update_table td, .manual_update_table td td, .manual_update_table{
@@ -117,13 +120,13 @@ pre {
 	white-space: -hp-pre-wrap;  /* HP Printers */
 	word-wrap: break-word;      /* IE 5+ */
 	}
-#mgmt_bar input, #mapDesigner_table th input {
+#mgmt_bar input, #mapdesigner_table th input {
 	line-height: 15px;
     	margin: 1px;
     	vertical-align: middle;
     	padding: 3px;
 }
-#mgmt_bar input[type="button"], #mapDesigner_table th input[type="submit"] {
+#mgmt_bar input[type="button"], #mapdesigner_table th input[type="submit"] {
 	padding: 2px 10px 3px 10px;
 }
 .tablenav .tablenav-pages a {
@@ -246,7 +249,7 @@ pre {
 	z-index:9999;
 	background-color:white; 
 	border: solid #21759B 2px; 
-	padding: 0 7px 14px 7px; 
+	padding: 0 0 14px 0; 
 	border-radius: 0 0 7px 7px;
 	box-shadow: 10px 10px 25px #888;
 }
@@ -254,6 +257,7 @@ pre {
 	display: block; 
 	color: #21759B; 
 	font-size: 12px;
+	padding: 7px;
 }
 #level3_nav a:hover {
 	text-shadow: 1px 1px 0.2em #333;
@@ -412,7 +416,7 @@ tr.ao_selected td, tr.ao_selected th {
 	border-radius:7px;
 	padding:11px; 
 	/*margin-right:8px; */
-	min-height:75px;
+	min-height:115px;
 	/*margin-bottom:8px; */
 	/*margin-top:8px; */
 	float:left;

@@ -47,9 +47,17 @@
 		if ((empty($_POST['sl_longitude']) || $_POST['sl_longitude']==$old_address[0]['sl_longitude']) && (empty($_POST['sl_latitude']) || $_POST['sl_latitude']==$old_address[0]['sl_latitude'])) {
 			if ($the_address!=$old_address[0]['sl_address']." ".$old_address[0]['sl_address2'].", ".$old_address[0]['sl_city'].", ".$old_address[0]['sl_state']." ".$old_address[0]['sl_zip'] || ($old_address[0]['sl_latitude']==="" || $old_address[0]['sl_longitude']==="")) {
 				sl_do_geocoding($the_address,$_GET['edit']);
+				if (!empty($GLOBALS['sdg_reply']) && $GLOBALS['sdg_reply'] == "1st_attempt") {
+					//added - v3.73, 7/10/15 - refresh page here only if successful on first geocoding attempt; 2nd attempt refreshing handled in sl_do_geocoding()
+					print "<script>location.replace('".str_replace("&edit=$_GET[edit]", "", $_SERVER['REQUEST_URI'])."');</script>";
+				}
+			} else {
+				//added - v3.73, 7/10/15 - refresh page if nothing about address changes
+				print "<script>location.replace('".str_replace("&edit=$_GET[edit]", "", $_SERVER['REQUEST_URI'])."');</script>";
 			}
 		}
-		print "<script>location.replace('".str_replace("&edit=$_GET[edit]", "", $_SERVER['REQUEST_URI'])."');</script>";
+		//commented out - v3.73, 7/10/15 - in order to allow time to view geocoding status message when updating single location
+		//print "<script>location.replace('".str_replace("&edit=$_GET[edit]", "", $_SERVER['REQUEST_URI'])."');</script>";
 	}
 	
 	if (!empty($_POST['act']) && !empty($_POST['sl_id']) && $_POST['act']=="delete") {

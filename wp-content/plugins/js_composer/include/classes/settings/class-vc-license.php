@@ -77,8 +77,12 @@ class Vc_License {
 	 *
 	 */
 	public function activate() {
+		if ( ! vc_verify_admin_nonce() || ! current_user_can( 'manage_options' ) ) {
+			die();
+		}
 		$params = array();
 		$params['username'] = vc_post_param( 'username' );
+		$params['version'] = WPB_VC_VERSION;
 		$params['key'] = vc_post_param( 'key' );
 		$params['api_key'] = vc_post_param( 'api_key' );
 		$params['url'] = get_site_url();
@@ -112,6 +116,9 @@ class Vc_License {
 	 *
 	 */
 	public function deactivate() {
+		if ( ! vc_verify_admin_nonce() || ! current_user_can( 'manage_options' ) ) {
+			die();
+		}
 		$params = array();
 		$params['dkey'] = $this->deactivation();
 		$string = 'deactivatelicense?';
@@ -144,6 +151,6 @@ class Vc_License {
 	 */
 	public function adminNoticeLicenseActivation() {
 		update_option( 'wpb_js_composer_license_activation_notified', 'yes' );
-		echo '<div class="updated vc_license-activation-notice"><p>' . sprintf( __( 'Hola! Please <a href="%s">activate your copy</a> of Visual Composer to receive automatic updates.', 'js_composer' ), wp_nonce_url( admin_url( 'options-general.php?page=vc_settings&tab=updater' ) ) ) . '</p></div>';
+		echo '<div class="updated vc_license-activation-notice"><p>' . sprintf( __( 'Hola! Please <a href="%s">activate your copy</a> of Visual Composer to receive automatic updates.', 'js_composer' ), wp_nonce_url( admin_url( 'admin.php?page=vc-updater' ) ) ) . '</p></div>';
 	}
 }

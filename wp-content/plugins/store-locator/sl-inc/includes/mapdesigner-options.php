@@ -8,7 +8,7 @@ $icon_dir=opendir(SL_ICONS_PATH."/");
 while (false !== ($an_icon=readdir($icon_dir))) {
 	if (!preg_match("@^\.{1,2}.*$@", $an_icon) && !preg_match("@shadow@", $an_icon) && !preg_match("@\.db@", $an_icon)) {
 
-		$icon_str.="<img style='height:25px; cursor:hand; cursor:pointer; border:solid white 2px; padding:2px' src='".SL_ICONS_BASE."/$an_icon' onclick='document.forms[\"mapDesigner\"].icon.value=this.src;document.getElementById(\"prev\").src=this.src;' onmouseover='style.borderColor=\"red\";' onmouseout='style.borderColor=\"white\";'>";
+		$icon_str.="<img style='height:25px; cursor:hand; cursor:pointer; border:solid white 2px; padding:2px' src='".SL_ICONS_BASE."/$an_icon' onclick='document.forms[\"mapdesigner_form\"].icon.value=this.src;document.getElementById(\"prev\").src=this.src;' onmouseover='style.borderColor=\"red\";' onmouseout='style.borderColor=\"white\";'>";
 	}
 }
 if (is_dir(SL_CUSTOM_ICONS_PATH)) {
@@ -16,7 +16,7 @@ if (is_dir(SL_CUSTOM_ICONS_PATH)) {
 	while (false !== ($an_icon=readdir($icon_upload_dir))) {
 		if (!preg_match("@^\.{1,2}.*$@", $an_icon) && !preg_match("@shadow@", $an_icon) && !preg_match("@\.db@", $an_icon)) {
 
-			$icon_str.="<img style='height:25px; cursor:hand; cursor:pointer; border:solid white 2px; padding:2px' src='".SL_CUSTOM_ICONS_BASE."/$an_icon' onclick='document.forms[\"mapDesigner\"].icon.value=this.src;document.getElementById(\"prev\").src=this.src;' onmouseover='style.borderColor=\"red\";' onmouseout='style.borderColor=\"white\";'>";
+			$icon_str.="<img style='height:25px; cursor:hand; cursor:pointer; border:solid white 2px; padding:2px' src='".SL_CUSTOM_ICONS_BASE."/$an_icon' onclick='document.forms[\"mapdesigner_form\"].icon.value=this.src;document.getElementById(\"prev\").src=this.src;' onmouseover='style.borderColor=\"red\";' onmouseout='style.borderColor=\"white\";'>";
 		}
 	}
 }
@@ -25,7 +25,7 @@ $icon_dir=opendir(SL_ICONS_PATH."/");
 while (false !== ($an_icon=readdir($icon_dir))) {
 	if (!preg_match("@^\.{1,2}.*$@", $an_icon) && !preg_match("@shadow@", $an_icon) && !preg_match("@\.db@", $an_icon)) {
 
-		$icon2_str.="<img style='height:25px; cursor:hand; cursor:pointer; border:solid white 2px; padding:2px' src='".SL_ICONS_BASE."/$an_icon' onclick='document.forms[\"mapDesigner\"].icon2.value=this.src;document.getElementById(\"prev2\").src=this.src;' onmouseover='style.borderColor=\"red\";' onmouseout='style.borderColor=\"white\";'>";
+		$icon2_str.="<img style='height:25px; cursor:hand; cursor:pointer; border:solid white 2px; padding:2px' src='".SL_ICONS_BASE."/$an_icon' onclick='document.forms[\"mapdesigner_form\"].icon2.value=this.src;document.getElementById(\"prev2\").src=this.src;' onmouseover='style.borderColor=\"red\";' onmouseout='style.borderColor=\"white\";'>";
 	}
 }
 if (is_dir(SL_CUSTOM_ICONS_PATH)) {
@@ -97,6 +97,56 @@ foreach($map_type as $key=>$value) {
 $icon_notification_msg=((preg_match("@wordpress-store-locator-location-finder@", $sl_vars['icon']) && preg_match("@^store-locator@", $sl_dir)) || (preg_match("@wordpress-store-locator-location-finder@",$sl_vars['icon2']) && preg_match("@^store-locator@", $sl_dir)))? "<div class='sl_admin_success' style='background-color:LightYellow;color:red'><span style='color:red'>".__("You have switched from <strong>'wordpress-store-locator-location-finder'</strong> to <strong>'store-locator'</strong> --- great!<br>Now, please re-select your <b>'Home Icon'</b> and <b>'Destination Icon'</b> below, so that they show up properly on your store locator map.", SL_TEXT_DOMAIN)."</span></div>" : "" ;
 
 
+/*************** MapDesigner Options - Information & Usage **************/
+/* 
+== Description == 
+Allows one to modify the '$sl_mdo' array via the 'sl_mapdesigner_options' hook in order to add options to the MapDesigner settings page
+
+== Available Parameters in $sl_mdo array ==
+= Required =
+* field_name: 
+name of the key stored in the $sl_vars array when saving the value
+* default: 
+initial value field is set to
+* input_zone: 
+the area of MapDesigner setting page where new option will appear (available values [as of v3.74] - "defaults", "labels", "dimensions", "design")
+* output_zone: 
+the area of Store Locator's functionality your option affects (available values [as of v3.74] - "sl_dyn_js", "sl_template", "sl_xml", "sl_head_scripts")
+* label:
+Description of option in MapDesigner settings
+* input_template: 
+HTML of the form element representing the new option
+
+= Optional =
+* field_type: 
+only needed if your option is a 'checkbox'
+* more_info: 
+HTML in pop-up showing further details about the option, if needed
+* more_info_label: 
+1-word label of the link clicked to display HTML in 'more_info' (should be prefixed and unique label)
+* row_id:
+'id' value of the 'tr' HTML tag containing your new option
+* hide_row:
+logical condition under which you want the option(s) contained in the row labeled by 'row_id' to be hidden. If this evaluates to TRUE, then row will be hidden when option is first displayed. You can dynamically reveal the row using: {action}='jQuery("#{row_id}").fadeIn()'  in another form element in order to determine an action that reveals the row, where {action} can be 'onclick', 'onfocus', 'onmouseover', etc.
+* stripslashes:
+removes any slashes that are created in a text field if it contains apostrophes, quotation marks (available value: 1)
+* numbers_only:
+determines whether or not a new option's value can only contain numbers.  For example, and value of '24tgrwoi6f24l' will be changed to '24624' if 'numbers_only' is set to 1 (available values: 0, 1; available types: number or array [based on type of 'field_name'])
+* colspan:
+can be used if creating an informational row, where you fill in 'label' value and leave 'input_template' blank (available value: 2)
+
+== Notes: Multiple values in grouped together ==
+* If your new option has multiple values that you want to store in the $sl_vars array, then you can make 'field_name', 'default', and 'output_zone' entries in $sl_mdo into arrays in which field_name[0] has a default value of default[0] and an output zone of output_zone[0], field_name[1], default[1], & output_zone[1] are associated, and so on.
+* If they are arrays, 'field_name', 'default', and 'output_zone' must always be the same length, with one exception -- 'output_zone' can be a single value if the output zone of each value in the 'field_name' array is the same.  So instead of "output_zone => ('sl_template', 'sl_template')", you can simply do "output_zone => 'sl_template' "
+* Optional value 'numbers_only' follows the same rules as 'field_name' & 'default value'
+
+== Notes: Using 'label' & 'input_template' values ==
+* 'label' & 'input_template' values are guides in terms of formatting your new option, but are essentially just 2 containers in which you can place necessary labeling and HTML for form elements, so they can be interchanged, the label & HTML can all be in the 'label' value or 'input_template', etc -- helpful if grouping multiple values into one option
+* However, the 'labels' input zone is unique to the other 3 input zones. The 'label' and 'input_template' values are displayed in columns of 3, with 'label' shown below 'input_template'.   The 'defaults', 'dimensions', and 'design' input zones are displayed in columns of 2, with the 'label' value displayed to the left of the 'input_template' value, thus grouping values into 1 option shouldn't be done if using an 'input_zone' of 'labels'
+
+*/
+/***************************************************/
+
 ###Defaults###
 $sl_mdo[] = array("field_name" => "map_type", "default" => "google.maps.MapTypeId.ROADMAP", "input_zone" => "defaults", "output_zone" => "sl_dyn_js", "label" => __("Default Map Type", SL_TEXT_DOMAIN), "input_template" => "<select name='sl_map_type'>\n$map_type_options</select>");
 
@@ -165,7 +215,7 @@ $sl_mdo[] = array("field_name" => "remove_credits", "default" =>"0", "field_type
 
 $sl_mdo[] = array("field_name" => array("icon", "icon2"), "default" => array(SL_ICONS_BASE."/droplet_green.png", SL_ICONS_BASE."/droplet_red.png"), "input_zone" => "design", "output_zone" => array("sl_dyn_js", "sl_dyn_js"), "label" => "<input name='icon' size='20' value='$sl_vars[icon]' onchange=\"document.getElementById('prev').src=this.value\"><img id='prev' src='$sl_vars[icon]' align='top' rel='sl_pop' href='#home_icon' style='cursor:pointer;cursor:hand;height:60%;'> <br><a rel='sl_pop' href='#home_icon'><span style='font-size:80%'>".__("Choose", SL_TEXT_DOMAIN)." ".__("Home Icon", SL_TEXT_DOMAIN)."</span></a><div id='home_icon' style='display:none;'><h2 style='margin-top:0px'>".__("Choose", SL_TEXT_DOMAIN)." ".__("Home Icon", SL_TEXT_DOMAIN)."</h2>$icon_str</div>", "input_template" => "<input name='icon2' size='20' value='$sl_vars[icon2]' onchange=\"document.getElementById('prev2').src=this.value\"><img id='prev2' src='$sl_vars[icon2]' align='top' rel='sl_pop' href='#end_icon' style='cursor:pointer;cursor:hand;height:60%;'> <br><div id='end_icon' style='display:none;'><h2 style='margin-top:0px'>".__("Choose", SL_TEXT_DOMAIN)." ".__("Destination Icon", SL_TEXT_DOMAIN)."</h2>$icon2_str</div><a rel='sl_pop' href='#end_icon'><span style='font-size:80%'>".__("Choose", SL_TEXT_DOMAIN)." ".__("Destination Icon", SL_TEXT_DOMAIN)." </span></a>");
 
-$sl_mdo[] = array("input_zone" => "design", "label" => "<div class=''><b>".__("For more unique icons, visit", SL_TEXT_DOMAIN)." <a href='https://www.geocoderpro.com/en/resources/map-icons-marker-pins/' target='_blank'>GeoCoder Pro</a> & <a href='http://code.google.com/p/google-maps-icons/' target='_blank'>Map Icons Collection</a></b></div>", "input_template" => "", "colspan" => 2);
+
 ###End Design###
 
 /*
@@ -174,5 +224,11 @@ $sl_mdo[] = array("input_zone" => "defaults", "label" => "Locations in Results",
 EOQ
 );*/
 
-if (function_exists("do_sl_hook")){do_sl_hook('sl_mapdesigner_options'); }
+//if (function_exists("do_sl_hook") && defined("SL_AP_VERSION") && strnatcmp(SL_AP_VERSION, 1.4) > 0 ){
+if (function_exists("do_sl_hook") && empty($_GET['via_platform'])) { //v3.75 - probably easiest way to prevent it from interfering with remote installs // v3.75.1 - don't forget "function_exists("do_sl_hook")"!
+	do_sl_hook('sl_mapdesigner_options'); //, '', array(&$sl_mdo)); 
+} //- removed v3.70 - reassess - add: defined('SL_IN_..MODE') checks to AP
+
+
+$sl_mdo[] = array("input_zone" => "design", "label" => "<div class=''><b>".__("For more unique icons, visit", SL_TEXT_DOMAIN)." <a href='http://code.google.com/p/google-maps-icons/' target='_blank'>Map Icons Collection</a>, <a href='https://www.iconfinder.com/search/?q=map&price=free' target='_blank'>Iconfinder</a>, & <a href='http://www.iconarchive.com/search?q=map' target='_blank'>IconArchive</a></b></div>", "input_template" => "", "colspan" => 2);
 ?>

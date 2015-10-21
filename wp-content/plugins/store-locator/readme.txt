@@ -2,8 +2,8 @@
 Contributors: viadat
 Tags: business locations, admin, dealer locator, dealer locater, store locator, post, store locater, mapping, mapper, google, google maps, locator, ajax, shop locator, shop finder, shortcode, location finder, places, widget, proximity, zipcode locator, geocoder, stores, plugin, maps, coordinates, latitude, longitude, posts, geo, best google maps, geocoding, jquery, shops, page, zipcode, zip code, zip code search, custom google maps, store finder, address map, google map, address location map, map maker, proximity search, map creator, gmaps, mapping software, google map plugin, map tools, google maps, google map widget, zip code locator, mapping tools, locator maps, map of addresses, map multiple locations, wordpress locator, zipcode search, store locator map
 Requires at least: 3.3
-Tested up to: 4.2.2
-Stable tag: 3.68.1
+Tested up to: 4.2.5-alpha
+Stable tag: 3.76
 
 A WordPress-integrated map & location management interface. Quickly create store locator maps -- provides several top-level addon features
 
@@ -71,21 +71,22 @@ All addons available previous to Store Locator 2.0 are now called "G1" (Generati
 = Special Thanks to Translators (Email new translations to info {at} viadat {dot} com) =
 * de_DE	| German (Deutsche) - Simon Schmid 
 * it_IT	| Italian (Italiano) - Simon Schmid
-* cs_CZ	| Czech (Čeština) - Simon Schmid; [Josef Klimosz](http://pepa.rudice.eu/) (updated)
-* fr_FR	| French (Français) - Simon Schmid; [Reno](http://www.creaprime.fr) (updated)
+* cs_CZ	| Czech (Čeština) - Simon Schmid; [Josef Klimosz](http://www.viadat.com/go/josef-klimosz/) (updated)
+* fr_FR	| French (Français) - Simon Schmid; [Reno](http://www.viadat.com/go/reno/) (updated)
 * es_MX	| Mexican Spanish (Español) - Gwyn Fisher
-* nl_NL	| Dutch (Nederlands) - [Willem-Jan Korsten](http://www.ezhome.nl/)
-* pt_BR	| Brazilian Portuguese (Português do Brasil) - [Marcelo V. Araújo](http://www.mgerais.net/)
+* nl_NL	| Dutch (Nederlands) - [Willem-Jan Korsten](http://www.viadat.com/go/willem-jan-korsten/)
+* pt_BR	| Brazilian Portuguese (Português do Brasil) - [Marcelo V. Araujo](http://www.viadat.com/go/marcelo-v-araujo/)
 * nb_NO	| Norwegian (Norsk bokmål) - Alf Vidar Snæland
 * zh_CN	| Simplified Chinese (简体中文) - Laifeilim
 * ru_RU	| Russian (Русский) - Виктор Юхименко
-* tr_TR	| Turkish (Türkçe) - [Rene](http://wpwebshop.com)
-* hi_IN	| Hindi (हमानक हिन्दी) - [Outshine Solutions](http://outshinesolutions.com)
-* sr_RS	| Serbian (Српски језик) - [Diana S.](http://www.wpcouponshop.com)
-* fi_FI	| Finnish (Suomi) - [Esa Immonen](http://www.probeautyscandinavia.com)
+* tr_TR	| Turkish (Türkçe) - [Rene](http://www.viadat.com/go/rene/)
+* hi_IN	| Hindi (हमानक हिन्दी) - [Outshine Solutions](http://www.viadat.com/go/outshine-solutions/)
+* sr_RS	| Serbian (Српски језик) - [Diana S.](http://www.viadat.com/go/diana-s/)
+* fi		| Finnish (Suomi) - [Esa Immonen](http://www.viadat.com/go/esa-immonen/)
 * ro_RO	| Romanian (Română) - Quickloop
-* es_ES	| Spanish (Español) - [Andrew Kurtis - WebHostingHub](http://www.webhostinghub.com/)
-* zh_TW	| Traditional Chinese (繁體中文) - [Ronnie Wu](http://www.primagefactory.com/howto/)
+* es_ES	| Spanish (Español) - [Andrew Kurtis - WebHostingHub](http://www.viadat.com/go/andrew-kurtis/)
+* zh_TW	| Traditional Chinese (繁體中文) - [Ronnie Wu](http://www.viadat.com/go/ronnie-wu/)
+* uk		| Ukrainian (Українська) - [Ivanka Skakun from Everycloud](http://www.viadat.com/go/ivanka-skakun/)
 
 ([How to submit your translation](http://www.viadat.com/2009/02/store-locator-translation-files-wanted-you-might-just-get-something-nice-in-return/) | If you provide your web address, we'll link back to you)
 
@@ -129,6 +130,48 @@ All addons available previous to Store Locator 2.0 are now called "G1" (Generati
 9. Examples of the Store Locator's Basic and Upgraded User Interfaces
 
 == Changelog ==
+= 3.76 =
+* Update to line-break handling logic in xml
+* Minor updates
+
+= 3.75.x =
+* Update to MapDesigner - layout, functionality tweak - mapDesigner -> mapdesigner, map_designer_section-> mapdesigner_section; mapdesigner_section {border-collapse: collapse}; 
+* Reversed Design and Labels sections
+* Commented out first sl_initialize_variables (may be redundant); re-put opt hook
+* Admin CSS styling update
+* v3.75.1 - very important fix
+
+= 3.74.x =
+* Map interface CSS styling update related to some themes
+* Added Ukrainian (uk) translation (thank you [Ivanka Skakun](http://www.everycloudtech.com/)). Copy translation files into `/wp-content/uploads/sl-uploads/languages/`. WP 4.0+ users, go to General > Settings > "Site Language" option to choose language.  Pre-WP 4.0 users, set the 'WPLANG' constant in 'wp-config.php' to the proper language code ('uk', for example) in order to choose language.
+* Finnish language naming update (fi_FI -> fi)
+
+= 3.73 =
+* [update] [Addons Platform](http://docs.viadat.com/Addons_Platform) - styling updates for [Addons Marketplace](http://docs.viadat.com/Addons_Marketplace)
+* Update to file permissions check notification
+* [addon] [Categorizer](http://docs.viadat.com/Categorizer) - Increased length limit for result of query generating Tags filter checkbox/dropdown options
+* Functionality updates
+
+= 3.72 =
+* Updated CSS for 3rd-tier dropdown menu for [Addons Platform](http://docs.viadat.com/Addons_Platform) users -- larger click space for each addon, more usable
+* Updated link to icons resources (Geocoder Pro website - defunct)
+* Important update to script loading logic
+
+= 3.71 =
+* Updates to Location Add & Edit management interfaces
+* Better line-break handling
+* Improved PHP & JS error handling, which had been affecting certain users at times
+
+= 3.70 =
+* Important fix for full [Addons Platform](http://docs.viadat.com/Addons_Platform) installing via Addons Marketplace
+* Small styling updates
+* MapDesigner data filtering adjustment
+
+= 3.69 =
+* New admin notices functionality
+* New data filters - Admin notices
+* [addon] [Categorizer](http://docs.viadat.com/Categorizer) - update: proper post-merge ordering of tags from locations, taking case-sensitivity into account
+
 = 3.68.x =
 * Admin notice update - directory advisory for secured installs
 * New data filters - MapDesigner
@@ -150,8 +193,8 @@ All addons available previous to Store Locator 2.0 are now called "G1" (Generati
 
 = 3.63 =
 * MapDesigner functionality update to create separate layers for data & inputs' displays - JS output zones/controllers
-* [update] [Addons Platform](http://docs.viadat.com/Addons_Platform): easier to use 3rd-tier navigation
-* [update] [Addons Platform Lite](http://docs.viadat.com/Addons_Platform_Lite): easier to use 3rd-tier navigation
+* [update] [Addons Platform](http://docs.viadat.com/Addons_Platform) - easier to use 3rd-tier navigation
+* [update] [Addons Platform Lite](http://docs.viadat.com/Addons_Platform_Lite) - easier to use 3rd-tier navigation
 
 = 3.62 =
 * [update] [Addons Platform](http://docs.viadat.com/Addons_Platform): modifying default files permission granting upon direct installation for few notices

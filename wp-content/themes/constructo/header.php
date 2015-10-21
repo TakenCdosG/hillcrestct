@@ -13,6 +13,9 @@
 	<?php anps_theme_styles(); ?>
 	<?php anps_theme_after_styles(); ?>
 	<?php wp_head(); ?>
+	<!-- Start of Leadin Embed -->
+	<script type="text/javascript" src="//js.leadin.com/js/v1/1625837.js" id="LeadinEmbed-1625837" crossorigin="use-credentials" async defer></script>
+	<!-- End of Leadin Embed -->
 </head>
 <body <?php body_class(anps_is_responsive(true) . anps_boxed());?><?php anps_body_style();?>>
     <?php 

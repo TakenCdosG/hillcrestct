@@ -9,7 +9,7 @@ if (empty($_POST)) {sl_move_upload_directories();}
 if (!empty($_POST['sl_map_type'])) { //shouldn't just be "$_POST"; use an index that should always have a value - 12/9/14
     //$sl_vars=sl_data('sl_vars');
     
-  sl_initialize_variables();
+ // sl_initialize_variables();
     include(SL_INCLUDES_PATH."/mapdesigner-options.php");
     sl_md_save($sl_mdo);
     unset($sl_mdo);  //needs to be unset here in order for the latest updated values to show up when md options are included a 2nd time below for display
@@ -37,7 +37,7 @@ foreach ($map_lang as $key=>$value) {
 $map_lang_select.= "</optgroup></select><!--/td></tr-->";
 $update_button="<input type='submit' value='".__("Update", SL_TEXT_DOMAIN)."' class='button-primary'>";
 
-print "<form method='post' name='mapDesigner'><table class='widefat' id='mapDesigner_table'><thead><tr><th colspan='2'>".__("MapDesigner", SL_TEXT_DOMAIN)." <div style='float:right'><small>".__("API Key", SL_TEXT_DOMAIN)." (<a rel='sl_pop' href='#api-key-info'>?</a>): </small>
+print "<form method='post' name='mapdesigner_form'><table class='widefat' id='mapdesigner_table'><thead><tr><th colspan='2'>".__("MapDesigner", SL_TEXT_DOMAIN)." <div style='float:right'><small>".__("API Key", SL_TEXT_DOMAIN)." (<a rel='sl_pop' href='#api-key-info'>?</a>): </small>
 <div id='api-key-info' style='display:none'><h3 style='margin-top:0px'>".__("Google Maps", SL_TEXT_DOMAIN)." ".__("API Key", SL_TEXT_DOMAIN)."</h3>".__("Google Maps API V3 actually doesn't require an API Key, however, if needed (it appears that high usage requires a key)", SL_TEXT_DOMAIN).", <a target='_blank' href='https://developers.google.com/maps/documentation/javascript/tutorial#api_key'>".__("get your key here", SL_TEXT_DOMAIN)."</a></div> {$api_key_field}&nbsp;{$your_location_select}&nbsp;{$map_lang_select}&nbsp;&nbsp;<input type='submit' value='".__("Update", SL_TEXT_DOMAIN)."' class='button-primary' style=''><div></th><!--td><".__("Designer", SL_TEXT_DOMAIN)."--></td--></tr></thead>";
 
 include(SL_INCLUDES_PATH."/mapdesigner-options.php");
@@ -70,9 +70,10 @@ if (function_exists('icl_register_string')) {
 	icl_register_string(SL_DIR, 'Search Button Filename (Over State)', "search_button_over.png");
 }
 
-print "<!--tr--><td colspan='1' width='50%' style='vertical-align:top'><h2>".__("Labels", SL_TEXT_DOMAIN)."</h2>";
+print "<!--tr--><td colspan='1' width='50%' style='vertical-align:top'><h2>".__("Design", SL_TEXT_DOMAIN)."</h2>
+$icon_notification_msg";
 
-sl_md_display($sl_mdo, 'labels', 2, "right_side");
+sl_md_display($sl_mdo, 'design', 1, "right_side");
 
 print "</td></tr>
 <tr><td colspan='1' class='left_side' style='vertical-align:top; border-bottom:0px'><h2>".__("Dimensions", SL_TEXT_DOMAIN)."</h2>";
@@ -80,10 +81,9 @@ print "</td></tr>
 sl_md_display($sl_mdo, 'dimensions', 1);
 
 print "</td><!--/tr>
-<tr--><td colspan='1' style='vertical-align:top; border-bottom:0px'><h2>".__("Design", SL_TEXT_DOMAIN)."</h2>
-$icon_notification_msg";
+<tr--><td colspan='1' style='vertical-align:top; border-bottom:0px'><h2>".__("Labels", SL_TEXT_DOMAIN)."</h2>";
 
-sl_md_display($sl_mdo, 'design', 1, "right_side");
+sl_md_display($sl_mdo, 'labels', 2, "right_side");
 
 print "</td></tr>
 <tr><td colspan='2'>$update_button</td></tr></table></form>";

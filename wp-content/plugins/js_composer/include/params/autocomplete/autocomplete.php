@@ -73,7 +73,7 @@ class Vc_AutoComplete {
 			}
 		}
 
-		$output .= '<li class="vc_autocomplete-input"><span role="status" aria-live="polite" class="ui-helper-hidden-accessible"></span><input class="vc_auto_complete_param" type="text" placeholder="Click here and start typing..." value="' . $this->value . '" autocomplete="off"></li>' .
+		$output .= '<li class="vc_autocomplete-input"><span role="status" aria-live="polite" class="ui-helper-hidden-accessible"></span><input class="vc_auto_complete_param" type="text" placeholder="' . __( 'Click here and start typing...', 'js_composer' ) . '" value="' . $this->value . '" autocomplete="off"></li>' .
 		           '<li class="vc_autocomplete-clear"></li>' .
 		           '</ul>';
 
@@ -97,8 +97,11 @@ add_action( 'wp_ajax_vc_get_autocomplete_suggestion', 'vc_get_autocomplete_sugge
  * @since 4.4
  */
 function vc_get_autocomplete_suggestion() {
+	if ( ! vc_verify_admin_nonce() || ( ! current_user_can( 'edit_posts' ) && ! current_user_can( 'edit_pages' ) ) ) {
+		die();
+	}
 	$query = vc_post_param( 'query' );
-	$tag = vc_post_param( 'shortcode' );
+	$tag = strip_tags( vc_post_param( 'shortcode' ) );
 	$param_name = vc_post_param( 'param' );
 	vc_render_suggestion( $query, $tag, $param_name );
 }
