@@ -669,8 +669,15 @@ section.statement{
         top:-18px;
     }
     .facebook-icon{
-        margin-left: 20%;
-        top: 80px;
+        margin-left: 20% !important;
+        top: 80px !important;
+    }
+    .fb-like-text{
+        margin-top: 62px;
+        margin-left: 25%
+    }
+    .fb-like-text a p{
+        font-size: 11px;
     }
     .twitter-icon{
         margin-left: 50px;
@@ -870,8 +877,15 @@ section.statement{
         top:-18px;
     }
     .facebook-icon{
-        margin-left: 20%;
-        top: 80px;
+        margin-left: 20% !important;
+        top: 80px !important;
+    }
+    .fb-like-text{
+        margin-top: 62px;
+        margin-left: 25%
+    }
+    .fb-like-text a p{
+        font-size: 11px;
     }
     .twitter-icon{
         margin-left: 50px;
@@ -1524,7 +1538,10 @@ ul.recentportfolio li.item.item-type-line{
 	margin-left: 2px;
 	top:40px;
 }
-
+.fb-like-text{
+    margin-top: 19px;
+    margin-left: 22px
+}
 .twitter-icon{
 	position: absolute;
 	margin-left: 55px;
@@ -2145,6 +2162,13 @@ section.statement{
         margin-left: 20%;
         top: 80px;
     }
+    .fb-like-text{
+        margin-top: 62px;
+        margin-left: 25%
+    }
+    .fb-like-text a p{
+        font-size: 11px;
+    }
     .twitter-icon{
         margin-left: 50px;
         top: 20px;
@@ -2393,10 +2417,16 @@ section.statement{
     }
     .facebook-icon{
         position: relative;
-        margin-left: 32%;
-        top:72px;
+        margin-left: 32% !important;
+        top:72px !important;
     }
-
+    .fb-like-text{
+        margin-top: 55px;
+        margin-left: 36%
+    }
+    .fb-like-text a p{
+        font-size: 12px;
+    }
     .twitter-icon{
         position: absolute;
         margin-left: 55px;

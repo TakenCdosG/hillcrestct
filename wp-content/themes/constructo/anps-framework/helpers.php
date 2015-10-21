@@ -213,6 +213,7 @@ function anps_get_header() {
                     <div class="header-email-text"><a href="mailto:<?php echo $contact_email; ?>"> <p><?php echo $contact_email; ?></p></a></div>
                     <div class="social-icons-container">
                         <div class="facebook-icon"><a href="<?php if($fbaddr == null) echo "#"; else echo $fbaddr?>" target="_blank"><img src="<?php echo get_template_directory_uri(); ?>/images/social-logos/facebook.png"></a></div>
+                        <div class="fb-like-text"><a href="<?php echo $fbaddr; ?> target='_blank'"><p>Like us on Facebook</p></a></div>
                     </div>
                 </div>
             </div>
