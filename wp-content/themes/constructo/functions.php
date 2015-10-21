@@ -670,6 +670,7 @@ add_filter( 'wpcf7_support_html5', '__return_false' );
  */
 global $fbaddr,$twaddr,$ptaddr,$gpaddr,$beaddr;
 
+$fbaddr = get_field('fbaddr','5');
 $twaddr = get_field('twaddr','5');
 $ptaddr = get_field('ptaddr','5');
 $gpaddr = get_field('gpaddr','5');
