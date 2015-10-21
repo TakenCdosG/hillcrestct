@@ -1,6 +1,6 @@
 <?php
 /**
- * @deprecated 4.4 due to autoload logic
+ * @deprecated since 4.4 due to autoload logic
  */
 
 // Here comes the list of vendors

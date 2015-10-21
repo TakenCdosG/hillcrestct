@@ -400,6 +400,7 @@ input.submit-btn{
 
 .footer-social-icons{
 	height: 16px;
+    display: none;
 }
 
 .fb-white{
@@ -629,6 +630,7 @@ section.statement{
     .footer-social-icons{
         top:10px;
         position: relative;
+        display: none;
     }
     .be-white{
         height: 14px;
@@ -1769,6 +1771,7 @@ input.submit-btn{
 
 .footer-social-icons{
 	height: 16px;
+    display: none;
 }
 
 .fb-white{
@@ -1998,6 +2001,7 @@ section.statement{
     .footer-social-icons{
         top:10px;
         position: relative;
+        display: none;
     }
     .be-white{
         height: 14px;

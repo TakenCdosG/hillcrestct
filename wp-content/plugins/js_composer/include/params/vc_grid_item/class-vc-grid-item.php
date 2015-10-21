@@ -36,7 +36,6 @@ class Vc_Grid_Item {
 			$this,
 			'addVcCustomHeadingShortcodesTemplates'
 		) );
-		add_filter( 'vc_shortcode_set_template_vc_btn', array( $this, 'addVcBtnShortcodesTemplates' ) );
 
 		return $this->shortcodes;
 	}
@@ -90,8 +89,7 @@ class Vc_Grid_Item {
 	}
 
 	/**
-	 * Used by filter vc_shortcode_set_template_vc_custom_heading to set custom template for vc_custom_heading
-	 * shortcode.
+	 * Used by filter vc_shortcode_set_template_vc_custom_heading to set custom template for vc_custom_heading shortcode.
 	 *
 	 * @param $template
 	 *
@@ -107,30 +105,10 @@ class Vc_Grid_Item {
 	}
 
 	/**
-	 * Used by filter vc_shortcode_set_template_vc_button2 to set custom template for vc_button2 shortcode.
-	 *
-	 * @param $template
-	 *
-	 * @return string
-	 */
-	public function addVcBtnShortcodesTemplates( $template ) {
-		$file = vc_path_dir( 'TEMPLATES_DIR', 'params/vc_grid_item/shortcodes/vc_btn.php' );
-		if ( is_file( $file ) ) {
-			return $file;
-		}
-
-		return $template;
-	}
-
-	/**
 	 * Map shortcodes for vc_grid_item param type.
 	 */
 	public function mapShortcodes() {
-		// @kludge
-		// TODO: refactor with with new way of roles for shortcodes.
-		// NEW ROLES like post_type for shortcode and access policies.
-		$shortcodes = $this->shortcodes();
-		foreach ( $shortcodes as $shortcode_settings ) {
+		foreach ( $this->shortcodes() as $shortcode_settings ) {
 			vc_map( $shortcode_settings );
 		}
 	}
@@ -236,6 +214,7 @@ class Vc_Grid_Item {
 	 * @param $template
 	 */
 	public function parseTemplate( $template ) {
+		// $this->setShortcodes();
 		$this->mapShortcodes();
 		$attr = ' width="' . $this->gridAttribute( 'element_width', 12 ) . '"'
 		        . ' is_end="' . ( $this->isEnd() === 'true' ? 'true' : '' ) . '"';
@@ -353,5 +332,5 @@ class Vc_Grid_Item {
 			add_shortcode( $tag, array( $this, vc_camel_case( $tag . '_shortcode' ) ) );
 		}
 	}
-	// }}
+// }}
 }

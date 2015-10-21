@@ -413,7 +413,6 @@ class Vc_ParamAnimation {
 		 * Used to override animation style list
 		 * @since 4.4
 		 */
-
 		return apply_filters( 'vc_param_animation_style_list', $styles );
 	}
 
@@ -454,7 +453,7 @@ class Vc_ParamAnimation {
 	public function __construct( $settings, $value ) {
 		$this->settings = $settings;
 		$this->value = $value;
-		wp_register_style( 'animate-css', vc_asset_url( 'lib/bower/animate-css/animate.min.css' ), array(), WPB_VC_VERSION, false );
+		wp_register_style( 'animate-css', vc_asset_url( 'lib/animate-css/animate.css' ), array(), WPB_VC_VERSION, false );
 	}
 
 	/**
@@ -515,7 +514,6 @@ class Vc_ParamAnimation {
  * @param string $tag - shortcode tag
  *
  * vc_filter: vc_animation_style_render_filter - filter to override editor form field output
- *
  * @since 4.4
  * @return mixed|void rendered template for params in edit form
  *
@@ -528,7 +526,6 @@ function vc_animation_style_form_field( $settings, $value, $tag ) {
 	 * Filter used to override full output of edit form field animation style
 	 * @since 4.4
 	 */
-
 	return apply_filters( 'vc_animation_style_render_filter', $field->render(), $settings, $value, $tag );
 }
 

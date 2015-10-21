@@ -31,7 +31,6 @@ class WPBakeryShortCode_VC_Wp_Text extends WPBakeryShortCode {
 	/**
 	 * This actually fixes #1537 by converting 'text' to 'content'
 	 * @since 4.4
-	 *
 	 * @param $atts
 	 *
 	 * @return mixed

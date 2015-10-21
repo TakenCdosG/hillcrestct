@@ -64,7 +64,6 @@ Class Vc_Vendor_Jwplayer implements Vc_Vendor_Interface {
 	public function renderPlaceholder() {
 		return '<div class="vc_placeholder-jwplayer"></div>';
 	}
-
 	/**
 	 * @param $output
 	 *
@@ -79,7 +78,7 @@ Class Vc_Vendor_Jwplayer implements Vc_Vendor_Interface {
 
 	/**
 	 * @since 4.3
-	 * @todo check it for preview mode (check is it needed)
+	 * Todo check it for preview mode (check is it needed)
 	 */
 	public function vc_load_iframe_jscss() {
 		wp_enqueue_script( 'vc_vendor_jwplayer', vc_asset_url( 'js/frontend_editor/vendors/plugins/jwplayer.js' ), array( 'jquery' ), '1.0', true );
