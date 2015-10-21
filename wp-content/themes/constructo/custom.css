@@ -673,11 +673,11 @@ section.statement{
         top: 80px !important;
     }
     .fb-like-text{
-        margin-top: 62px;
-        margin-left: 25%
+        margin-top: 62px !important;
+        margin-left: 25% !important;
     }
     .fb-like-text a p{
-        font-size: 11px;
+        font-size: 11px !important;
     }
     .twitter-icon{
         margin-left: 50px;
@@ -881,11 +881,11 @@ section.statement{
         top: 80px !important;
     }
     .fb-like-text{
-        margin-top: 62px;
-        margin-left: 25%
+        margin-top: 62px !important;
+        margin-left: 25% !important;
     }
     .fb-like-text a p{
-        font-size: 11px;
+        font-size: 11px !important;
     }
     .twitter-icon{
         margin-left: 50px;
@@ -1539,8 +1539,8 @@ ul.recentportfolio li.item.item-type-line{
 	top:40px;
 }
 .fb-like-text{
-    margin-top: 19px;
-    margin-left: 22px
+    margin-top: 19px !important;
+    margin-left: 21px !important;
 }
 .twitter-icon{
 	position: absolute;
@@ -2163,11 +2163,11 @@ section.statement{
         top: 80px;
     }
     .fb-like-text{
-        margin-top: 62px;
-        margin-left: 25%
+        margin-top: 62px !important;
+        margin-left: 25% !important;
     }
     .fb-like-text a p{
-        font-size: 11px;
+        font-size: 11px !important;
     }
     .twitter-icon{
         margin-left: 50px;
@@ -2421,11 +2421,11 @@ section.statement{
         top:72px !important;
     }
     .fb-like-text{
-        margin-top: 55px;
-        margin-left: 36%
+        margin-top: 55px !important;
+        margin-left: 36% !important;
     }
     .fb-like-text a p{
-        font-size: 12px;
+        font-size: 12px !important;
     }
     .twitter-icon{
         position: absolute;
