@@ -28,6 +28,9 @@ a.item-hover div div h2, a.item-hover div div h2 i{
 .btn.style-1:hover, .btn.style-1:active, .btn.style-1:focus, .vc_btn.style-1:hover, .vc_btn.style-1:active, .vc_btn.style-1:focus,.btn:hover, .btn:active, .btn:focus, .wpcf7-submit:hover, .wpcf7-submit:active, .wpcf7-submit:focus{
     background-color:#003d79 !important;
 }
+#custom-id-0 p{
+    color: #ffffff !important;
+}
 /*
 * Single Home Button to Our Homes
 */
