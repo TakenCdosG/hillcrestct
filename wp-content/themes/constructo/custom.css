@@ -2762,7 +2762,7 @@ margin-left : 8px;
 
 /************** Changes for the News pages *****************/
 /****************** Added on 20/11/2015 ********************/
-.post-content { font-family: "adobe-garamond-pro"; }
+.post-content { font-family: "adobe-garamond-pro"; font-size: 15px; line-height: 1.7em; }
 .post-content a { color: #003D79; }
 
 >>>>>>> 27bb76a6de3f8fb0fe1665dd6397190ea92cb377
