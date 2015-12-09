@@ -189,7 +189,7 @@ function anps_get_header() {
         <div class="nav-wrap<?php echo $menu_left_center_right_class; ?>">
             <div class="upper-header">
                 <?php
-                    global $fbaddr,$twaddr,$ptaddr,$gpaddr,$beaddr, $contact_email, $model_hours, $contact_tel;
+                    global $fbaddr,$twaddr,$ptaddr,$gpaddr,$beaddr, $contact_email, $model_hours, $contact_tel, $address_info;
                 ?>
                 <div class="social-icons-header">
                     <div class="social-icons-container">
@@ -204,16 +204,23 @@ function anps_get_header() {
                     <div class="clock-icon"><img src="<?php echo get_template_directory_uri(); ?>/images/social-logos/clock.png"></div>
                     <div class="info-header-text"><p>Sales Center & Model Open House Hours: <?php echo $model_hours; ?> </p></div>
                 </div>
-                <div class="phone-number">
-                    <div class="phone-icon"><img src="<?php echo get_template_directory_uri(); ?>/images/social-logos/phone-icon.png"></div>
-                    <div class="phone-number-text"><a href="tel:<?php $chars = array("(",")","-"," "); echo str_replace($chars,'',$contact_tel); ?>"><?php echo $contact_tel; ?></a></div>
+                <div class="addr-phone-container">
+                    <div class="info-address">
+                        <div class="info-address-text"><p><?php echo $address_info; ?></p></div>
+                    </div>
+                    <div class="phone-number">
+                        <div class="phone-icon"><img src="<?php echo get_template_directory_uri(); ?>/images/social-logos/phone-icon.png"></div>
+                        <div class="phone-number-text"><a href="tel:<?php $chars = array("(",")","-"," "); echo str_replace($chars,'',$contact_tel); ?>"><?php echo $contact_tel; ?></a></div>
+                    </div>
                 </div>
-                <div class="header-email">
-                    <div class="mail-icon"><img src="<?php echo get_template_directory_uri(); ?>/images/social-logos/mail-icon.png"></div>
-                    <div class="header-email-text"><a href="mailto:<?php echo $contact_email; ?>"> <p><?php echo $contact_email; ?></p></a></div>
-                    <div class="social-icons-container">
-                        <div class="facebook-icon"><a href="<?php if($fbaddr == null) echo "#"; else echo $fbaddr?>" target="_blank"><img src="<?php echo get_template_directory_uri(); ?>/images/social-logos/facebook.png"></a></div>
-                        <div class="fb-like-text"><a href="<?php echo $fbaddr; ?> target='_blank'"><p>Like us on Facebook</p></a></div>
+                <div class="mail-fb-container">
+                    <div class="header-email">
+                        <div class="mail-icon"><img src="<?php echo get_template_directory_uri(); ?>/images/social-logos/mail-icon.png"></div>
+                        <div class="header-email-text"><a href="mailto:<?php echo $contact_email; ?>"> <p><?php echo $contact_email; ?></p></a></div>
+                        <div class="social-icons-container">
+                            <div class="facebook-icon"><a href="<?php if($fbaddr == null) echo "#"; else echo $fbaddr?>" target="_blank"><img src="<?php echo get_template_directory_uri(); ?>/images/social-logos/facebook.png"></a></div>
+                            <div class="fb-like-text"><a href="<?php echo $fbaddr; ?> target='_blank'"><p>Like us on Facebook</p></a></div>
+                        </div>
                     </div>
                 </div>
             </div>

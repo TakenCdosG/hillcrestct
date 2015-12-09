@@ -680,8 +680,9 @@ $beaddr = get_field('beaddr','5');
 * ACF HOME SECTION INFO
 */
 
-global $model_hours,$contact_email,$contact_tel;
+global $model_hours,$contact_email,$contact_tel,$address_info;
 
 $model_hours = get_field('model_hours','5');
 $contact_email = get_field('contact_email','5');
 $contact_tel = get_field('contact_tel','5');
+$address_info = get_field('address_info','5');
