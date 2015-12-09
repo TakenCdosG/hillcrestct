@@ -1,0 +1,10 @@
+.carousel-anything-container.owl-theme.has-arrows .owl-wrapper-outer{z-index:2}.carousel-anything-container.owl-theme.has-arrows .owl-controls{position:absolute;top:50%;right:0;left:0;margin-top:-10px;height:20px}.carousel-anything-container.owl-theme.has-arrows .owl-controls .owl-buttons div{background:transparent;padding:0;margin:0;height:20px;width:20px;position:absolute;left:-30px}.carousel-anything-container.owl-theme.has-arrows .owl-controls .owl-buttons div.owl-next{left:auto;right:-30px}.carousel-anything-container.owl-theme.has-arrows .owl-controls .owl-buttons div:before{font-family:dashicons;content:"\f341";top:0;left:0;position:absolute;right:0;color:#333;font-size:20px;text-align:center;line-height:20px}.carousel-anything-container.owl-theme.has-arrows .owl-controls .owl-buttons div.owl-next:before{content:"\f345"}
+.owl-carousel .owl-item img {
+    height:auto;
+    width:100%;
+    display: block;
+}
+
+.owl-carousel .item {
+    margin:0px;
+}
