@@ -56,8 +56,6 @@ class WPLeadInAdmin {
 
     function leadin_update_check ()
     {
-        leadin_maybe_add_migration_db_columns();
-
         update_option('leadin_pluginVersion', LEADIN_PLUGIN_VERSION);
     }
 
@@ -103,11 +101,6 @@ class WPLeadInAdmin {
 
         add_submenu_page('leadin', 'Contacts', 'Contacts', 'activate_plugins', 'leadin_contacts', array($this, 'leadin_build_app'));
         add_submenu_page('leadin', 'Settings', 'Settings', 'activate_plugins', 'leadin_settings', array($this, 'leadin_build_app'));
-
-        if (get_option('leadin_puntMigration') == true && get_option('leadin_migrationStatus') != 'completed')
-        {
-            add_submenu_page('leadin', 'Migrate', 'Migrate', 'activate_plugins', 'leadin#migration/unpunt', array($this, 'unpunt_migration_callback'));
-        }
 
         $submenu['leadin'][0][0] = 'Stats';
 
@@ -185,9 +178,6 @@ class WPLeadInAdmin {
             'adminBaseUrl' => get_admin_url(get_current_blog_id(), 'admin.php'),
             'apiBaseUrl' => constant('LEADIN_API_BASE_URL'),
             'assetsBaseUrl' => constant('LEADIN_ADMIN_ASSETS_BASE_URL'),
-            'migrationStatus' => leadin_check_migration_status(),
-            'migrationPunted' => get_option('leadin_puntMigration'),
-            'migrationNonce' => wp_create_nonce( 'leadin-migration-nonce' ),
             'leadinPluginDirectory' => LEADIN_PLUGIN_SLUG,
             'ajaxUrl' => is_ssl() ? str_replace('http:', 'https:', $ajaxUrl) : str_replace('https:', 'http:', $ajaxUrl),
             'locale' => get_locale(),
@@ -195,15 +185,7 @@ class WPLeadInAdmin {
             'timezoneString' => get_option('timezone_string') // If not set by the user manually it will be an empty string
         );
 
-        // remove after migration is complete
-        if ( $leadin_config['migrationStatus'] == 'started')
-        {
-            $leadin_config['timeSinceLastMigration'] = time() - get_option('leadin_most_recent_migration_timestamp');
-
-        }
-        // remove after migration is complete
-
-        if ( ($pagenow == 'admin.php' && isset($_GET['page']) && strstr($_GET['page'], 'leadin')) ) 
+        if ( ($pagenow == 'admin.php' && isset($_GET['page']) && strstr($_GET['page'], 'leadin')) )
         {
             wp_register_script('leadin-head-js', leadin_get_resource_url('/bundle/head/head.js'), FALSE, FALSE, FALSE);
             wp_localize_script('leadin-head-js', 'leadin_config', $leadin_config);

@@ -16,7 +16,7 @@ class LI_Pointers {
 	/**
 	 * Class constructor.
 	 */
-	function __construct ( $new_install = FALSE ) 
+	function __construct ( $new_install = FALSE )
 	{
 		//=============================================
 		// Hooks & Filters
@@ -25,10 +25,6 @@ class LI_Pointers {
 		if ( $new_install )
 		{
 			add_action('admin_enqueue_scripts', array($this, 'enqueue_new_install_pointer'));
-		}
-		else
-		{
-			add_action('admin_enqueue_scripts', array($this, 'enqueue_migration_pointer'));
 		}
 	}
 
@@ -46,22 +42,6 @@ class LI_Pointers {
 		wp_enqueue_script('utils');
 
 		add_action('admin_print_footer_scripts', array($this, 'li_settings_popup_new'));
-	}
-
-	/**
-	 * Enqueue styles and scripts needed for the pointers.
-	 */
-	function enqueue_migration_pointer () 
-	{
-		if ( ! current_user_can('manage_options') )
-			return;
-
-		wp_enqueue_style('wp-pointer');
-		wp_enqueue_script('jquery-ui');
-		wp_enqueue_script('wp-pointer');
-		wp_enqueue_script('utils');
-
-		add_action('admin_print_footer_scripts', array($this, 'li_settings_popup_migration'));
 	}
 
 	/**
@@ -84,27 +64,7 @@ class LI_Pointers {
 
 		$content = '<h3>' . __('So close...', 'leadin') . '</h3>';
 		$content .= '<p>' . __('Leadin needs just a bit more info to get up and running. Click on \'Complete Setup\' to complete the setup.', 'leadin') . '</p>';
-		
-		$opt_arr = array(
-			'content'  => $content,
-			'position' => array( 'edge' => 'left', 'align' => 'center' )
-		);
 
-		$function2 = 'li_redirect_to_settings()';
-
-		$this->print_scripts($id, $opt_arr, 'Complete Setup', FALSE, '', $function2);
-	}
-
-	/**
-	 * Shows a popup that asks for permission to allow tracking.
-	 */
-	function li_settings_popup_migration ()
-	{
-		$id    = '#toplevel_page_leadin';
-
-		$content = '<h3>' . __('So close...', 'leadin' ) . '</h3>';
-		$content .= '<p>' . __('Welcome to the new version of Leadin. We\'ve got some big changes in store. We need your quick attention to get the latest version up and running correctly. Click on \'Complete Setup\' to complete the setup - it seriously takes less than 60 seconds.', 'leadin' ) . '</p>';
-		
 		$opt_arr = array(
 			'content'  => $content,
 			'position' => array( 'edge' => 'left', 'align' => 'center' )

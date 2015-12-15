@@ -1,10 +1,10 @@
 === Typekit Fonts for WordPress ===
 Contributors: jamescollins, glenn-om4
-Donate link: http://om4.com.au/wordpress-plugins/#donate
-Tags: typekit, fonts, font, design, wp, multisite, wpmu
-Requires at least: 3.6
-Tested up to: 4.2
-Stable tag: 1.7.1
+Donate link: https://om4.com.au/plugins/#donate
+Tags: typekit, fonts, font, design, wp, multisite, wpmu, css, snippet
+Requires at least: 4.0
+Tested up to: 4.4
+Stable tag: 1.8
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -12,7 +12,7 @@ Use a range of hundreds of high quality fonts on your WordPress website by integ
 
 == Description ==
 
-Allows you to embed and use [Typekit](http://www.typekit.com) fonts in your WordPress website without having to edit your theme.
+Embed and use [Typekit](https://typekit.com/) fonts in your WordPress website without having to edit your theme!
 
 Typekit offer a service that allows you to select from a range of hundreds of high quality fonts for your WordPress website. The fonts are applied using the font-face standard, so they are standards compliant, fully licensed and accessible.
 
@@ -20,11 +20,9 @@ To use this plugin you need to sign up with Typekit, install this plugin and the
 
 Detailed instructions are available on the plugin's settings page.
 
+This plugin uses [Typekit's asynchronous embed code](http://blog.typekit.com/2015/08/04/new-embed-code-for-asynchronous-font-loading/), which doesn't block the rendering of the page while fonts are loading.
+
 Compatible with WordPress Multisite.
-
-This plugin is designed to function securely with both WordPress and WordPress Multisite. When the JavaScript Embed Code is entered on the settings page, the user account id is extracted from the embed code and the correctly formed Typekit Embed Code is included in the site header, so it is not possible to use the Embed Code field to include arbitrary JavaScript. The Custom CSS field is also filtered, and doesn't allow any HTML code to be entered.
-
-If the website is using HTTPS/SSL, the SSL version of the Typekit embed code is automatically used instead.
 
 **Available Languages**
 
@@ -32,7 +30,7 @@ If the website is using HTTPS/SSL, the SSL version of the Typekit embed code is 
 
 **Other Languages**
 
-If you would like to help translate this plugin into another language, [please visit the Transifex project page](https://www.transifex.com/projects/p/typekit-fonts-for-wordpress/). Thank you.
+If you would like to translate this plugin into another language, [please visit the translate.wordpress.org site](https://translate.wordpress.org/projects/wp-plugins/typekit-fonts-for-wordpress). Thank you!
 
 == Installation ==
 
@@ -62,6 +60,17 @@ Please see [this page](http://help.typekit.com/customer/portal/articles/6786-bro
 2. Detailed inline help
 
 == Changelog ==
+
+= 1.8 =
+* Use WordPress.org language packs for plugin translations.
+* Improved compatibility with older PHP versions (no more pass by reference).
+* Screenshot updates.
+* Readme updates.
+
+= 1.7.2 =
+* Use Typekit's latest recommended embed code (which uses a https:// Typekit embed code URL for all sites).
+* WordPress 4.3 compatibility.
+* Change plugin's textdomain to match the plugin's folder name in preparation for translate.wordpress.org translations.
 
 = 1.7.1 =
 * WordPress 4.1 compatibility.
@@ -114,6 +123,10 @@ Please see [this page](http://help.typekit.com/customer/portal/articles/6786-bro
 * Initial release.
 
 == Upgrade Notice ==
+
+= 1.8 =
+* Support for translate.wordpress.org language packs.
+* WordPress 4.3 (and 4.4) compatibility.
 
 = 1.7 =
 * Japanese language support.

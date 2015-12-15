@@ -1,4 +1,8 @@
 <?php
+if ( ! defined( 'ABSPATH' ) ) {
+	die( '-1' );
+}
+
 /**
  * Manage update messages and Plugins info for VC in default Wordpress plugins list.
  */
@@ -35,6 +39,7 @@ class Vc_Updating_Manager {
 	 * @var string
 	 */
 	protected $url = 'http://bit.ly/vcomposer';
+
 	/**
 	 * Initialize a new instance of the WordPress Auto-Update class
 	 *
@@ -63,6 +68,7 @@ class Vc_Updating_Manager {
 	 * Add our self-hosted autoupdate plugin to the filter transient
 	 *
 	 * @param $transient
+	 *
 	 * @return object $ transient
 	 */
 	public function check_update( $transient ) {
@@ -79,10 +85,10 @@ class Vc_Updating_Manager {
 			$obj = new stdClass();
 			$obj->slug = $this->slug;
 			$obj->new_version = $remote_version;
-			$obj->url = ''; // $this->update_path;
-			$obj->package = ''; // $this->update_path;
+			$obj->url = '';
+			$obj->package = '';
 			$obj->name = vc_updater()->title;
-			$transient->response[$this->plugin_slug] = $obj;
+			$transient->response[ $this->plugin_slug ] = $obj;
 		}
 
 		return $transient;
@@ -91,9 +97,10 @@ class Vc_Updating_Manager {
 	/**
 	 * Add our self-hosted description to the filter
 	 *
-	 * @param boolean $false
+	 * @param bool $false
 	 * @param array $action
 	 * @param object $arg
+	 *
 	 * @return bool|object
 	 */
 	public function check_info( $false, $action, $arg ) {
@@ -107,12 +114,14 @@ class Vc_Updating_Manager {
 			$array_replace = array(
 				'<h4>$2</h4>',
 				'</div><div>',
-				'</div><div>'
+				'</div><div>',
 			);
 			$information->name = vc_updater()->title;
 			$information->sections['changelog'] = '<div>' . preg_replace( $array_pattern, $array_replace, $information->sections['changelog'] ) . '</div>';
+
 			return $information;
 		}
+
 		return $false;
 	}
 
@@ -126,6 +135,7 @@ class Vc_Updating_Manager {
 		if ( ! is_wp_error( $request ) || wp_remote_retrieve_response_code( $request ) === 200 ) {
 			return $request['body'];
 		}
+
 		return false;
 	}
 
@@ -139,35 +149,37 @@ class Vc_Updating_Manager {
 		if ( ! is_wp_error( $request ) || wp_remote_retrieve_response_code( $request ) === 200 ) {
 			return unserialize( base64_decode( $request['body'] ) );
 		}
+
 		return false;
 	}
 
 	/**
 	 * Return the status of the plugin licensing
 	 *
-	 * @return boolean $remote_license
+	 * @return bool $remote_license
 	 */
 	public function getRemote_license() {
 		$request = wp_remote_post( $this->update_path, array( 'body' => array( 'action' => 'license' ) ) );
 		if ( ! is_wp_error( $request ) || wp_remote_retrieve_response_code( $request ) === 200 ) {
 			return $request['body'];
 		}
+
 		return false;
 	}
+
 	/**
 	 * Shows message on Wp plugins page with a link for updating from envato.
 	 */
 	public function addUpgradeMessageLink() {
 		$username = vc_settings()->get( 'envato_username' );
 		$api_key = vc_settings()->get( 'envato_api_key' );
-		$purchase_code = vc_settings()->get( 'js_composer_purchase_code' );
+		$purchase_code = vc_license()->getLicenseKey();
 		echo '<style type="text/css" media="all">tr#wpbakery-visual-composer + tr.plugin-update-tr a.thickbox + em { display: none; }</style>';
 		if ( empty( $username ) || empty( $api_key ) || empty( $purchase_code ) ) {
 			echo ' <a href="' . $this->url . '">' . __( 'Download new version from CodeCanyon.', 'js_composer' ) . '</a>';
 		} else {
 			// update.php?action=upgrade-plugin&plugin=testimonials-widget%2Ftestimonials-widget.php&_wpnonce=6178d48b6e
-			// echo '<a href="' . wp_nonce_url( admin_url( 'plugins.php?vc_action=vc_upgrade' ) ) . '">' . __( 'Update Visual Composer now.', 'js_composer' ) . '</a>';
-			echo '<a href="' . wp_nonce_url( admin_url( 'update.php?action=upgrade-plugin&plugin='.vc_plugin_name() ), 'upgrade-plugin_'.vc_plugin_name() ) . '">' . __( 'Update Visual Composer now.', 'js_composer' ) . '</a>';
+			echo '<a href="' . wp_nonce_url( admin_url( 'update.php?action=upgrade-plugin&plugin=' . vc_plugin_name() ), 'upgrade-plugin_' . vc_plugin_name() ) . '">' . __( 'Update Visual Composer now.', 'js_composer' ) . '</a>';
 		}
 	}
 }
