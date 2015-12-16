@@ -489,7 +489,7 @@ ul.list.circle li::before{
 .vc_button-2-wrapper.vc_button-2-align-inline{
     margin-bottom: 40px;
 }
-.vc_button-2-wrapper.vc_button-2-align-inline .vc_btn.vc_btn_orange.vc_btn-orange.vc_btn_lg.vc_btn-lg.vc_btn_rounded, .vc_general .vc_btn3 .vc_btn3-size-lg .vc_btn3-shape-rounded .vc_btn3-style-classic .vc_btn3-color-orange{
+.vc_button-2-wrapper.vc_button-2-align-inline .vc_btn.vc_btn_orange.vc_btn-orange.vc_btn_lg.vc_btn-lg.vc_btn_rounded, .vc_btn3.vc_btn3-color-orange, .vc_btn3.vc_btn3-color-orange.vc_btn3-style-flat{
     background-color: #ea9919 !important;
 }
 div.row.home-detail-title div.wpb_column.col-md-12 h5{
