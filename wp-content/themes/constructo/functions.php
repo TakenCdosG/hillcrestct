@@ -681,7 +681,7 @@ $beaddr = get_field('beaddr','5');
 */
 
 global $model_hours,$contact_email,$contact_tel,$address_info;
-
+$sales_center = get_field('sales_center','5');
 $model_hours = get_field('model_hours','5');
 $contact_email = get_field('contact_email','5');
 $contact_tel = get_field('contact_tel','5');

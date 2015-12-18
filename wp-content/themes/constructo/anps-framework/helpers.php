@@ -189,7 +189,7 @@ function anps_get_header() {
         <div class="nav-wrap<?php echo $menu_left_center_right_class; ?>">
             <div class="upper-header">
                 <?php
-                    global $fbaddr,$twaddr,$ptaddr,$gpaddr,$beaddr, $contact_email, $model_hours, $contact_tel, $address_info;
+                    global $fbaddr,$twaddr,$ptaddr,$gpaddr,$beaddr, $contact_email, $model_hours, $contact_tel, $address_info, $sales_center;
                 ?>
                 <div class="social-icons-header">
                     <div class="social-icons-container">
@@ -202,7 +202,7 @@ function anps_get_header() {
                 </div>
                 <div class="info-header">
                     <div class="clock-icon"><img src="<?php echo get_template_directory_uri(); ?>/images/social-logos/clock.png"></div>
-                    <div class="info-header-text"><p>Sales Center & Model Open House Hours: <?php echo $model_hours; ?> </p></div>
+                    <div class="info-header-text"><p><?php echo $sales_center.' '. $model_hours; ?> </p></div>
                 </div>
                 <div class="addr-phone-container">
                     <div class="info-address">
