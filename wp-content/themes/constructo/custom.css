@@ -903,8 +903,8 @@ section.statement{
         top:-18px;
     }
     .facebook-icon{
-        margin-left: 20% !important;
-        top: 80px !important;
+        margin-top: 40px;
+        margin-left: 25%;
     }
     .fb-like-text{
         margin-top: 62px !important;
@@ -2083,19 +2083,19 @@ section.statement{
     }
     .facebook-icon{
         margin-top: 40px;
-        margin-left: 37%;
+        margin-left: 25%;
     }
     .twitter-icon{
-        margin-left: 50px;
-        top: 20px;
+        margin-left: 45%;
+        margin-top: 20px;
     }
     .pinterest-icon{
-        margin-left: 77px;
-        top:20px;
+        margin-left: 25%;
+        margin-top: 50px;
     }
     .googlep-icon{
-        margin-left: 41px;
-        top: 55px;
+        margin-left: 45%;
+        margin-top: 50px;
     }
     .behance-icon{
         margin-left: 65px;
@@ -2186,8 +2186,20 @@ section.statement{
         top:-18px;
     }
     .facebook-icon{
-        margin-left: 20%;
-        top: 80px;
+        margin-top: 40px;
+        margin-left: 25%;
+    }
+    .twitter-icon{
+        margin-left: 45%;
+        margin-top: 20px;
+    }
+    .pinterest-icon{
+        margin-left: 25%;
+        margin-top: 50px;
+    }
+    .googlep-icon{
+        margin-left: 45%;
+        margin-top: 50px;
     }
     .fb-like-text{
         margin-top: 62px !important;
@@ -2195,18 +2207,6 @@ section.statement{
     }
     .fb-like-text a p{
         font-size: 11px !important;
-    }
-    .twitter-icon{
-        margin-left: 50px;
-        top: 20px;
-    }
-    .pinterest-icon{
-        margin-left: 77px;
-        top:20px;
-    }
-    .googlep-icon{
-        margin-left: 41px;
-        top: 55px;
     }
     .behance-icon{
         margin-left: 65px;
@@ -2319,20 +2319,20 @@ section.statement{
         top:-18px;
     }
     .facebook-icon{
-        margin-left: 30px;
-        top: 20px;
+        margin-top: 40px;
+        margin-left: 25%;
     }
     .twitter-icon{
-        margin-left: 50px;
-        top: 20px;
+        margin-left: 45%;
+        margin-top: 20px;
     }
     .pinterest-icon{
-        margin-left: 77px;
-        top:20px;
+        margin-left: 25%;
+        margin-top: 50px;
     }
     .googlep-icon{
-        margin-left: 41px;
-        top: 55px;
+        margin-left: 45%;
+        margin-top: 50px;
     }
     .behance-icon{
         margin-left: 65px;
@@ -2512,21 +2512,16 @@ section.statement{
         font-size: 12px !important;
     }
     .twitter-icon{
-        position: absolute;
-        margin-left: 55px;
-        top:20px;
+        margin-left: 40%;
+        margin-top: 53px;
     }
-
     .pinterest-icon{
-        position: absolute;
-        margin-left: 82px;
-        top:20px;
+        margin-left: 49%;
+        margin-top: 53px;
     }
-
     .googlep-icon{
-        position: absolute;
-        margin-left: 109px;
-        top:20px;
+        margin-left: 59%;
+        margin-top: 53px;
     }
 
     .behance-icon{
@@ -2713,6 +2708,18 @@ section.statement{
         margin-top: 30px;
         margin-left: 20px;
     }
+    .twitter-icon{
+        margin-left: 25%;
+        margin-top: 32px;
+    }
+    .pinterest-icon{
+        margin-left: 55%;
+        margin-top: 32px;
+    }
+    .googlep-icon{
+        margin-left: 84%;
+        margin-top: 32px;
+    }
 }
 @media screen and (min-width: 1028px) and (max-width: 1070px){
     .social-icons-header{
@@ -2806,6 +2813,18 @@ section.statement{
     .fb-like-text{
         margin-top: 30px;
         margin-left: 20px;
+    }
+    .twitter-icon{
+        margin-left: 25%;
+        margin-top: 32px;
+    }
+    .pinterest-icon{
+        margin-left: 55%;
+        margin-top: 32px;
+    }
+    .googlep-icon{
+        margin-left: 84%;
+        margin-top: 32px;
     }
 }
 @media screen and (min-width: 1071px) and (max-width: 1150px){
@@ -2901,6 +2920,18 @@ section.statement{
         margin-top: 30px;
         margin-left: 20px;
     }
+    .twitter-icon{
+        margin-left: 25%;
+        margin-top: 32px;
+    }
+    .pinterest-icon{
+        margin-left: 55%;
+        margin-top: 32px;
+    }
+    .googlep-icon{
+        margin-left: 84%;
+        margin-top: 32px;
+    }
 }
 @media screen and (min-width: 1151px) and (max-width: 1230px){
     .social-icons-header{
@@ -2994,6 +3025,18 @@ section.statement{
     .fb-like-text{
         margin-top: 30px;
         margin-left: 20px;
+    }
+    .twitter-icon{
+        margin-left: 25%;
+        margin-top: 32px;
+    }
+    .pinterest-icon{
+        margin-left: 55%;
+        margin-top: 32px;
+    }
+    .googlep-icon{
+        margin-left: 84%;
+        margin-top: 32px;
     }
 }
 @media screen and (min-width: 1231px) and (max-width: 1309px) {
@@ -3089,6 +3132,18 @@ section.statement{
         margin-top: 30px;
         margin-left: 20px;
     }
+    .twitter-icon{
+        margin-left: 25%;
+        margin-top: 32px;
+    }
+    .pinterest-icon{
+        margin-left: 55%;
+        margin-top: 32px;
+    }
+    .googlep-icon{
+        margin-left: 84%;
+        margin-top: 32px;
+    }
 }
 @media screen and (min-width: 1310px) and (max-width: 1429px) {
     .social-icons-header{
@@ -3182,6 +3237,18 @@ section.statement{
     .fb-like-text{
         margin-top: 30px;
         margin-left: 20px;
+    }
+    .twitter-icon{
+        margin-left: 25%;
+        margin-top: 32px;
+    }
+    .pinterest-icon{
+        margin-left: 55%;
+        margin-top: 32px;
+    }
+    .googlep-icon{
+        margin-left: 84%;
+        margin-top: 32px;
     }
 }
 @media screen and (min-width: 1430px) and (max-width:1560px) {
@@ -3277,6 +3344,18 @@ section.statement{
         margin-top: 30px;
         margin-left: 20px;
     }
+    .twitter-icon{
+        margin-left: 25%;
+        margin-top: 32px;
+    }
+    .pinterest-icon{
+        margin-left: 55%;
+        margin-top: 32px;
+    }
+    .googlep-icon{
+        margin-left: 84%;
+        margin-top: 32px;
+    }
 }
 @media screen and (min-width: 1561px) and (max-width:1690px) {
     .social-icons-header{
@@ -3370,6 +3449,18 @@ section.statement{
     .fb-like-text{
         margin-top: 30px;
         margin-left: 20px;
+    }
+    .twitter-icon{
+        margin-left: 25%;
+        margin-top: 32px;
+    }
+    .pinterest-icon{
+        margin-left: 55%;
+        margin-top: 32px;
+    }
+    .googlep-icon{
+        margin-left: 84%;
+        margin-top: 32px;
     }
 }
 @media screen and (min-width: 1691px) and (max-width:1820px) {
@@ -3465,6 +3556,18 @@ section.statement{
         margin-top: 30px;
         margin-left: 20px;
     }
+    .twitter-icon{
+        margin-left: 25%;
+        margin-top: 32px;
+    }
+    .pinterest-icon{
+        margin-left: 55%;
+        margin-top: 32px;
+    }
+    .googlep-icon{
+        margin-left: 84%;
+        margin-top: 32px;
+    }
 }
 @media screen and (min-width: 1821px){
     .social-icons-header{
@@ -3558,6 +3661,18 @@ section.statement{
     .fb-like-text{
         margin-top: 30px;
         margin-left: 20px;
+    }
+    .twitter-icon{
+        margin-left: 25%;
+        margin-top: 32px;
+    }
+    .pinterest-icon{
+        margin-left: 55%;
+        margin-top: 32px;
+    }
+    .googlep-icon{
+        margin-left: 84%;
+        margin-top: 32px;
     }
 }
 
