@@ -575,7 +575,7 @@ div.img-desc-text span{
 span.sales-rep img{
     border: 1px solid #d7d7d7;
 }
-p span.garamond{
+p span.garamond, span.garamond{
     font-family: "adobe-garamond-pro";
     color: #003d79;
     font-size: 18px;
