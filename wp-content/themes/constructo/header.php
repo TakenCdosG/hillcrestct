@@ -4,6 +4,7 @@
 <head>
 	<script src="//use.typekit.net/kac4vdw.js"></script>
 	<script>try{Typekit.load();}catch(e){}</script>
+    <script async src="https://i.simpli.fi/dpx.js?cid=43313&action=100&segment=hillcrest&m=1&sifi_tuid=21387"></script>
 	<meta charset="<?php bloginfo( 'charset' ); ?>" />
 	<?php anps_is_responsive(false); ?>
 	<title><?php wp_title( '|', true, 'right' ); ?></title>
