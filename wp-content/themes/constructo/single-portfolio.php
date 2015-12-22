@@ -112,7 +112,7 @@ while($portfolio_posts->have_posts()) :
                         <?php next_post_link( '%link', '<button class="btn btn-lg style-5">'.__("next", ANPS_TEMPLATE_LANG) . ' &nbsp; <i class="fa fa-angle-right"></i></button>' ); ?>
                     </div>
                     <div class="col-md-12 buttons folionav bthbtn">
-                        <a class="btn btn-lg style-5" href="<?php echo get_permalink(806); ?>">Back to Our Homes</a>
+                        <a class="btn btn-lg style-5" href="<?php echo /*get_permalink(806)*/ get_permalink(1332); ?>">Back to Our Homes</a>
                     </div>
                 </div>
             </div>

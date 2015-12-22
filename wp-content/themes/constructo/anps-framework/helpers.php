@@ -206,22 +206,24 @@ function anps_get_header() {
                 </div>
                 <div class="addr-phone-container">
                     <div class="info-address">
+                        <div class="info-address-title"><p>Come visit us</p></div>
                         <div class="info-address-text"><p><?php echo $address_info; ?></p></div>
                     </div>
+
+                </div>
+                <div class="mail-fb-container">
                     <div class="phone-number">
                         <div class="phone-icon"><img src="<?php echo get_template_directory_uri(); ?>/images/social-logos/phone-icon.png"></div>
                         <div class="phone-number-text"><a href="tel:<?php $chars = array("(",")","-"," "); echo str_replace($chars,'',$contact_tel); ?>"><?php echo $contact_tel; ?></a></div>
                     </div>
-                </div>
-                <div class="mail-fb-container">
                     <div class="header-email">
                         <div class="mail-icon"><img src="<?php echo get_template_directory_uri(); ?>/images/social-logos/mail-icon.png"></div>
                         <div class="header-email-text"><a href="mailto:<?php echo $contact_email; ?>"> <p><?php echo $contact_email; ?></p></a></div>
                         <div class="social-icons-container">
-                            <div class="facebook-icon"><a href="<?php if($fbaddr == null) echo "#"; else echo $fbaddr?>" target="_blank"><img src="<?php echo get_template_directory_uri(); ?>/images/social-logos/facebook.png"></a></div>
-                            <div class="twitter-icon"><a href="<?php if($twaddr == null) echo "#"; else echo $twaddr; ?>" target="_blank"><img src="<?php echo get_template_directory_uri(); ?>/images/social-logos/twitter.png"></a></div>
-                            <div class="pinterest-icon"><a href="<?php if($ptaddr == null) echo "#"; else echo $ptaddr; ?>" target="_blank"><img src="<?php echo get_template_directory_uri(); ?>/images/social-logos/pinterest.png"></a></div>
-                            <div class="googlep-icon"><a href="<?php if($gpaddr == null) echo "#"; else echo $gpaddr; ?>" target="_blank"><img src="<?php echo get_template_directory_uri(); ?>/images/social-logos/googlePlus.png"></a></div>
+                            <a class="facebook-icon" href="<?php if($fbaddr == null) echo "#"; else echo $fbaddr?>" target="_blank">fb</a>
+                            <a class="twitter-icon" href="<?php if($twaddr == null) echo "#"; else echo $twaddr; ?>" target="_blank">tw</a>
+                            <a class="pinterest-icon" href="<?php if($ptaddr == null) echo "#"; else echo $ptaddr; ?>" target="_blank">pt</a>
+                            <a class="googlep-icon" href="<?php if($gpaddr == null) echo "#"; else echo $gpaddr; ?>" target="_blank">gp</a>
                         </div>
                     </div>
                 </div>
