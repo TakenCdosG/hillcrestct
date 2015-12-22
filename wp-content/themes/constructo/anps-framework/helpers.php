@@ -206,7 +206,7 @@ function anps_get_header() {
                 </div>
                 <div class="addr-phone-container">
                     <div class="info-address">
-                        <div class="info-address-title"><p>Come visit us</p></div>
+                        <div class="info-address-title"><p>Come Visit Us</p></div>
                         <div class="info-address-text"><p><?php echo $address_info; ?></p></div>
                     </div>
 
