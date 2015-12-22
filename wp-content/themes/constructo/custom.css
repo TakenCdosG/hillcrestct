@@ -3754,19 +3754,19 @@ section.statement{
         margin-left: 5%;
         position: relative;
         top: 8px;
-        width: 150%;
+        width: 153%;
     }
     .info-address-text{
         top: 2px;
     }
     .phone-number{
-        margin-top: 12px;
+        margin-top: 0px;
     }
     .phone-number-text a{
         font-size: 10px;
     }
     .header-email{
-        margin-top: 10px;
+        margin-top: -5px;
     }
     .social-icons-container{
         margin-top: -25px;
@@ -3811,13 +3811,13 @@ section.statement{
 
 @media screen and (min-width: 588px) and (max-width: 992px){
     .phone-number{
-        margin-top: 12px;
+        margin-top: 4px;
     }
     .phone-number-text a{
         font-size: 13px;
     }
     .header-email{
-        margin-top: 10px;
+        margin-top: 5px;
     }
     .info-address-title{
         font-size: 13px;
