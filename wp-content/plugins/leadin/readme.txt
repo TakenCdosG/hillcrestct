@@ -2,16 +2,16 @@
 Contributors: leadin, sredmond
 Tags:  crm, contacts, lead tracking, click tracking, visitor tracking, analytics, marketing automation, inbound marketing, subscription, marketing, lead generation, mailchimp, constant contact, newsletter, popup, popover, email list, email, contacts database, contact form, forms, form widget, popup form
 Requires at least: 3.7
-Tested up to: 4.3
-Stable tag: 4.4.0
+Tested up to: 4.4.1
+Stable tag: 4.5.0
 
-Leadin is an easy-to-use marketing automation and lead tracking plugin for WordPress that helps you better understand your web site visitors.
+Leadin is an easy-to-use marketing automation and lead tracking plugin for your website that helps you better understand your web site visitors.
 
 == Description ==
 
 = Get to know your website visitors =
 
-<a href="http://leadin.com" alt="WordPress marketing automation and lead tracking plugin" target="_blank">Leadin</a> is an easy-to-use marketing automation and lead tracking plugin for WordPress that helps you better understand your web site visitors.
+<a href="https://leadin.hubspot.com" alt="WordPress marketing automation and lead tracking plugin" target="_blank">Leadin</a> is an easy-to-use marketing automation and lead tracking plugin for WordPress that helps you better understand your web site visitors.
 
 [youtube https://www.youtube.com/watch?v=tcMYv2r3ecg]
 
@@ -44,7 +44,7 @@ Our simple analytics show you what sources of traffic and content are driving th
 **<a href="http://thewpvalet.com/wordpress-lead-tracking/" target="_blank">Adam W. Warner</a>**: *“…the Leadin plugin has been very useful so far in giving us an idea of the actual visitor paths to our contact forms vs. the paths we’ve intended.”*
 
 
-Having trouble? Check out our <a href="http://support.leadin.com/">help documentation & support</a>
+Having trouble? Check out our <a href="https://leadin.hubspot.com/knowledge/">help documentation & support</a>
 
 == Installation ==
 
@@ -52,25 +52,31 @@ Having trouble? Check out our <a href="http://support.leadin.com/">help document
 2. Activate the plugin through the 'Plugins' menu in WordPress
 3. Add an email address under 'Leadin' in your settings panel
 
-Having trouble? Check out our <a href="http://support.leadin.com/" target="_blank">help documentation & support</a>
+Having trouble? Check out our <a href="https://leadin.hubspot.com/knowledge/" target="_blank">help documentation & support</a>
 
 == Frequently Asked Questions ==
-= <a href="http://support.leadin.com/hc/en-us/articles/204965719-Frequently-Asked-Questions" target="_blank">Full FAQ Here</a> =
+= <a href="https://leadin.hubspot.com/knowledge/frequently-asked-questions" target="_blank">Full FAQ Here</a> =
 
 == Screenshots ==
 
 1. See the visit history of each contact.
 2. Get an email notification for every new lead.
-3. Leadin stats show you where your leads are coming from.
+3. Leadin Dashboard shows you where your leads are coming from.
 4. All your contacts stored safely in one place.
 5. Collect more contacts with the pop-up subscribe widget.
 
 == Changelog ==
 
-- Current version: 4.4.0
-- Current version release: 2015-12-14
+- Current version: 4.5.0
+- Current version release: 2016-01-14
 
-= 4.4.0 (2015.12.14)
+= 4.5.0 (2015.12.14) =
+- Renamed "stats" to "dashboard" in the menu
+- Fixed a bug where deactivating the plugin in multisite mode would cause a PHP error
+- Removed old PHP that was used before Leadin was hosted in an iFrame, as it is now
+- Updated screenshots
+
+= 4.4.0 (2015.12.14) =
 - Remove migration code
 
 = 4.3.2 (2015.12.02) =

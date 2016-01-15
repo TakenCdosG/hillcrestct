@@ -442,12 +442,10 @@ function sl_install_tables() {
 	sl_move_upload_directories();
 }
 /*-------------------------------*/
-function sl_head_scripts() {
-	global $sl_dir, $sl_base, $sl_uploads_base, $sl_path, $sl_uploads_path, $wpdb, $pagename, $sl_map_language, $post, $sl_vars; 		
+function is_on_sl_page() {
+   global $sl_dir, $sl_base, $sl_uploads_base, $sl_path, $sl_uploads_path, $wpdb, $pagename, $sl_map_language, $post, $sl_vars; 		
 	
-	print "\n<!-- ========= WordPress Store Locator (v".SL_VERSION.") | http://www.viadat.com/store-locator/ ========== -->\n";
-	//print "<!-- ========= Learn More & Download Here: http://www.viadat.com/store-locator ========== -->\n";
-	
+   if (!is_admin()) { //v3.88 - moved "!is_admin()" clause into function, instead of wrapping around action hook
 	$on_sl_page=""; $sl_code_is_used_in_posts=""; $post_ids_array="";
 	if (empty($sl_vars['scripts_load']) || $sl_vars['scripts_load'] != 'all') {
 		//Check if currently on page with shortcode
@@ -476,10 +474,26 @@ function sl_head_scripts() {
 	
 	if ($show_on_all_pages || $on_sl_page || is_search() || $show_on_archive_404_pages || $show_on_front_page || $on_sl_post || $show_on_custom_post_types || $sl_scripts_function_exists || $show_on_page_templates) {
 		$GLOBALS['is_on_sl_page'] = 1;
+	} else {
+		$GLOBALS['is_on_sl_page'] = 0;
+	}
+    }
+}
+add_action('wp', 'is_on_sl_page');
+
+function sl_head_scripts() {
+	global $sl_dir, $sl_base, $sl_uploads_base, $sl_path, $sl_uploads_path, $wpdb, $pagename, $sl_map_language, $post, $sl_vars; 		
+	
+	print "\n<!-- ========= WordPress Store Locator (v".SL_VERSION.") | http://www.viadat.com/store-locator/ ========== -->\n";
+	//print "<!-- ========= Learn More & Download Here: http://www.viadat.com/store-locator ========== -->\n";
+	
+	if (isset($GLOBALS['is_on_sl_page']) && $GLOBALS['is_on_sl_page'] == 1) {
+		//v3.88 added 'isset' clause above
 		$google_map_domain=($sl_vars['google_map_domain']!="")? $sl_vars['google_map_domain'] : "maps.google.com";
 		
 		//print "<meta name='viewport' content='initial-scale=1.0, user-scalable=no' />\n";
-		$sens=(!empty($sl_vars['sensor']) && ($sl_vars['sensor'] === "true" || $sl_vars['sensor'] === "false" ))? "&amp;sensor=".$sl_vars['sensor'] : "&amp;sensor=false" ;
+		//$sens=(!empty($sl_vars['sensor']) && ($sl_vars['sensor'] === "true" || $sl_vars['sensor'] === "false" ))? "&amp;sensor=".$sl_vars['sensor'] : "&amp;sensor=false" ;
+		$sens = ""; // - v3.84 - 11/25/15 - no longer required
 		$lang_loc=(!empty($sl_vars['map_language']))? "&amp;language=".$sl_vars['map_language'] : "" ; 
 		$region_loc=(!empty($sl_vars['map_region']))? "&amp;region=".$sl_vars['map_region'] : "" ;
 		$key=(!empty($sl_vars['api_key']))? "&amp;key=".$sl_vars['api_key'] : "" ;
@@ -519,8 +533,33 @@ function sl_footer_scripts(){
 }
 add_action('wp_print_footer_scripts', 'sl_footer_scripts');
 
-function sl_jq() {wp_enqueue_script( 'jquery');}
+function sl_jq() {
+	wp_enqueue_script( 'jquery');
+}
 add_action('wp_enqueue_scripts', 'sl_jq');
+
+function sl_remove_gmaps(){
+    global $wp_scripts;
+    if (isset($GLOBALS['is_on_sl_page']) && $GLOBALS['is_on_sl_page'] == 1) {
+    	// Removing other Google Maps API instances
+    	// Attempt - 11/25/15 - no luck - 2:19a - wp_print_scripts must actually be happening before wp_head since the 'is_on_sl_page' is NULL
+	// Attempt #2 - 11/30/15 - 12:37a - v3.85
+
+    	if (false != $wp_scripts->queue) {
+    		//var_dump($wp_scripts);
+       		foreach ($wp_scripts->queue as $script) {
+            		if (isset($wp_scripts->registered[$script]) && preg_match("@maps\.google@", $wp_scripts->registered[$script]->src) ) {
+               			//$wp_scripts->registered[$script]->deps = array();
+ 		       		$the_handle = $wp_scripts->registered[$script]->handle;
+               			//unset($wp_scripts->queue[$the_handle]);
+               			wp_dequeue_script($the_handle);
+               			print "<!-- ========= Duplicate Google Maps API JavaScript - Removed by WordPress Store Locator to Avoid Errors. Script Details:\n".str_replace("\\", "", json_encode($wp_scripts->registered[$script]))."\n========= -->\n";
+             		}
+		}
+	}
+    }
+}
+add_action('wp_print_scripts', 'sl_remove_gmaps');
 
 /*function sl_jq_missing_wp_head($content){
       $sl_jq_scripts = "";
@@ -542,7 +581,7 @@ function sl_add_options_page() {
 	global $sl_dir, $sl_base, $sl_uploads_base, $text_domain, $sl_top_nav_links, $sl_vars, $sl_version;
 	$parent_url = SL_PARENT_URL; //SL_PAGES_DIR.'/information.php';
 	$warning_count = 0;
-	$warning_title = __("Update(s) currently available for Store Locator", SL_TEXT_DOMAIN) . ":";
+	$warning_title = __("Update(s) currently available for Store Locator", "store-locator") . ":";
 	
 	####Base Plugin Update Notification in WP Menu =============
    // if (function_exists("plugins_api")) {
@@ -553,7 +592,7 @@ function sl_add_options_page() {
 			include_once($plugin_install_url);
 		}*/ // Causing fatal errors in some installs -- so must assume it's available to all already -- 2/23/15
 		//$sl_api = plugins_api('plugin_information', array('slug' => 'store-locator', 'fields' => array('sections' => false) ) ); 
-		$sl_api = sl_remote_data(array(
+		$sl_api = @sl_remote_data(array(
 			'host' => 'api.wordpress.org',
 			'url' => '/plugins/info/1.0/store-locator',
 			'ua' => 'none'), 'serial');
@@ -571,13 +610,13 @@ function sl_add_options_page() {
 	}
 	//$sl_version = 2.6; //testing purposes
 	if (strnatcmp($sl_latest_version, $sl_version) > 0) { 
-		$warning_title .= "\n- Store Locator v{$sl_latest_version} " . __("is available, you are using", SL_TEXT_DOMAIN). " v{$sl_version}";
+		$warning_title .= "\n- Store Locator v{$sl_latest_version} " . __("is available, you are using", "store-locator"). " v{$sl_version}";
 		$warning_count++;
 		
 		$sl_plugin = SL_DIR . "/store-locator.php";
 		$sl_update_link = admin_url('update.php?action=upgrade-plugin&plugin=' . $sl_plugin);
 		$sl_update_link_nonce = wp_nonce_url($sl_update_link, 'upgrade-plugin_' . $sl_plugin);
-		$sl_update_msg = "&nbsp;&gt;&nbsp;<a href='$sl_update_link_nonce' style='color:#900; font-weight:bold;' onclick='confirmClick(\"".__("You will now be updating to Store Locator", SL_TEXT_DOMAIN)." v$sl_latest_version, ".__("click OK or Confirm to continue", SL_TEXT_DOMAIN).".\", this.href); return false;'>".__("Update to", SL_TEXT_DOMAIN)." $sl_latest_version</a>";
+		$sl_update_msg = "&nbsp;&gt;&nbsp;<a href='$sl_update_link_nonce' style='color:#900; font-weight:bold;' onclick='confirmClick(\"".__("You will now be updating to Store Locator", "store-locator")." v$sl_latest_version, ".__("click OK or Confirm to continue", "store-locator").".\", this.href); return false;'>".__("Update to", "store-locator")." $sl_latest_version</a>";
 	} else {
 		$sl_update_msg = "";
 	}
@@ -611,24 +650,24 @@ function sl_add_options_page() {
 
 	   if (strnatcmp($ap_latest_version, $ap_version) > 0) {
 		$ap_title = ucwords(str_replace("-", " ", SL_ADDONS_PLATFORM_DIR));
-		$warning_title .= "\n- $ap_title v{$ap_latest_version} " . __("is available, you are using", SL_TEXT_DOMAIN). " v{$ap_version}";
+		$warning_title .= "\n- $ap_title v{$ap_latest_version} " . __("is available, you are using", "store-locator"). " v{$ap_version}";
 		$warning_count++;
 	   }
 	} 
 	
 	$notify = ($warning_count > 0)?  " <span class='update-plugins count-$warning_count' title='$warning_title'><span class='update-count'>" . $warning_count . "</span></span>" : "" ;
 	
-	$sl_menu_pages['main'] = array('title' => __("Store Locator", SL_TEXT_DOMAIN)."$notify", 'capability' => 'administrator', 'page_url' =>  $parent_url, 'icon' => SL_BASE.'/images/logo.ico.png', 'menu_position' => 47);
-	$sl_menu_pages['sub']['information'] = array('parent_url' => $parent_url, 'title' => __("News & Upgrades", SL_TEXT_DOMAIN), 'capability' => 'administrator', 'page_url' => $parent_url);
-	$sl_menu_pages['sub']['locations'] = array('parent_url' => $parent_url, 'title' => __("Locations", SL_TEXT_DOMAIN), 'capability' => 'administrator', 'page_url' => SL_PAGES_DIR.'/locations.php');
-	$sl_menu_pages['sub']['mapdesigner'] = array('parent_url' => $parent_url, 'title' => __("MapDesigner", SL_TEXT_DOMAIN), 'capability' => 'administrator', 'page_url' => SL_PAGES_DIR.'/mapdesigner.php');
+	$sl_menu_pages['main'] = array('title' => __("Store Locator", "store-locator")."$notify", 'capability' => 'administrator', 'page_url' =>  $parent_url, 'icon' => SL_BASE.'/images/logo.ico.png', 'menu_position' => 47);
+	$sl_menu_pages['sub']['information'] = array('parent_url' => $parent_url, 'title' => __("News & Upgrades", "store-locator"), 'capability' => 'administrator', 'page_url' => $parent_url);
+	$sl_menu_pages['sub']['locations'] = array('parent_url' => $parent_url, 'title' => __("Locations", "store-locator"), 'capability' => 'administrator', 'page_url' => SL_PAGES_DIR.'/locations.php');
+	$sl_menu_pages['sub']['mapdesigner'] = array('parent_url' => $parent_url, 'title' => __("MapDesigner", "store-locator"), 'capability' => 'administrator', 'page_url' => SL_PAGES_DIR.'/mapdesigner.php');
 	
 	sl_menu_pages_filter($sl_menu_pages);
 	
 	/*
-	add_menu_page(__("Store Locator", SL_TEXT_DOMAIN), __("Store Locator", SL_TEXT_DOMAIN), 'administrator', SL_PAGES_DIR.'/locations.php', '', SL_BASE.'/images/logo.ico.png', 25.1);
-	$sl_pg_loc = add_submenu_page(SL_PAGES_DIR.'/locations.php', __("Locations", SL_TEXT_DOMAIN), __("Locations", SL_TEXT_DOMAIN), 'administrator', SL_PAGES_DIR.'/locations.php');
-	$sl_pg_md = add_submenu_page(SL_PAGES_DIR.'/locations.php', __("MapDesigner", SL_TEXT_DOMAIN), __("MapDesigner", SL_TEXT_DOMAIN), 'administrator', SL_PAGES_DIR.'/mapdesigner.php');*/
+	add_menu_page(__("Store Locator", "store-locator"), __("Store Locator", "store-locator"), 'administrator', SL_PAGES_DIR.'/locations.php', '', SL_BASE.'/images/logo.ico.png', 25.1);
+	$sl_pg_loc = add_submenu_page(SL_PAGES_DIR.'/locations.php', __("Locations", "store-locator"), __("Locations", "store-locator"), 'administrator', SL_PAGES_DIR.'/locations.php');
+	$sl_pg_md = add_submenu_page(SL_PAGES_DIR.'/locations.php', __("MapDesigner", "store-locator"), __("MapDesigner", "store-locator"), 'administrator', SL_PAGES_DIR.'/mapdesigner.php');*/
 	
 	//}
 }
@@ -679,7 +718,8 @@ function sl_add_admin_javascript() {
 				//print "<script src='http://maps.googleapis.com/maps/api/js?{$sens}{$lang_loc}{$region_loc}{$key}' type='text/javascript'></script>\n";
 			}
             if (file_exists(SL_ADDONS_PATH."/point-click-add/point-click-add.js")) {
-				$sens=(!empty($sl_vars['sensor']))? "sensor=".$sl_vars['sensor'] : "sensor=false" ;
+				//$sens=(!empty($sl_vars['sensor']))? "sensor=".$sl_vars['sensor'] : "sensor=false" ;
+				$sens=""; //- v3.84 - 11/25/15 - no longer required
 				$char_enc='&amp;oe='.$sl_vars['map_character_encoding'];
 				$google_map_domain=(!empty($sl_vars['google_map_domain']))? $sl_vars['google_map_domain'] : "maps.google.com";
 				$api=sl_data('store_locator_api_key');
@@ -744,11 +784,11 @@ function comma($a) {
 if (!function_exists('addon_activation_message')) {
 	function addon_activation_message($url_of_upgrade="") {
 		global $sl_dir, $text_domain;
-		print "<div style='background-color:#eee; border:solid silver 1px; padding:7px; color:black; display:block;'>".__("You haven't activated this upgrade yet", SL_TEXT_DOMAIN).". ";
+		print "<div style='background-color:#eee; border:solid silver 1px; padding:7px; color:black; display:block;'>".__("You haven't activated this upgrade yet", "store-locator").". ";
 		if (function_exists('do_sl_hook') && !preg_match("/addons\-platform/", $url_of_upgrade) ){
-			print "<a href='".SL_ADDONS_PAGE."'>".__("Activate", SL_TEXT_DOMAIN)."</a></div><br>";
+			print "<a href='".SL_ADDONS_PAGE."'>".__("Activate", "store-locator")."</a></div><br>";
 		} else {
-			print __("Go to pull-out Dashboard, and activate under 'Activation Keys' section.", SL_TEXT_DOMAIN)."</div><br>";
+			print __("Go to pull-out Dashboard, and activate under 'Activation Keys' section.", "store-locator")."</div><br>";
 		}
 	}
 }
@@ -886,31 +926,71 @@ function sl_process_tags($tag_string, $db_action="insert", $sl_id="") {
 	$wpdb->query($query);
 }
 /*-----------------------------------------------------------*/
+function sl_admin_init_ty() {
+	global $wpdb, $sl_vars;
+	
+	$sl_time_length = ((time() - strtotime($sl_vars["start"]))/60/60/24>=7)? "week" : "a few days";
+	$sl_time_length = ((time() - strtotime($sl_vars["start"]))/60/60/24>=30)? "month" : $sl_time_length;
+	$sl_time_length = ((time() - strtotime($sl_vars["start"]))/60/60/24>=90)? "three months" : $sl_time_length;
+	$sl_time_length = ((time() - strtotime($sl_vars["start"]))/60/60/24>=183)? "six months" : $sl_time_length;
+	$sl_time_length = ((time() - strtotime($sl_vars["start"]))/60/60/24>=365)? "year" : $sl_time_length;
+	define("SL_THANKS_TIME_LENGTH", $sl_time_length);
+	
+	$sl_num_locs_query = $wpdb->get_var("SELECT COUNT(sl_id) from ".SL_DB_PREFIX."store_locator WHERE sl_latitude<>'' AND sl_latitude <>0 AND sl_latitude IS NOT NULL");
+	
+	$sl_num_locs = ($sl_num_locs_query >= 50)? "50": $sl_num_locs_query;
+	$sl_num_locs = ($sl_num_locs_query >= 100)? "100": $sl_num_locs;
+	$sl_num_locs = ($sl_num_locs_query >= 200)? "200": $sl_num_locs;
+	$sl_num_locs = ($sl_num_locs_query >= 500)? "500": $sl_num_locs;
+	$sl_num_locs = ($sl_num_locs_query >= 1000)? "1000": $sl_num_locs;
+	define("SL_THANKS_NUM_LOCS", $sl_num_locs);
+}
+add_action('admin_init', 'sl_admin_init_ty');
+
 function sl_ty($file){
+global $sl_vars, $wpdb;
 $ty['http'] = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on') ? 'https://':'http://';
-$ty['url']	= urlencode("http://locl.es/Lcatr");
-$ty['text'] = urlencode(__("Love it! I've made my site more user-friendly with", SL_TEXT_DOMAIN)." LotsOfLocales #WP #WordPress #StoreLocator #GoogleMaps");
-$ty['text2'] = urlencode(__("Great! I can now easily display my locations using", SL_TEXT_DOMAIN)." LotsOfLocales #GoogleMaps #StoreLocator #WordPress #WP");
+$ty['url']	= urlencode("http://locl.es/Lcatr"); //urlencode("http://locl.es/Lcatr"); - 9/9/15 - domain needs update
+$ty['text'] = urlencode(__("Love it! I've made my site more user-friendly with", "store-locator")." LotsOfLocales #WP #WordPress #StoreLocator #GoogleMaps");
+$ty['text2'] = urlencode(__("Great! I can now easily display my locations using", "store-locator")." LotsOfLocales #GoogleMaps #StoreLocator #WordPress #WP");
 $ty['is_included']=(basename($file) != basename($_SERVER['SCRIPT_FILENAME']) )? true : false;
 if (!$ty['is_included']) {
-	$ty['thanks_msg'] = __("<b>Like the Store Locator? Help guide others' decisions:</b><br><a href='#' class='star_button'>Give my review now</a> -- 1 sentence is plenty<br><br><b>Any problems? View:</b><br><a href='http://docs.viadat.com/' target='_blank'>Documentation</a> / <a href='http://www.viadat.com/contact/' target='_blank'>Contact us</a>", SL_TEXT_DOMAIN)."<br><br>";
+	
+	sl_admin_init_ty();
+	
+	$ty['thanks_msg'] = sprintf(__("Hey, I noticed you've now successfully added %s+ locations over the past %s or more – fantastic!  Could you do me a huge favor and give a rating on WordPress? Just to keep me motivated to continue providing more great features and updates for you.
+<br><br>~ Viadat Creations", "store-locator")."<br><br>", SL_THANKS_NUM_LOCS, SL_THANKS_TIME_LENGTH);
 	$ty['thanks_msg_style'] = "style='line-height:20px; font-familty:helvetica; text-align:left; font-size:15px'";
-	$ty['thanks_heading'] = "<br>".__("My Views", SL_TEXT_DOMAIN)."<br><br>";
-	$ty['action_call'] =  __("Buttons to Spread the Word!", SL_TEXT_DOMAIN);
+	$ty['thanks_heading'] = "<br>".__("My Views", "store-locator")."<br><br>";
+	$ty['action_call'] =  __("Buttons to Spread the Word!", "store-locator");
 	$ty['action_call_style'] = "style='font-size:20px; text-align:left; display:block;  font-family:Georgia;'";
 	$ty['action_buttons_style'] = "style='text-align:left; padding-top:11px; padding-left:0px;font-weight:normal;font-size:15px'";
 } else {
-	$ty['thanks_msg'] = __("<b>Liking this? Help guide others' decisions:</b>&nbsp;<a href='#' class='star_button'>Give my review now</a><br><b>Any problems? View:</b>&nbsp;<a href='http://docs.viadat.com/' target='_blank'>Documentation</a> / <a href='http://www.viadat.com/contact/' target='_blank'>Contact us</a>", SL_TEXT_DOMAIN)."<br><br>";
+	$ty['thanks_msg'] = __("<b>Liking Store Locator? Share your voice:</b>&nbsp;<a href='#' class='star_button'>Give my review now</a><br><b>Any problems? View:</b>&nbsp;<a href='http://docs.viadat.com/' target='_blank'>Documentation</a> / <a href='http://www.viadat.com/contact/' target='_blank'>Contact us</a>", "store-locator")."<br><br>";
 	$ty['thanks_msg_style'] = "";
 	$ty['thanks_heading'] ="";
 	$ty['action_call'] ="";
 	$ty['action_call_style'] = "";
 	$ty['action_buttons_style'] = "";
 }
-$ty['done_msg'] = __("Done!  I've tweeted about / rated it", SL_TEXT_DOMAIN);
-$ty['noshow_msg'] = __("Don't show this message again", SL_TEXT_DOMAIN);
+$ty['done_msg'] = __("I've already rated it", "store-locator");
+$ty['noshow_msg'] = __("No, check with me later", "store-locator");
 	return $ty;
 }
+
+function sl_foot_ty($text) {
+	global $wpdb, $sl_vars;
+	
+	if (preg_match("@".SL_DIR."@", $_SERVER['REQUEST_URI']) && (empty($sl_vars['thanks']) || $sl_vars['thanks'] != "true") && mt_rand(1,2) == 2 && SL_THANKS_NUM_LOCS >= 1) {
+	// && defined("SL_THANKS_TIME_LENGTH") && SL_THANKS_TIME_LENGTH != "a few days" && SL_THANKS_NUM_LOCS >= 50) {
+		$text = sprintf(__("You've successfully added %s+ locations!  Could you do a huge favor and %sgive a WP rating%s?", "store-locator"), SL_THANKS_NUM_LOCS, "<a href='https://wordpress.org/support/view/plugin-reviews/store-locator?filter=5#postform' target='_blank'>", "</a>");
+		$text = "<div class='sl_admin_success' style='width:55%; position:relative; top:35px;'>".$text."</div>";
+		//$text = "<i>$text</i>";
+	}
+	//$text = SL_THANKS_TIME_LENGTH ."  " . SL_THANKS_NUM_LOCS;
+	return $text;
+}
+add_filter( 'admin_footer_text', 'sl_foot_ty', 1 );
 /*-----------------------------------------------------------*/
 function sl_prepare_tag_string($sl_tags) {
 	//$sl_tags=preg_replace('/[ ]*\&\#44\;[ ]*/', '&#44; ', $sl_tags); 
@@ -1164,36 +1244,36 @@ function sl_location_form($mode="add", $pre_html="", $post_html=""){
 	$html="<form name='manualAddForm' method='post'>
 	$pre_html
 	<table cellpadding='0' class='widefat'>
-	<thead><tr><th>".__("Type&nbsp;Address", SL_TEXT_DOMAIN)."</th></tr></thead>
+	<thead><tr><th>".__("Type&nbsp;Address", "store-locator")."</th></tr></thead>
 	<tr>
 		<td>
 		<div style='display:inline; width:50%'>
-		<b>".__("The General Address Format", SL_TEXT_DOMAIN).": </b>(<a href=\"#\" onclick=\"show('format'); return false;\">".__("show/hide", SL_TEXT_DOMAIN)."</a>)
-		<span id='format' style='display:none'><br><i>".__("Name of Location", SL_TEXT_DOMAIN)."<br>
-		".__("Address (Street - Line1)", SL_TEXT_DOMAIN)."<br>
-		".__("Address (Street - Line2 - optional)", SL_TEXT_DOMAIN)."<br>
-		".__("City, State Zip", SL_TEXT_DOMAIN)."</i></span><br><hr>
-		".__("Name of Location", SL_TEXT_DOMAIN)."<br><input name='sl_store' size=45><br><br>
-		".__("Address", SL_TEXT_DOMAIN)."<br><input name='sl_address' size=21>&nbsp;<small>(".__("Street - Line1", SL_TEXT_DOMAIN).")</small><br>
-		<input name='sl_address2' size=21>&nbsp;<small>(".__("Street - Line 2 - optional", SL_TEXT_DOMAIN).")</small><br>
-		<table cellpadding='0px' cellspacing='0px' style='width:200px'><tr><td style='padding-left:0px' class='nobottom'><input name='sl_city' size='21'><br><small>".__("City", SL_TEXT_DOMAIN)."</small></td>
-		<td><input name='sl_state' size='7'><br><small>".__("State", SL_TEXT_DOMAIN)."</small></td>
-		<td><input name='sl_zip' size='10'><br><small>".__("Zip", SL_TEXT_DOMAIN)."</small></td></tr></table><br>
+		<b>".__("The General Address Format", "store-locator").": </b>(<a href=\"#\" onclick=\"show('format'); return false;\">".__("show/hide", "store-locator")."</a>)
+		<span id='format' style='display:none'><br><i>".__("Name of Location", "store-locator")."<br>
+		".__("Address (Street - Line1)", "store-locator")."<br>
+		".__("Address (Street - Line2 - optional)", "store-locator")."<br>
+		".__("City, State Zip", "store-locator")."</i></span><br><hr>
+		".__("Name of Location", "store-locator")."<br><input name='sl_store' size=45><br><br>
+		".__("Address", "store-locator")."<br><input name='sl_address' size=21>&nbsp;<small>(".__("Street - Line1", "store-locator").")</small><br>
+		<input name='sl_address2' size=21>&nbsp;<small>(".__("Street - Line 2 - optional", "store-locator").")</small><br>
+		<table cellpadding='0px' cellspacing='0px' style='width:200px'><tr><td style='padding-left:0px' class='nobottom'><input name='sl_city' size='21'><br><small>".__("City", "store-locator")."</small></td>
+		<td><input name='sl_state' size='7'><br><small>".__("State", "store-locator")."</small></td>
+		<td><input name='sl_zip' size='10'><br><small>".__("Zip", "store-locator")."</small></td></tr></table><br>
 		</div><div style='display:inline; width:50%'>
-		".__("Additional Information", SL_TEXT_DOMAIN)."<br>
-		<textarea name='sl_description' rows='5' cols='18'></textarea>&nbsp;&nbsp;<small>".__("Description", SL_TEXT_DOMAIN)."</small><br>
-		<input name='sl_tags'>&nbsp;<small>".__("Tags (seperate with commas)", SL_TEXT_DOMAIN)."</small><br>		
-		<input name='sl_url'>&nbsp;<small>".__("URL", SL_TEXT_DOMAIN)."</small><br>
-		<textarea name='sl_hours' rows='1' cols='18'></textarea>&nbsp;&nbsp;<small>".__("Hours", SL_TEXT_DOMAIN)."</small><br>
-		<input name='sl_phone'>&nbsp;<small>".__("Phone", SL_TEXT_DOMAIN)."</small><br>
-		<input name='sl_fax'>&nbsp;<small>".__("Fax", SL_TEXT_DOMAIN)."</small><br>
-		<input name='sl_email'>&nbsp;<small>".__("Email", SL_TEXT_DOMAIN)."</small><br>
-		<input name='sl_image'>&nbsp;<small>".__("Image URL (shown with location)", SL_TEXT_DOMAIN)."</small>";
+		".__("Additional Information", "store-locator")."<br>
+		<textarea name='sl_description' rows='5' cols='18'></textarea>&nbsp;&nbsp;<small>".__("Description", "store-locator")."</small><br>
+		<input name='sl_tags'>&nbsp;<small>".__("Tags (seperate with commas)", "store-locator")."</small><br>		
+		<input name='sl_url'>&nbsp;<small>".__("URL", "store-locator")."</small><br>
+		<textarea name='sl_hours' rows='1' cols='18'></textarea>&nbsp;&nbsp;<small>".__("Hours", "store-locator")."</small><br>
+		<input name='sl_phone'>&nbsp;<small>".__("Phone", "store-locator")."</small><br>
+		<input name='sl_fax'>&nbsp;<small>".__("Fax", "store-locator")."</small><br>
+		<input name='sl_email'>&nbsp;<small>".__("Email", "store-locator")."</small><br>
+		<input name='sl_image'>&nbsp;<small>".__("Image URL (shown with location)", "store-locator")."</small>";
 		
 		$html.=(function_exists("do_sl_hook"))? do_sl_hook("sl_add_location_fields",  "append-return") : "" ;
 		$html.=wp_nonce_field("add-location_single", "_wpnonce", true, false);
 		$html.="<br><br>
-	<input type='submit' value='".__("Add Location", SL_TEXT_DOMAIN)."' class='button-primary'>
+	<input type='submit' value='".__("Add Location", "store-locator")."' class='button-primary'>
 	</div>
 	</td>
 		</tr>
@@ -1247,22 +1327,22 @@ function sl_define_db_tables() {
 }
 sl_define_db_tables(); 
 /*----------------------------------------------------*/
-function sl_single_location_info($value, $colspan, $bgcol) {
+function sl_single_location_info($value, $colspan, $bgcol_class) {
 	global $sl_hooks;
 	$_GET['edit'] = $value['sl_id']; //die("edit: ".var_dump($_GET)); die();
 	
-	print "<tr style='background-color:$bgcol' id='sl_tr_data-$value[sl_id]'>";
+	print "<tr class='$bgcol_class' id='sl_tr_data-$value[sl_id]'>";
 	
 	print "<td colspan='$colspan'><form name='manualAddForm' method='post'>
 	<a name='a$value[sl_id]'></a>
 	<table cellpadding='0' class='manual_update_table'>
 	<tr>
-		<td style='vertical-align:top !important; width:20%'><b>".__("Name of Location", SL_TEXT_DOMAIN)."</b><br><input name='sl_store-$value[sl_id]' id='sl_store-$value[sl_id]' value='$value[sl_store]' size=30><br><br>
-		<b>".__("Address", SL_TEXT_DOMAIN)."</b><br><input name='sl_address-$value[sl_id]' id='sl_address-$value[sl_id]' value='$value[sl_address]' size='13'>&nbsp;<small>(".__("Street - Line1", SL_TEXT_DOMAIN).")</small><br>
-		<input name='sl_address2-$value[sl_id]' id='sl_address2-$value[sl_id]' value='$value[sl_address2]' size='13'>&nbsp;<small>(".__("Street - Line 2 - optional", SL_TEXT_DOMAIN).")</small><br>
-		<table cellpadding='0px' cellspacing='0px' style='width:200px'><tr><td style='padding-left:0px' class='nobottom'><input name='sl_city-$value[sl_id]' id='sl_city-$value[sl_id]' value='$value[sl_city]' size='13'><br><small>".__("City", SL_TEXT_DOMAIN)."</small></td>
-		<td><input name='sl_state-$value[sl_id]' id='sl_state-$value[sl_id]' value='$value[sl_state]' size='4'><br><small>".__("State", SL_TEXT_DOMAIN)."</small></td>
-		<td><input name='sl_zip-$value[sl_id]' id='sl_zip-$value[sl_id]' value='$value[sl_zip]' size='6'><br><small>".__("Zip", SL_TEXT_DOMAIN)."</small></td></tr></table>";
+		<td style='vertical-align:top !important; width:20%'><b>".__("Name of Location", "store-locator")."</b><br><input name='sl_store-$value[sl_id]' id='sl_store-$value[sl_id]' value='$value[sl_store]' size=30><br><br>
+		<b>".__("Address", "store-locator")."</b><br><input name='sl_address-$value[sl_id]' id='sl_address-$value[sl_id]' value='$value[sl_address]' size='13'>&nbsp;<small>(".__("Street - Line1", "store-locator").")</small><br>
+		<input name='sl_address2-$value[sl_id]' id='sl_address2-$value[sl_id]' value='$value[sl_address2]' size='13'>&nbsp;<small>(".__("Street - Line 2 - optional", "store-locator").")</small><br>
+		<table cellpadding='0px' cellspacing='0px' style='width:200px'><tr><td style='padding-left:0px' class='nobottom'><input name='sl_city-$value[sl_id]' id='sl_city-$value[sl_id]' value='$value[sl_city]' size='13'><br><small>".__("City", "store-locator")."</small></td>
+		<td><input name='sl_state-$value[sl_id]' id='sl_state-$value[sl_id]' value='$value[sl_state]' size='4'><br><small>".__("State", "store-locator")."</small></td>
+		<td><input name='sl_zip-$value[sl_id]' id='sl_zip-$value[sl_id]' value='$value[sl_zip]' size='6'><br><small>".__("Zip", "store-locator")."</small></td></tr></table>";
 		
 		if (function_exists("do_sl_hook")) {
 			sl_show_custom_fields();
@@ -1270,17 +1350,17 @@ function sl_single_location_info($value, $colspan, $bgcol) {
 		
 		$cancel_onclick = "location.href=\"".str_replace("&edit=$_GET[edit]", "",$_SERVER['REQUEST_URI'])."\"";
 		print "<br><br>
-		<nobr><input type='submit' value='".__("Update", SL_TEXT_DOMAIN)."' class='button-primary'><input type='button' class='button' value='".__("Cancel", SL_TEXT_DOMAIN)."' onclick='$cancel_onclick'></nobr>
+		<nobr><input type='submit' value='".__("Update", "store-locator")."' class='button-primary'><input type='button' class='button' value='".__("Cancel", "store-locator")."' onclick='$cancel_onclick'></nobr>
 		</td><td style='width:40%; vertical-align:top !important;'>
-		<b>".__("Additional Information", SL_TEXT_DOMAIN)."</b><br>
-		<textarea name='sl_description-$value[sl_id]' id='sl_description-$value[sl_id]' rows='5' cols='18'>$value[sl_description]</textarea>&nbsp;&nbsp;<small>".__("Description", SL_TEXT_DOMAIN)."</small><br>
-		<input name='sl_tags-$value[sl_id]' id='sl_tags-$value[sl_id]' value='$value[sl_tags]' >&nbsp;<small>".__("Tags (seperate with commas)", SL_TEXT_DOMAIN)."</small><br>		
-		<input name='sl_url-$value[sl_id]' id='sl_url-$value[sl_id]' value='$value[sl_url]' >&nbsp;<small>".__("URL", SL_TEXT_DOMAIN)."</small><br>
-		<textarea name='sl_hours-$value[sl_id]' id='sl_hours-$value[sl_id]' rows='1' cols='18'>$value[sl_hours]</textarea>&nbsp;&nbsp;<small>".__("Hours", SL_TEXT_DOMAIN)."</small><br>
-		<input name='sl_phone-$value[sl_id]' id='sl_phone-$value[sl_id]' value='$value[sl_phone]' >&nbsp;<small>".__("Phone", SL_TEXT_DOMAIN)."</small><br>
-		<input name='sl_fax-$value[sl_id]' id='sl_fax-$value[sl_id]' value='$value[sl_fax]' >&nbsp;<small>".__("Fax", SL_TEXT_DOMAIN)."</small><br>
-		<input name='sl_email-$value[sl_id]' id='sl_email-$value[sl_id]' value='$value[sl_email]' >&nbsp;<small>".__("Email", SL_TEXT_DOMAIN)."</small><br>
-		<input name='sl_image-$value[sl_id]' id='sl_image-$value[sl_id]' value='$value[sl_image]' >&nbsp;<small>".__("Image URL (shown with location)", SL_TEXT_DOMAIN)."</small>";
+		<b>".__("Additional Information", "store-locator")."</b><br>
+		<textarea name='sl_description-$value[sl_id]' id='sl_description-$value[sl_id]' rows='5' cols='18'>$value[sl_description]</textarea>&nbsp;&nbsp;<small>".__("Description", "store-locator")."</small><br>
+		<input name='sl_tags-$value[sl_id]' id='sl_tags-$value[sl_id]' value='$value[sl_tags]' >&nbsp;<small>".__("Tags (seperate with commas)", "store-locator")."</small><br>		
+		<input name='sl_url-$value[sl_id]' id='sl_url-$value[sl_id]' value='$value[sl_url]' >&nbsp;<small>".__("URL", "store-locator")."</small><br>
+		<textarea name='sl_hours-$value[sl_id]' id='sl_hours-$value[sl_id]' rows='1' cols='18'>$value[sl_hours]</textarea>&nbsp;&nbsp;<small>".__("Hours", "store-locator")."</small><br>
+		<input name='sl_phone-$value[sl_id]' id='sl_phone-$value[sl_id]' value='$value[sl_phone]' >&nbsp;<small>".__("Phone", "store-locator")."</small><br>
+		<input name='sl_fax-$value[sl_id]' id='sl_fax-$value[sl_id]' value='$value[sl_fax]' >&nbsp;<small>".__("Fax", "store-locator")."</small><br>
+		<input name='sl_email-$value[sl_id]' id='sl_email-$value[sl_id]' value='$value[sl_email]' >&nbsp;<small>".__("Email", "store-locator")."</small><br>
+		<input name='sl_image-$value[sl_id]' id='sl_image-$value[sl_id]' value='$value[sl_image]' >&nbsp;<small>".__("Image URL (shown with location)", "store-locator")."</small>";
 		
 		print "</td><td style='vertical-align:top !important; width:40%'>";
 	if (function_exists("do_sl_hook")) {do_sl_hook("sl_single_location_edit", "select-top");}
@@ -1338,11 +1418,11 @@ $txt=str_replace(" ===", "</h2>", $txt);
 $txt=str_replace("== ", "<table class='widefat' ><thead>$th_start", $txt);
 $txt=str_replace(" ==", "</th></thead></table><!--a style='float:right' href='#readme_toc'>Table of Contents</a-->", $txt);
 $txt=str_replace("= ", "$h3_start", $txt);
-$txt=str_replace(" =", "</h3><a style='float:right; position:relative; top:-1.5em; font-size:10px' href='#readme_toc'>".__("table of contents", SL_TEXT_DOMAIN)."</a>", $txt);
+$txt=str_replace(" =", "</h3><a style='float:right; position:relative; top:-1.5em; font-size:10px' href='#readme_toc'>".__("table of contents", "store-locator")."</a>", $txt);
 $txt=preg_replace("@Tags:[ ]?[^\r\n]+\r\n@", "", $txt);
 
 //TOC pt. 2
-$txt=str_replace("</h2>", "</h2><a name='readme_toc'></a><div style='float:right;  width:500px; border-radius:1em; border:solid silver 1px; padding:7px; padding-top:0px; margin:10px; margin-right:0px;'><h3>".__("Table of Contents", SL_TEXT_DOMAIN)."</h2>$toc_cont</div>", $txt);
+$txt=str_replace("</h2>", "</h2><a name='readme_toc'></a><div style='float:right;  width:500px; border-radius:1em; border:solid silver 1px; padding:7px; padding-top:0px; margin:10px; margin-right:0px;'><h3>".__("Table of Contents", "store-locator")."</h2>$toc_cont</div>", $txt);
 $txt=preg_replace_callback("@$h2_start<u>([^<.]*)</u></h1>@s", create_function('$matches', 
 	'return "<h2 style=\'font-family:Georgia; margin-bottom:0.05em;\'><a name=\'".comma($matches[1])."\'></a>$matches[1]</u></h1>";'), $txt);
 $txt=preg_replace_callback("@$th_start([^<.]*)</th>@s", create_function('$matches',
@@ -1450,10 +1530,13 @@ elseif ($mode=="print")
 /*-----------------------------------------------*/
 add_action('admin_bar_menu', 'sl_admin_toolbar', 183);
 function sl_admin_toolbar($admin_bar){
+	if (!current_user_can("create_users")) { //limiting viewing of admin toolbar to admins - v3.87
+		return;
+	}
 	
 	$sl_admin_toolbar_array[] = array(
 		'id'    => 'sl-menu',
-		'title' => __('Store Locator', SL_TEXT_DOMAIN),
+		'title' => __('Store Locator', "store-locator"),
 		'href'  => preg_replace('@wp-admin\/[^\.]+\.php|index\.php@', 'wp-admin/admin.php', SL_INFORMATION_PAGE),	
 		'meta'  => array(
 			'title' => 'LotsOfLocales&trade; - WordPress Store Locator',			
@@ -1462,10 +1545,10 @@ function sl_admin_toolbar($admin_bar){
 	$sl_admin_toolbar_array[] = array(
 		'id'    => 'sl-menu-news-upgrades',
 		'parent' => 'sl-menu',
-		'title' => __('News & Upgrades', SL_TEXT_DOMAIN),
+		'title' => __('News & Upgrades', "store-locator"),
 		'href'  => preg_replace('@wp-admin\/[^\.]+\.php|index\.php@', 'wp-admin/admin.php', SL_INFORMATION_PAGE),
 		'meta'  => array(
-			'title' => __('News & Upgrades', SL_TEXT_DOMAIN),
+			'title' => __('News & Upgrades', "store-locator"),
 			'target' => '_self',
 			'class' => 'sl_menu_class'
 		),
@@ -1473,10 +1556,10 @@ function sl_admin_toolbar($admin_bar){
 	$sl_admin_toolbar_array[] = array(
 		'id'    => 'sl-menu-locations',
 		'parent' => 'sl-menu',
-		'title' => __('Locations', SL_TEXT_DOMAIN),
+		'title' => __('Locations', "store-locator"),
 		'href'  => preg_replace('@wp-admin\/[^\.]+\.php|index\.php@', 'wp-admin/admin.php', SL_MANAGE_LOCATIONS_PAGE),
 		'meta'  => array(
-			'title' => __('Locations', SL_TEXT_DOMAIN),
+			'title' => __('Locations', "store-locator"),
 			'target' => '_self',
 			'class' => 'sl_menu_class'
 		),
@@ -1484,10 +1567,10 @@ function sl_admin_toolbar($admin_bar){
 	$sl_admin_toolbar_array[] = array(
 		'id'    => 'sl-menu-mapdesigner',
 		'parent' => 'sl-menu',
-		'title' => __('Settings', SL_TEXT_DOMAIN),
+		'title' => __('Settings', "store-locator"),
 		'href'  => preg_replace('@wp-admin\/[^\.]+\.php|index\.php@', 'wp-admin/admin.php', SL_MAPDESIGNER_PAGE),
 		'meta'  => array(
-			'title' => "MapDesigner ".__('Settings', SL_TEXT_DOMAIN),
+			'title' => "MapDesigner ".__('Settings', "store-locator"),
 			'target' => '_self',
 			'class' => 'sl_menu_class'
 		),
@@ -1502,7 +1585,7 @@ function sl_admin_toolbar($admin_bar){
 } 
 /*---------------------------------------------------------------*/
 function sl_permissions_check() {
-	global $sl_vars;
+	global $sl_vars, $sl_uploads;
 
 	if (!empty($_POST['sl_folder_permission'])) {
 		@array_map("chmod", $_POST['sl_folder_permission'], array_fill(0, count($_POST['sl_folder_permission']), 0755) );
@@ -1514,7 +1597,10 @@ function sl_permissions_check() {
 
 	//checks permissions of files & folders
 	$f_to_check = array(SL_ADDONS_PATH, SL_THEMES_PATH);
-	
+
+	clearstatcache();
+	$needs=0;
+
 	foreach ($f_to_check as $slf) {
 		$dir_iterator = new RecursiveDirectoryIterator($slf);
 		$iterator = new RecursiveIteratorIterator($dir_iterator, RecursiveIteratorIterator::SELF_FIRST);
@@ -1523,39 +1609,49 @@ function sl_permissions_check() {
 		//foreach ($files as $file) {
     		//	$all_sl_files[]=$file;
 		//}
-	}
-	clearstatcache();
-	$needs=0;
 	
-	foreach($iterator as $value) {
-		if (is_dir($value) && 0755 !== (fileperms($value) & 0777)) {
-			$needs_update["folder"][] = "$value - <b>".decoct(fileperms($value) & 0777)."</b>";
+		foreach($iterator as $value) {
+		//print $value."<br>";
+			if (is_dir($value) && 0755 !== (@fileperms($value) & 0777)) {
+				$needs_update["folder"][] = "$value - <b>".@decoct(@fileperms($value) & 0777)."</b>";
+				$needs++;
+			}
+		}
+
+		foreach($files as $value) {
+			if (!is_dir($value) && 0644 !== (@fileperms($value) & 0777)) {
+				$needs_update["file"][] = "$value - <b>".@decoct(@fileperms($value) & 0777)."</b>";
+				$needs++;
+			}
+		}
+
+	}
+	//v3.89 - checking folder permissions of WP's 'uploads', 'plugins' & SL's 'store-Locator', 'sl-uploads' folders too now
+	$extra_folders = array($sl_uploads['basedir'], WP_CONTENT_DIR."/plugins", SL_PATH, SL_UPLOADS_PATH);
+	foreach($extra_folders as $value) {
+		if (is_dir($value) && 0755 !== (@fileperms($value) & 0777)) {
+			$needs_update["folder"][] = "$value - <b>".@decoct(@fileperms($value) & 0777)."</b>";
 			$needs++;
 		}
 	}
-	foreach($files as $value) {
-		if (!is_dir($value) && 0644 !== (fileperms($value) & 0777)) {
-			$needs_update["file"][] = "$value - <b>".decoct(fileperms($value) & 0777)."</b>";
-			$needs++;
-		}
-	}
+	//end - v3.89
 	
-	$button_note = __("Note: Clicking this button should update permissions, however, if it doesn\'t, you may need to update permissions by using an FTP program.  Click &quot;OK&quot; or &quot;Confirm&quot; to continue ...", SL_TEXT_DOMAIN);
+	$button_note = __("Note: Clicking this button should update permissions, however, if it doesn\'t, you may need to update permissions by using an FTP program.  Click &quot;OK&quot; or &quot;Confirm&quot; to continue ...", "store-locator");
 	
 	if ($needs > 0){
 		$output = "";
-		print "<br><div class='sl_admin_warning' style='width:97%'><b>".__("Important Note", SL_TEXT_DOMAIN).":</b><br>".__("Some of your folders / files may need updating to the proper permissions (folders: 755 / files: 644), otherwise, all functionality may not work as intended.  View folders / files below", SL_TEXT_DOMAIN)." - <a href='#' onclick='show(\"file_perm_table\"); return false;'>".__("display / hide list of folders & files", SL_TEXT_DOMAIN)."</a>:<br>
-		<div style='float:right'>(<a href='".$_SERVER['REQUEST_URI']."&file_perm_msg=1'>".__("Hide This Notice Permanently", SL_TEXT_DOMAIN)."</a>)</div><br><br><table cellpadding='7px' id='file_perm_table' style='display:none;'><tr>";
+		print "<br><div class='sl_admin_warning' style='width:97%'><b>".__("Important Note", "store-locator").":</b><br>".__("Some of your folders / files may need updating to the proper permissions (folders: 755 / files: 644), otherwise, all functionality may not work as intended.  View folders / files below", "store-locator")." - <a href='#' onclick='show(\"file_perm_table\"); return false;'>".__("display / hide list of folders & files", "store-locator")."</a>:<br>
+		<div style='float:right'>(<a href='".$_SERVER['REQUEST_URI']."&file_perm_msg=1'>".__("Hide This Notice Permanently", "store-locator")."</a>)</div><br><br><table cellpadding='7px' id='file_perm_table' style='display:none;'><tr>";
 	}
 	if (!empty($needs_update["folder"])) {
-		$output .= "<td style='vertical-align: top; width:50%'><form method='post' onsubmit=\"return confirm('".$button_note."');\"><strong>".__("Folders", SL_TEXT_DOMAIN).":</strong><br><input type='submit' class='button-primary' value=\"".__("Update Checked Folders' Permissions", SL_TEXT_DOMAIN)."\"><br><br>";
+		$output .= "<td style='vertical-align: top; width:50%'><form method='post' onsubmit=\"return confirm('".$button_note."');\"><strong>".__("Folders", "store-locator").":</strong><br><input type='submit' class='button-primary' value=\"".__("Update Checked Folders' Permissions", "store-locator")."\"><br><br>";
 		foreach ($needs_update["folder"] as $value) {
 			$output .= "\n<input name='sl_folder_permission[]' checked='checked' type='checkbox' value='".substr($value, 0, -13)."'>&nbsp;/".str_replace(ABSPATH, '', $value)."<br>"; // "-13", removes 13 chars: " - <b> 777 </b>" at end of value
 		}
 		$output .= "</form></td>";	
 	}
 	if (!empty($needs_update["file"])) {
-		$output .= "<td style='vertical-align: top; style: 50%;'><form method='post' onsubmit=\"return confirm('".$button_note."');\"><strong>".__("Files", SL_TEXT_DOMAIN).":</strong><br><input type='submit' class='button-primary' value=\"".__("Update Checked Files' Permissions", SL_TEXT_DOMAIN)."\"><br><br>";
+		$output .= "<td style='vertical-align: top; style: 50%;'><form method='post' onsubmit=\"return confirm('".$button_note."');\"><strong>".__("Files", "store-locator").":</strong><br><input type='submit' class='button-primary' value=\"".__("Update Checked Files' Permissions", "store-locator")."\"><br><br>";
 		foreach ($needs_update["file"] as $value) {
 			$output .= "\n<input name='sl_file_permission[]' checked='checked' type='checkbox' value='".substr($value, 0, -13)."'>&nbsp;/".str_replace(ABSPATH, '', $value)."<br>";
 		}
@@ -1664,7 +1760,7 @@ if (!function_exists("sl_do_geocoding")){
 	$delay = 100000; $ccTLD=$sl_vars['map_region']; $sensor=$sl_vars['sensor'];
 	$base_url = "https://maps.googleapis.com/maps/api/geocode/json?";
 
-	if ($sensor!="" && !empty($sensor) && ($sensor === "true" || $sensor === "false" )) {$base_url .= "sensor=".$sensor;} else {$base_url .= "sensor=false";}
+	//if ($sensor!="" && !empty($sensor) && ($sensor === "true" || $sensor === "false" )) {$base_url .= "sensor=".$sensor;} else {$base_url .= "sensor=false";}  - v3.84 - 11/25/15 - no longer required
 
 	//Adding ccTLD (Top Level Domain) to help perform more accurate geocoding according to selected Google Maps Domain - 12/16/09
 	if ($ccTLD!="") {
@@ -1725,11 +1821,11 @@ if (!function_exists("sl_do_geocoding")){
     } else {
 		// failure to geocode
 		$geocode_pending = false;
-		echo __("Address " . $address . " <font color=red>failed to geocode</font>. ", SL_TEXT_DOMAIN);
+		echo __("Address " . $address . " <font color=red>failed to geocode</font>. ", "store-locator");
 		//if (!empty($status)) {
-			echo __("Received status " . $status , SL_TEXT_DOMAIN)."\n<br>";
+			echo __("Received status " . $status , "store-locator")."\n<br>";
 		/*} else {
-			echo __("No status received from Google", SL_TEXT_DOMAIN)."\n<br>"; 
+			echo __("No status received from Google", "store-locator")."\n<br>"; 
 		}*/
 		//var_dump($_POST);
 		if (!isset($_POST['total_entries']) && (empty($_POST['sl_id']) || !is_array($_POST['sl_id']) || (is_array($_POST['sl_id']) && (empty($_POST['act']) || $_POST['act'] != 'regeocode'))) ) {sl_second_pass($address, $sl_id); }
@@ -1737,7 +1833,7 @@ if (!function_exists("sl_do_geocoding")){
     }
     usleep($delay);
   } else {
-  	//print __("Geocoding bypassed ", SL_TEXT_DOMAIN);
+  	//print __("Geocoding bypassed ", "store-locator");
   } @ob_flush(); flush();
  }
 }
@@ -1751,7 +1847,8 @@ function sl_second_pass($address, $sl_id) {
 	print "<br><b>Second Attempt ...</b> <span id='sl_second_pass_status-$the_sl_id'></span><br><br>";
 	
 	//if (empty($GLOBALS['sp_first_fun']) || $GLOBALS['sp_first_fun'] == 0) {
-		$sens=(!empty($sl_vars['sensor']) && ($sl_vars['sensor'] === "true" || $sl_vars['sensor'] === "false" ))? "&amp;sensor=".$sl_vars['sensor'] : "&amp;sensor=false" ;
+		//$sens=(!empty($sl_vars['sensor']) && ($sl_vars['sensor'] === "true" || $sl_vars['sensor'] === "false" ))? "&amp;sensor=".$sl_vars['sensor'] : "&amp;sensor=false" ;
+		$sens=""; //- v3.84 - 11/25/15 - no longer required
 		$lang_loc=(!empty($sl_vars['map_language']))? "&amp;language=".$sl_vars['map_language'] : "" ; 
 		$region_loc=(!empty($sl_vars['map_region']))? "&amp;region=".$sl_vars['map_region'] : "" ;
 		$key=(!empty($sl_vars['api_key']))? "&amp;key=".$sl_vars['api_key'] : "" ;
@@ -1934,7 +2031,7 @@ $form="
 	
 	$form.="
 	</tr><tr>
-	 <td id='radius_label'>".__("$sl_radius_label", SL_TEXT_DOMAIN)."</td>
+	 <td id='radius_label'>".__("$sl_radius_label", "store-locator")."</td>
 	 <td id='radiusSelect_td' ";
 	
 	if ($sl_vars['use_city_search']==1) {$form.="colspan='2'";}

@@ -69,6 +69,7 @@ div.feedburnerFeedBlock .feedflare {
 }
 .mapdesigner_section td {
 	border-bottom:none;
+	white-space: nowrap;
 }
 .manual_add_table td, .manual_add_table td td, .manual_update_table td, .manual_update_table td td, .manual_update_table{
 	border-bottom:none;
@@ -135,6 +136,24 @@ pre {
 	padding: 3px 6px !important;
 }
 /*---- End - General Admin ----*/
+
+/*##################################
+	Location Table
+####################################*/
+#loc_table tr[id^="sl_tr-"] {
+	cursor: pointer;
+	cursor: hand;
+}
+#loc_table tr:nth-child(2n) {
+	background-color: #eee;
+}
+.location_ungeocoded {
+	background-color: salmon !important;
+}
+.location_selected {
+	background-color: lightYellow !important;
+}
+/*---- End - Location Table ----*/
 
 /*##################################
 	Top Navigation Tabs

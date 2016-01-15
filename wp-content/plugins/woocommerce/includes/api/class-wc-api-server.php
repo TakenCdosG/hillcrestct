@@ -459,7 +459,7 @@ class WC_API_Server {
 				'tax_included'       => wc_prices_include_tax(),
 				'weight_unit'        => get_option( 'woocommerce_weight_unit' ),
 				'dimension_unit'     => get_option( 'woocommerce_dimension_unit' ),
-				'ssl_enabled'        => ( 'yes' === get_option( 'woocommerce_force_ssl_checkout' ) ),
+				'ssl_enabled'        => ( 'yes' === get_option( 'woocommerce_force_ssl_checkout' ) || wc_site_is_https() ),
 				'permalinks_enabled' => ( '' !== get_option( 'permalink_structure' ) ),
 				'generate_password'  => ( 'yes' === get_option( 'woocommerce_registration_generate_password' ) ),
 				'links'              => array(
@@ -646,6 +646,11 @@ class WC_API_Server {
 	 * @return string
 	 */
 	public function get_raw_data() {
+		// $HTTP_RAW_POST_DATA is deprecated on PHP 5.6
+		if ( function_exists( 'phpversion' ) && version_compare( phpversion(), '5.6', '>=' ) ) {
+			return file_get_contents( 'php://input' );
+		}
+
 		global $HTTP_RAW_POST_DATA;
 
 		// A bug in PHP < 5.2.2 makes $HTTP_RAW_POST_DATA not set by default,

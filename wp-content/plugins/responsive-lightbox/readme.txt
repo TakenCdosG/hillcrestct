@@ -3,8 +3,8 @@ Contributors: dfactory
 Donate link: http://www.dfactory.eu/
 Tags: gallery, images, lightbox, links, photos, template, theme, photo, image, picture, slideshow, modal, overlay, YouTube, Vimeo, video, videos
 Requires at least: 4.0
-Tested up to: 4.3.1
-Stable tag: 1.6.5
+Tested up to: 4.4
+Stable tag: 1.6.6
 License: MIT License
 License URI: http://opensource.org/licenses/MIT
 
@@ -73,6 +73,9 @@ No questions yet.
 2. screenshot-2.jpg
 
 == Changelog ==
+
+= 1.6.6 =
+* Tweak: Confirmed WordPress 4.4 compatibility
 
 = 1.6.5 =
 * Fix: Lightbox activated on non-video youtube links
@@ -271,6 +274,5 @@ Initial release
 
 == Upgrade Notice ==
 
-= 1.6.5 =
-* Fix: Lightbox activated on non-video youtube links
-* Tweak: Added a way to change settings required capability
+= 1.6.6 =
+* Tweak: Confirmed WordPress 4.4 compatibility

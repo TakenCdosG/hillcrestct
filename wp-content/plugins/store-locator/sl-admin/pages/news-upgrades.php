@@ -6,7 +6,7 @@ print "<div class='wrap'>";
 print "<table class='widefat' cellpadding='0px' cellspacing='0px'>";
 
 if (preg_match('@wordpress-store-locator-location-finder@', SL_DIR)) { 
-	$icon_notification_msg="<p><div class='sl_admin_warning'>".__("<b>Note:</b> Your directory is <b>'wordpress-store-locator-location-finder'</b>. Please rename to <b>'store-locator'</b> to continue receiving notifications of future updates in your admin panel. After changing to <b>'store-locator'</b>, make sure to also update your icon URLs on the 'Map Designer' page.", SL_TEXT_DOMAIN)."</div></p>"; 
+	$icon_notification_msg="<p><div class='sl_admin_warning'>".__("<b>Note:</b> Your directory is <b>'wordpress-store-locator-location-finder'</b>. Please rename to <b>'store-locator'</b> to continue receiving notifications of future updates in your admin panel. After changing to <b>'store-locator'</b>, make sure to also update your icon URLs on the 'Map Designer' page.", "store-locator")."</div></p>"; 
 	print $icon_notification_msg;
 	}
 	elseif ((preg_match("@wordpress-store-locator-location-finder@", sl_data('sl_map_home_icon')) && preg_match("@store-locator@", SL_DIR)) || (preg_match("@wordpress-store-locator-location-finder@", sl_data('sl_map_end_icon')) && preg_match("@store-locator@", SL_DIR))) {
@@ -18,7 +18,7 @@ print "<tr><td valign='top' width='50%' style='padding:0px'>
 
 <table width='100%'><thead><tr>
 <th>".
-__("Latest News", SL_TEXT_DOMAIN).
+__("Latest News", "store-locator").
 "</th>
 </tr>
 </thead>
@@ -26,7 +26,7 @@ __("Latest News", SL_TEXT_DOMAIN).
 <td width='50%'>
 <div style='overflow:scroll; height:550px; padding:7px;'>
 
-<script src='http://feeds2.feedburner.com/Viadat?format=sigpro' type='text/javascript' ></script><!--noscript><p>Subscribe to RSS headline updates from: <a href='http://feeds2.feedburner.com/Viadat'></a><br/>Powered by FeedBurner</p> </noscript-->";
+<script src='https://feeds2.feedburner.com/Viadat?format=sigpro' type='text/javascript' ></script><!--noscript><p>Subscribe to RSS headline updates from: <a href='https://feeds2.feedburner.com/Viadat'></a><br/>Powered by FeedBurner</p> </noscript-->";
 
 /*
 // include lastRSS library
@@ -66,7 +66,7 @@ print "</td>
 /*print "
 <table width='100%' height='350px'><thead><tr>
 <th width=''>".
-__("For Your Information", SL_TEXT_DOMAIN).
+__("For Your Information", "store-locator").
 "</th></tr></thead>
 <tr>
 <td><div style='overflow:scroll; height:350px'> ";
@@ -79,7 +79,7 @@ print "</td>
 
 <table width='100%'><thead><tr>
 <th width=''>".
-__("Addons & Themes", SL_TEXT_DOMAIN).
+__("Addons & Themes", "store-locator").
 "</th></tr></thead>
 <tr>
 <td><div style='overflow:scroll; height:560px; padding:7px; padding-top:0px;'>";

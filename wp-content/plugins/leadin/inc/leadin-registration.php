@@ -1,20 +1,20 @@
 <?php
-if ( !defined('LEADIN_PLUGIN_VERSION') )
-{
-    header( 'HTTP/1.0 403 Forbidden' );
+if (!defined('LEADIN_PLUGIN_VERSION')) {
+    header('HTTP/1.0 403 Forbidden');
     wp_die();
 }
 
-if ( is_admin() ) {
+if (is_admin()) {
     add_action('wp_ajax_leadin_registration_ajax', 'leadin_registration_ajax'); // Call when user logged in
 }
 
-function leadin_registration_ajax() {
+function leadin_registration_ajax()
+{
     $existingPortalId = get_option('leadin_portalId');
     $existingHapikey = get_option('leadin_hapikey');
 
     if (!empty($existingPortalId) || !empty($existingHapikey)) {
-        header( 'HTTP/1.0 400 Bad Request' );
+        header('HTTP/1.0 400 Bad Request');
         wp_die('{"error": "Registration is already complete for this portal"}');
     }
 
@@ -25,9 +25,9 @@ function leadin_registration_ajax() {
 
     error_log($data['hapikey']);
 
-    if ( empty($newPortalId) || empty($newHapiKey) ) {
+    if (empty($newPortalId) || empty($newHapiKey)) {
         error_log("Registration error");
-        header( 'HTTP/1.0 400 Bad Request' );
+        header('HTTP/1.0 400 Bad Request');
         wp_die('{"error": "Registration missing required fields"}');
     }
 

@@ -187,7 +187,7 @@
 	$.fn.wpcf7AjaxLoader = function() {
 		return this.each(function() {
 			var loader = $('<img class="ajax-loader" />')
-				.attr({ src: _wpcf7.loaderUrl, alt: _wpcf7.sending })
+				.attr({ src: jvcf7_loading_url, alt: _wpcf7.sending })
 				.css('visibility', 'hidden');
 
 			$(this).after(loader);

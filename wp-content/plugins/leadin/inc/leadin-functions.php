@@ -1,33 +1,24 @@
 <?php
 
-if ( !defined('LEADIN_PLUGIN_VERSION') ) 
-{
+if (!defined('LEADIN_PLUGIN_VERSION')) {
     header('HTTP/1.0 403 Forbidden');
     die;
 }
 
-if ( !defined('LEADIN_PORTAL_ID') )
-{
+if (!defined('LEADIN_PORTAL_ID')) {
     DEFINE('LEADIN_PORTAL_ID', intval(get_option('leadin_portalId')));
 }
 
-if ( !defined('LEADIN_HAPIKEY') )
-{
+if (!defined('LEADIN_HAPIKEY')) {
     DEFINE('LEADIN_HAPIKEY', get_option('leadin_hapikey'));
 }
 
 
-function leadin_get_resource_url( $path )
+function leadin_get_resource_url($path)
 {
     $resource_root = constant('LEADIN_ADMIN_ASSETS_BASE_URL');
 
-    return $resource_root.$path;
-}
-
-function leadin_build_api_url_with_auth( $path )
-{
-    $auth_string = '?portalId=' . LEADIN_PORTAL_ID . '&hapikey=' . LEADIN_HAPIKEY;
-    return LEADIN_API_BASE_URL.$path.$auth_string;
+    return $resource_root . $path;
 }
 
 /**
@@ -35,7 +26,7 @@ function leadin_build_api_url_with_auth( $path )
  *
  * @return  array
  */
-function leadin_get_current_user ()
+function leadin_get_current_user()
 {
     global $wp_version;
     global $current_user;
@@ -45,11 +36,10 @@ function leadin_get_current_user ()
 
     $li_options = get_option('leadin_options');
     $leadinPortalId = get_option('leadin_portalId');
-    
-    if ( isset($li_options['li_email']) ) {
+
+    if (isset($li_options['li_email'])) {
         $li_user_email = $li_options['li_email'];
-    } 
-    else {
+    } else {
         $li_user_email = $current_user->user_email;
     }
 
@@ -63,37 +53,37 @@ function leadin_get_current_user ()
         'user_email' => $current_user->user_email
     );
 
-    if ( defined('LEADIN_REFERRAL_SOURCE') )
+    if (defined('LEADIN_REFERRAL_SOURCE'))
         $leadin_user['referral_source'] = LEADIN_REFERRAL_SOURCE;
     else
         $leadin_user['referral_source'] = '';
 
-    if ( defined('LEADIN_UTM_SOURCE') )
+    if (defined('LEADIN_UTM_SOURCE'))
         $leadin_user['utm_source'] = LEADIN_UTM_SOURCE;
     else
         $leadin_user['utm_source'] = '';
 
-    if ( defined('LEADIN_UTM_MEDIUM') )
+    if (defined('LEADIN_UTM_MEDIUM'))
         $leadin_user['utm_medium'] = LEADIN_UTM_MEDIUM;
     else
         $leadin_user['utm_medium'] = '';
 
-    if ( defined('LEADIN_UTM_TERM') )
+    if (defined('LEADIN_UTM_TERM'))
         $leadin_user['utm_term'] = LEADIN_UTM_TERM;
     else
         $leadin_user['utm_term'] = '';
 
-    if ( defined('LEADIN_UTM_CONTENT') )
+    if (defined('LEADIN_UTM_CONTENT'))
         $leadin_user['utm_content'] = LEADIN_UTM_CONTENT;
     else
         $leadin_user['utm_content'] = '';
 
-    if ( defined('LEADIN_UTM_CAMPAIGN') )
+    if (defined('LEADIN_UTM_CAMPAIGN'))
         $leadin_user['utm_campaign'] = LEADIN_UTM_CAMPAIGN;
     else
         $leadin_user['utm_campaign'] = '';
 
-    if ( !empty($leadinPortalId) ) {
+    if (!empty($leadinPortalId)) {
         $leadin_user['portal_id'] = $leadinPortalId;
     }
 
@@ -105,37 +95,21 @@ function leadin_get_current_user ()
  *
  * @param   string
  */
-function leadin_log_debug ( $message )
+function leadin_log_debug($message)
 {
-    if ( WP_DEBUG === TRUE )
-    {
-        if ( is_array($message) || is_object($message) )
+    if (WP_DEBUG === TRUE) {
+        if (is_array($message) || is_object($message))
             error_log(print_r($message, TRUE));
-        else 
+        else
             error_log($message);
     }
 }
 
 /**
- * Calculates the hour difference between MySQL timestamps and the current local WordPress time
- * 
- */
-function leadin_set_mysql_timezone_offset ()
-{
-    global $wpdb;
-
-    $mysql_timestamp = $wpdb->get_var("SELECT CURRENT_TIMESTAMP");
-    $diff = strtotime($mysql_timestamp) - strtotime(current_time('mysql'));
-    $hours = $diff / (60 * 60);
-
-    $wpdb->db_hour_offset = $hours;
-}
-
-/**
  * Returns the user role for the current user
- * 
+ *
  */
-function leadin_get_user_role ()
+function leadin_get_user_role()
 {
     global $current_user;
 

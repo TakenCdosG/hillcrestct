@@ -28,7 +28,7 @@ if (is_dir(SL_ADDONS_PATH)) {
 			$lic_str.="</div>
 <table style='border:none'>
 <tr>
-<td>".__("Key", SL_TEXT_DOMAIN).":&nbsp;&nbsp;</td><!--/tr>
+<td>".__("Key", "store-locator").":&nbsp;&nbsp;</td><!--/tr>
 <tr--><td><input name='sl_license_".$a_lic."' value='".$a_lic_arr["sl_license_".$a_lic]."' size='12' style='vertical-align:middle'>
 <input name='sl_activation_".$a_lic."' value='".$a_lic_arr["sl_activation_".$a_lic]."' type='hidden'></td></tr>
 </table>
@@ -44,7 +44,7 @@ if (is_dir(SL_ADDONS_PATH)) {
 print "<form name='licenseForm' id='licenseForm'><table style='border:none'><tr>$lic_str</tr></table><br>
 <input type='hidden' name='validate_addons' value='1'>
 </form>
-<input class='button-primary' type='button' value='".__("Activate", SL_TEXT_DOMAIN)."' onclick=\"showLoadImg('show', 'module-keys');validate_addons(document.getElementById('licenseForm')); return false;\">&nbsp;&nbsp;".__("Looking for more addons & themes", SL_TEXT_DOMAIN)."? <a href='http://www.viadat.com/products-page/' target='_blank'>".__("They're all right here", SL_TEXT_DOMAIN)."</a><br><br>
+<input class='button-primary' type='button' value='".__("Activate", "store-locator")."' onclick=\"showLoadImg('show', 'module-keys');validate_addons(document.getElementById('licenseForm')); return false;\">&nbsp;&nbsp;".__("Looking for more addons & themes", "store-locator")."? <a href='http://www.viadat.com/products-page/' target='_blank'>".__("They're all right here", "store-locator")."</a><br><br>
 <a rel='sl_pop' href='#validation_status' id='validation_status_link' style='display:none'></a>
 </div>";
 

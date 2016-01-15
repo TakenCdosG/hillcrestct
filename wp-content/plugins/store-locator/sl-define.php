@@ -15,8 +15,8 @@ $sl_uploads_path=$sl_uploads['basedir']."/sl-uploads"; //absolute server path to
 $sl_upload_path=$sl_uploads_path; //added 's' to end for consistency. maintains for older versions.
 $top_nav_base="/".substr($_SERVER["PHP_SELF"],1)."?page=";
 $admin_nav_base=$sl_siteurl."/wp-admin/admin.php?page="; //die($admin_nav_base); 
-$text_domain="lol";
-$view_link="| <a href='".$admin_nav_base.$sl_admin_dir."/pages/locations.php'>".__("Manage Locations", $text_domain)."</a> <script>setTimeout(function(){jQuery('.sl_admin_success').fadeOut('slow');}, 6000);</script>";
+$text_domain="store-locator";
+$view_link="| <a href='".$admin_nav_base.$sl_admin_dir."/pages/locations.php'>".__("Manage Locations", "store-locator")."</a> <script>setTimeout(function(){jQuery('.sl_admin_success').fadeOut('slow');}, 6000);</script>";
 $web_domain=str_replace("www.","",$_SERVER['HTTP_HOST']);
 
 define('SL_SITEURL', $sl_siteurl); define('SL_BLOG_CHARSET', $sl_blog_charset); define('SL_ADMIN_EMAIL', $sl_admin_email); define('SL_SITE_NAME', $sl_site_name);

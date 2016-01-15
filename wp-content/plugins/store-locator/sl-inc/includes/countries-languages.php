@@ -91,6 +91,7 @@ $the_domain["United Arab Emirates"]="maps.google.ae";
 $the_domain["United Kingdom"]="maps.google.co.uk";
 $the_domain["Uruguay"]="maps.google.com.uy"; //
 $the_domain["Venezuela"]="maps.google.co.ve"; 
+$the_domain["Vietnam"]="maps.google.com"; //Currently doesn't have it's own domain, defaulting to default - 9/30/15
 $the_domain["Zambia"]="maps.google.co.zm"; 
 $the_domain["Zimbabwe"]="maps.google.co.zw"; 
 
@@ -207,6 +208,7 @@ $tld["United Arab Emirates"]="ae";
 $tld["United Kingdom"]="uk";
 $tld["Uruguay"]="uy";
 $tld["Venezuela"]="ve"; 
+$tld["Vietnam"]="vn"; 
 $tld["Zambia"]="zm"; 
 $tld["Zimbabwe"]="zw"; 
 

@@ -23,7 +23,7 @@ if (!class_exists('ViaLatest')) {
 		function register_widget() {
 			global $text_domain;
 			global $wp_registered_widgets, $wp_registered_widget_controls;
-			wp_register_sidebar_widget( 'via_posts', __( 'Latest about Store Locator for WordPress', SL_TEXT_DOMAIN ), array(&$this, 'widget'), array( 'all_link' => 'http://www.viadat.com/category/store-locator', 'feed_link' => 'http://feeds.feedburner.com/viadat', 'edit_link' => 'options.php' ) );
+			wp_register_sidebar_widget( 'via_posts', __( 'Latest about Store Locator for WordPress', "store-locator"), array(&$this, 'widget'), array( 'all_link' => 'http://www.viadat.com/category/store-locator', 'feed_link' => 'http://feeds.feedburner.com/viadat', 'edit_link' => 'options.php' ) );
 			$wp_registered_widget_controls['via_posts'] = $wp_registered_widgets['via_posts'];
 		}
 

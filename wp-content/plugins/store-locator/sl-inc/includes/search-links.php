@@ -48,16 +48,16 @@ $pos=($beginning_link-1)*$num_per_page;
 	}
 }
 $cleared=(!empty($_GET['q']))? str_replace("q=$_GET[q]", "", $_SERVER['REQUEST_URI']) : $_SERVER['REQUEST_URI'] ;
-$extra_text=(!empty($_GET['q']))? __("for your search of", SL_TEXT_DOMAIN)." <strong>\"$_GET[q]\"</strong>&nbsp;|&nbsp;<a href='$cleared'>".__("Clear&nbsp;Results", SL_TEXT_DOMAIN)."</a>" : "" ;
+$extra_text=(!empty($_GET['q']))? __("for your search of", "store-locator")." <strong>\"$_GET[q]\"</strong>&nbsp;|&nbsp;<a href='$cleared'>".__("Clear&nbsp;Results", "store-locator")."</a>" : "" ;
 ?>
 </td>
 <td align='center' valign='middle' style=''><div class='' style='padding:5px; font-weight:normal'>
 <?php 
 
 	$end_num=($numMembers2<($start+$num_per_page))? $numMembers2 : ($start+$num_per_page) ;
-	print "<nobr>".__("Results", SL_TEXT_DOMAIN)." <strong>".($start+1)." - ".$end_num."</strong>"; 
+	print "<nobr>".__("Results", "store-locator")." <strong>".($start+1)." - ".$end_num."</strong>"; 
 	//if (!empty($_GET['u']) && !preg_match("@doSearch@", $_GET['u'])) {
-		print " ($numMembers2 ".__("total", SL_TEXT_DOMAIN).") ".$extra_text; 
+		print " ($numMembers2 ".__("total", "store-locator").") ".$extra_text; 
 	//}
 	print "</nobr>";
 
@@ -68,7 +68,7 @@ $extra_text=(!empty($_GET['q']))? __("for your search of", SL_TEXT_DOMAIN)." <st
 <!--table><tr><td width=75><img src='/images/spacer.gif' height=1 width=75 alt='' border=0--><nobr>
 <?php 
 if (($start-$num_per_page)>=0) { ?>
-<a class='' href="<?php print "{$_SERVER['PHP_SELF']}?$prev_page"; ?>" rel='nofollow'>&laquo;&nbsp;<?php print __("Previous", SL_TEXT_DOMAIN)."&nbsp;$num_per_page"; ?></a>
+<a class='' href="<?php print "{$_SERVER['PHP_SELF']}?$prev_page"; ?>" rel='nofollow'>&laquo;&nbsp;<?php print __("Previous", "store-locator")."&nbsp;$num_per_page"; ?></a>
 <?php } 
 if (($start-$num_per_page)>=0 && ($start+$num_per_page)<$numMembers2) { ?>
 <!--&nbsp;&nbsp;|&nbsp;-->
@@ -77,7 +77,7 @@ if (($start-$num_per_page)>=0 && ($start+$num_per_page)<$numMembers2) { ?>
 <td width='85px' valign=bottom><img src='/images/spacer.gif' height=1 width=45 alt='' border=0-->
 <?php 
 if (($start+$num_per_page)<$numMembers2) { ?>
-<a class='' href="<?php print "{$_SERVER['PHP_SELF']}?$next_page"; ?>" rel='nofollow'><?php print __("Next", SL_TEXT_DOMAIN)."&nbsp;$num_per_page"; ?>&nbsp;&raquo;</a><br>
+<a class='' href="<?php print "{$_SERVER['PHP_SELF']}?$next_page"; ?>" rel='nofollow'><?php print __("Next", "store-locator")."&nbsp;$num_per_page"; ?>&nbsp;&raquo;</a><br>
 <?php } ?>
 </nobr>
 <!--/td></tr></table-->

@@ -28,7 +28,7 @@ print "<div><form name='searchForm'><!--input type='button' class='button-primar
 
 print "<div> | 
 <nobr><select name='sl_admin_locations_per_page' onchange=\"LF=document.forms['locationForm'];salpp=document.createElement('input');salpp.type='hidden';salpp.value=this.value;salpp.name='sl_admin_locations_per_page';LF.appendChild(salpp);LF.act.value='locationsPerPage';LF.submit();\">
-<optgroup label='# ".__("Locations", SL_TEXT_DOMAIN)."'>";
+<optgroup label='# ".__("Locations", "store-locator")."'>";
 
 $opt_arr=array(10,25,50,100,200,300,400,500,1000,2000,4000,5000,10000);
 foreach ($opt_arr as $value) {
@@ -44,15 +44,15 @@ if (!empty($_GET['_wpnonce'])){ $_SERVER['REQUEST_URI'] = str_replace("&_wpnonce
 $is_normal_view = ($sl_vars['location_table_view']=="Normal");
 $is_using_tagger = (sl_data('sl_location_updater_type')=="Tagging");
 
-$table_view_label = ($is_normal_view)? __("Normal", SL_TEXT_DOMAIN) : __("Expanded", SL_TEXT_DOMAIN);
+$table_view_label = ($is_normal_view)? __("Normal", "store-locator") : __("Expanded", "store-locator");
 $table_view_label = "<b>".$table_view_label."</b>";
-$table_view_link = ($is_normal_view)? __("Expanded", SL_TEXT_DOMAIN) : __("Normal", SL_TEXT_DOMAIN);
+$table_view_link = ($is_normal_view)? __("Expanded", "store-locator") : __("Normal", "store-locator");
 $table_view_link = "<a href='".str_replace("&changeView=1", "", $_SERVER['REQUEST_URI'])."&changeView=1' title='Click to change view' style='cursor:question'>".$table_view_link."</a>";
 $table_view = ($is_normal_view)? $table_view_label."&nbsp;:&nbsp;".$table_view_link : $table_view_link."&nbsp;:&nbsp;".$table_view_label;
 
-$updater_type_label = ($is_using_tagger)? __("Tagging", SL_TEXT_DOMAIN) : __("Multiple Fields", SL_TEXT_DOMAIN);
+$updater_type_label = ($is_using_tagger)? __("Tagging", "store-locator") : __("Multiple Fields", "store-locator");
 $updater_type_label = "<b>".$updater_type_label."</b>";
-$updater_type_link = ($is_using_tagger)? __("Multiple Fields", SL_TEXT_DOMAIN) : __("Tagging", SL_TEXT_DOMAIN);
+$updater_type_link = ($is_using_tagger)? __("Multiple Fields", "store-locator") : __("Tagging", "store-locator");
 $updater_type_link = "<a href='".str_replace("&changeUpdater=1", "", $_SERVER['REQUEST_URI'])."&changeUpdater=1' title='Click to change which updater is seen'>".$updater_type_link."</a>";
 $updater_type = ($is_using_tagger)? $updater_type_label."&nbsp;:&nbsp;".$updater_type_link : $updater_type_link."&nbsp;:&nbsp;".$updater_type_label;
 
@@ -105,8 +105,8 @@ include(SL_INCLUDES_PATH."/mgmt-buttons-links.php");
 print "<table class='widefat' cellspacing=0 id='loc_table'>
 <thead><tr >
 <th colspan='1'><input type='checkbox' onclick='checkAll(this,document.forms[\"locationForm\"])' id='master_checkbox' $master_check></th>
-<th colspan='1'>".__("Actions", SL_TEXT_DOMAIN)."</th>
-<th><a href='".str_replace("&o=$_GET[o]&d=$_GET[d]", "", $_SERVER['REQUEST_URI'])."&o=sl_id&d=$d'>".__("ID", SL_TEXT_DOMAIN)."</a></th>";
+<th colspan='1'>".__("Actions", "store-locator")."</th>
+<th><a href='".str_replace("&o=$_GET[o]&d=$_GET[d]", "", $_SERVER['REQUEST_URI'])."&o=sl_id&d=$d'>".__("ID", "store-locator")."</a></th>";
 
 if (function_exists("do_sl_hook") && !empty($sl_columns)){
 	do_sl_location_table_header();
@@ -115,22 +115,22 @@ if (function_exists("do_sl_hook") && !empty($sl_columns)){
 	$th_co = ($is_normal_view)? "</th>\n<th>" : ", " ;
 	$th_style = ($is_normal_view)? "" : "style='white-space: nowrap;' " ;
 	
-	print "<th {$th_style}><a href='".str_replace("&o=$_GET[o]&d=$_GET[d]", "", $_SERVER['REQUEST_URI'])."&o=sl_store&d=$d'>".__("Name", SL_TEXT_DOMAIN)."</a>{$th_co}
-<a href='".str_replace("&o=$_GET[o]&d=$_GET[d]", "", $_SERVER['REQUEST_URI'])."&o=sl_address&d=$d'>".__("Street", SL_TEXT_DOMAIN)."</a>{$th_co}
-<a href='".str_replace("&o=$_GET[o]&d=$_GET[d]", "", $_SERVER['REQUEST_URI'])."&o=sl_address2&d=$d'>".__("Street2", SL_TEXT_DOMAIN)."</a>{$th_co}
-<a href='".str_replace("&o=$_GET[o]&d=$_GET[d]", "", $_SERVER['REQUEST_URI'])."&o=sl_city&d=$d'>".__("City", SL_TEXT_DOMAIN)."</a>{$th_co}
-<a href='".str_replace("&o=$_GET[o]&d=$_GET[d]", "", $_SERVER['REQUEST_URI'])."&o=sl_state&d=$d'>".__("State", SL_TEXT_DOMAIN)."</a>{$th_co}
-<a href='".str_replace("&o=$_GET[o]&d=$_GET[d]", "", $_SERVER['REQUEST_URI'])."&o=sl_zip&d=$d'>".__("Zip", SL_TEXT_DOMAIN)."</a></th>
-<th><a href='".str_replace("&o=$_GET[o]&d=$_GET[d]", "", $_SERVER['REQUEST_URI'])."&o=sl_tags&d=$d'>".__("Tags", SL_TEXT_DOMAIN)."</a></th>";
+	print "<th {$th_style}><a href='".str_replace("&o=$_GET[o]&d=$_GET[d]", "", $_SERVER['REQUEST_URI'])."&o=sl_store&d=$d'>".__("Name", "store-locator")."</a>{$th_co}
+<a href='".str_replace("&o=$_GET[o]&d=$_GET[d]", "", $_SERVER['REQUEST_URI'])."&o=sl_address&d=$d'>".__("Street", "store-locator")."</a>{$th_co}
+<a href='".str_replace("&o=$_GET[o]&d=$_GET[d]", "", $_SERVER['REQUEST_URI'])."&o=sl_address2&d=$d'>".__("Street2", "store-locator")."</a>{$th_co}
+<a href='".str_replace("&o=$_GET[o]&d=$_GET[d]", "", $_SERVER['REQUEST_URI'])."&o=sl_city&d=$d'>".__("City", "store-locator")."</a>{$th_co}
+<a href='".str_replace("&o=$_GET[o]&d=$_GET[d]", "", $_SERVER['REQUEST_URI'])."&o=sl_state&d=$d'>".__("State", "store-locator")."</a>{$th_co}
+<a href='".str_replace("&o=$_GET[o]&d=$_GET[d]", "", $_SERVER['REQUEST_URI'])."&o=sl_zip&d=$d'>".__("Zip", "store-locator")."</a></th>
+<th><a href='".str_replace("&o=$_GET[o]&d=$_GET[d]", "", $_SERVER['REQUEST_URI'])."&o=sl_tags&d=$d'>".__("Tags", "store-locator")."</a></th>";
 
 	if ($sl_vars['location_table_view']!="Normal") {
-		print "<th><a href='".str_replace("&o=$_GET[o]&d=$_GET[d]", "", $_SERVER['REQUEST_URI'])."&o=sl_description&d=$d'>".__("Description", SL_TEXT_DOMAIN)."</a></th>
-<th><a href='".str_replace("&o=$_GET[o]&d=$_GET[d]", "", $_SERVER['REQUEST_URI'])."&o=sl_url&d=$d'>".__("URL", SL_TEXT_DOMAIN)."</a></th>
-<th><a href='".str_replace("&o=$_GET[o]&d=$_GET[d]", "", $_SERVER['REQUEST_URI'])."&o=sl_hours&d=$d'>".__("Hours", SL_TEXT_DOMAIN)."</th>
-<th><a href='".str_replace("&o=$_GET[o]&d=$_GET[d]", "", $_SERVER['REQUEST_URI'])."&o=sl_phone&d=$d'>".__("Phone", SL_TEXT_DOMAIN)."</a></th>
-<th><a href='".str_replace("&o=$_GET[o]&d=$_GET[d]", "", $_SERVER['REQUEST_URI'])."&o=sl_fax&d=$d'>".__("Fax", SL_TEXT_DOMAIN)."</a></th>
-<th><a href='".str_replace("&o=$_GET[o]&d=$_GET[d]", "", $_SERVER['REQUEST_URI'])."&o=sl_email&d=$d'>".__("Email", SL_TEXT_DOMAIN)."</a></th>
-<th><a href='".str_replace("&o=$_GET[o]&d=$_GET[d]", "", $_SERVER['REQUEST_URI'])."&o=sl_image&d=$d'>".__("Image", SL_TEXT_DOMAIN)."</a></th>";
+		print "<th><a href='".str_replace("&o=$_GET[o]&d=$_GET[d]", "", $_SERVER['REQUEST_URI'])."&o=sl_description&d=$d'>".__("Description", "store-locator")."</a></th>
+<th><a href='".str_replace("&o=$_GET[o]&d=$_GET[d]", "", $_SERVER['REQUEST_URI'])."&o=sl_url&d=$d'>".__("URL", "store-locator")."</a></th>
+<th><a href='".str_replace("&o=$_GET[o]&d=$_GET[d]", "", $_SERVER['REQUEST_URI'])."&o=sl_hours&d=$d'>".__("Hours", "store-locator")."</th>
+<th><a href='".str_replace("&o=$_GET[o]&d=$_GET[d]", "", $_SERVER['REQUEST_URI'])."&o=sl_phone&d=$d'>".__("Phone", "store-locator")."</a></th>
+<th><a href='".str_replace("&o=$_GET[o]&d=$_GET[d]", "", $_SERVER['REQUEST_URI'])."&o=sl_fax&d=$d'>".__("Fax", "store-locator")."</a></th>
+<th><a href='".str_replace("&o=$_GET[o]&d=$_GET[d]", "", $_SERVER['REQUEST_URI'])."&o=sl_email&d=$d'>".__("Email", "store-locator")."</a></th>
+<th><a href='".str_replace("&o=$_GET[o]&d=$_GET[d]", "", $_SERVER['REQUEST_URI'])."&o=sl_image&d=$d'>".__("Image", "store-locator")."</a></th>";
 	}
 }
 
@@ -151,25 +151,27 @@ print "<th>(Lat, Lon)</th>
 		$bgcol="";
 		
 		foreach ($locales as $value) {
-			$bgcol=($bgcol==="" || $bgcol=="#eee")?"#fff":"#eee";			
-			$bgcol=($value['sl_latitude']=="" || $value['sl_longitude']=="")? "salmon" : $bgcol;			
+			//$bgcol=($bgcol==="" || $bgcol=="location_dark")?"location_bright":"location_dark";			
+			//$bgcol=($value['sl_latitude']=="" || $value['sl_longitude']=="")? "salmon" : $bgcol;
+			$bgcol=($value['sl_latitude']=="" || $value['sl_longitude']=="")? "location_ungeocoded" : "";			
 			$value=array_map("trim",$value);
+			$bgcol_class = $bgcol;//v3.79 - 9/30/15 - alternate row shading controlled in admin.css now
 			
 			if (!empty($_GET['edit']) && $value['sl_id']==$_GET['edit']) {
 				sl_single_location_info($value, $colspan, $bgcol);
 			}
 			else {
 				$value['sl_url']=(!url_test($value['sl_url']) && trim($value['sl_url'])!="")? "http://".$value['sl_url'] : $value['sl_url'] ;
-				$value['sl_url']=($value['sl_url']!="")? "<a href='$value[sl_url]' target='blank'>".__("View", SL_TEXT_DOMAIN)."</a>" : "" ;
-				$value['sl_image']=($value['sl_image']!="")? "<a href='$value[sl_image]' target='blank'>".__("View", SL_TEXT_DOMAIN)."</a>" : "" ;
-				$value['sl_description']=($value['sl_description']!="")? "<a href='#description-$value[sl_id]' rel='sl_pop'>".__("View", SL_TEXT_DOMAIN)."</a><div id='description-$value[sl_id]' style='display:none;'>".comma($value['sl_description'])."</div>" : "" ;
+				$value['sl_url']=($value['sl_url']!="")? "<a href='$value[sl_url]' target='blank'>".__("View", "store-locator")."</a>" : "" ;
+				$value['sl_image']=($value['sl_image']!="")? "<a href='$value[sl_image]' target='blank'>".__("View", "store-locator")."</a>" : "" ;
+				$value['sl_description']=($value['sl_description']!="")? "<a href='#description-$value[sl_id]' rel='sl_pop'>".__("View", "store-locator")."</a><div id='description-$value[sl_id]' style='display:none;'>".comma($value['sl_description'])."</div>" : "" ;
 			
 				if(empty($_GET['edit'])) {$_GET['edit']="";}
 				$edit_link = str_replace("&edit=$_GET[edit]", "",$_SERVER['REQUEST_URI'])."&edit=" . $value['sl_id'] ."#a$value[sl_id]'";
 				
-				print "<tr style='background-color:$bgcol' id='sl_tr-$value[sl_id]'>
+				print "<tr class='$bgcol_class' id='sl_tr-$value[sl_id]'>
 			<th><input type='checkbox' name='sl_id[]' value='$value[sl_id]'></th>
-			<td><a class='edit_loc_link' href='".$edit_link." id='$value[sl_id]'>".__("Edit", SL_TEXT_DOMAIN)."</a>&nbsp;|&nbsp;<a class='del_loc_link' href='".wp_nonce_url("$_SERVER[REQUEST_URI]&delete=$value[sl_id]", "delete-location_".$value['sl_id'])."' onclick=\"confirmClick('Sure?', this.href); return false;\" id='$value[sl_id]'>".__("Delete", SL_TEXT_DOMAIN)."</a></td>
+			<td><a class='edit_loc_link' href='".$edit_link." id='edit_loc-$value[sl_id]'>".__("Edit", "store-locator")."</a>&nbsp;|&nbsp;<a class='del_loc_link' href='".wp_nonce_url("$_SERVER[REQUEST_URI]&delete=$value[sl_id]", "delete-location_".$value['sl_id'])."' onclick=\"confirmClick('".__("Delete", "store-locator")." -- ".__("You sure", "store-locator")."?', this.href); return false;\" id='del_loc-$value[sl_id]'>".__("Delete", "store-locator")."</a></td>
 			<td> $value[sl_id] </td>";
 
 				if (function_exists("do_sl_hook") && !empty($sl_columns)){
@@ -212,8 +214,8 @@ $value[sl_zip]</td>
 		}
 	} else {
 		$cleared=(!empty($_GET['q']))? str_replace("q=".str_replace(" ", "+", $_GET['q']) , "", $_SERVER['REQUEST_URI']) : $_SERVER['REQUEST_URI'] ;
-		$notice=(!empty($_GET['q']))? __("No Locations Showing for this Search of ", SL_TEXT_DOMAIN)."<b>\"$_GET[q]\"</b> | <a href='$cleared'>".__("Clear&nbsp;Results", SL_TEXT_DOMAIN)."</a> $view_link" : __("No Locations Currently in Database", SL_TEXT_DOMAIN);
-		print "<tr><td colspan='5'>$notice | <a href='".SL_ADD_LOCATIONS_PAGE."'>".__("Add Locations", SL_TEXT_DOMAIN)."</a></td></tr>";
+		$notice=(!empty($_GET['q']))? __("No Locations Showing for this Search of ", "store-locator")."<b>\"$_GET[q]\"</b> | <a href='$cleared'>".__("Clear&nbsp;Results", "store-locator")."</a> $view_link" : __("No Locations Currently in Database", "store-locator");
+		print "<tr><td colspan='5'>$notice | <a href='".SL_ADD_LOCATIONS_PAGE."'>".__("Add Locations", "store-locator")."</a></td></tr>";
 	}
 	print "</table>
 	<input name='act' type='hidden'><br>";

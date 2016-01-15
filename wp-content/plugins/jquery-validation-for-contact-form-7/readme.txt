@@ -1,9 +1,9 @@
 === Jquery Validation For Contact Form 7 ===
 Contributors: dnesscarkey
-Tags: contact form 7 js validation, jquery validation, contact form 7 jquery validation, form validation, contact form 7 us phone number validation, file extension validation, ur validation, credit card validaton, minlength validation, range validation
+Tags: contact form 7 js validation, jquery validation, contact form 7 jquery validation, form validation, contact form 7 us phone number validation, file extension validation, url validation, credit card validaton, minlength validation, range validation
 Requires at least: 3.0
-Tested up to: 4.2.3
-Stable tag: 3.0.2
+Tested up to: 4.3.1
+Stable tag: 3.1
 
 New standard of validation for Contact Form 7 plugin.
 
@@ -82,6 +82,10 @@ Yes, this plugin has been take care to handle multiple forms in a single page.
 1. Validation Error None (Lite Version)
 
 == Changelog ==
+
+= 3.1 =
+
+* Fixed Contact Form 7 loading icon issue.
 
 = 3.0.2 =
 

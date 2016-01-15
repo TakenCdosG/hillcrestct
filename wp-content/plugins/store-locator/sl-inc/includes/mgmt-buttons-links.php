@@ -2,7 +2,7 @@
 
 print "<table width='100%' cellpadding='5px' cellspacing='0' style='border:solid silver 1px' id='mgmt_bar' class='widefat'>
 <thead><tr>
-<th style='/*background-color:#000;*/ width:10%; vertical-align:middle; font-family:inherit; font-size:12px;'><input class='button-primary' type='button' value='".__("Delete", SL_TEXT_DOMAIN)."' onclick=\"if(confirm('".__("You sure", SL_TEXT_DOMAIN)."?')){LF=document.forms['locationForm'];LF.act.value='delete';LF.submit();}else{return false;}\"></th>";
+<th style='/*background-color:#000;*/ width:10%; vertical-align:middle; font-family:inherit; font-size:12px;'><input class='button-primary' type='button' value='".__("Delete", "store-locator")."' onclick=\"if(confirm('".__("Delete", "store-locator")." -- ".__("You sure", "store-locator")."?')){LF=document.forms['locationForm'];LF.act.value='delete';LF.submit();}else{return false;}\"></th>";
 $extra=(!empty($extra))? $extra : "" ;
 
 if (function_exists("addto_sl_hook")) {addto_sl_hook('sl_mgmt_bar_links', 'export_links', '', '', 'csv-xml-importer-exporter');} 
@@ -31,7 +31,7 @@ print "<th style='/*background-color:#000;*/ width:50%; text-align:right; /*colo
   }
 	
 	function tagger() {
-		print "<!--strong-->".__("Tags", SL_TEXT_DOMAIN)."<!--/strong-->&nbsp;<input name='sl_tags' style='margin: 1px; padding:3px; line-height:15px;'>&nbsp;<input class='button-primary' type='button' value='".__("Add Tag", SL_TEXT_DOMAIN)."' onclick=\"LF=document.forms['locationForm'];LF.act.value='add_tag';LF.submit();\">&nbsp;<input class='button-primary' type='button' value='".__("Remove Tag", SL_TEXT_DOMAIN)."' onclick=\"if(confirm('".__("You sure", SL_TEXT_DOMAIN)."?')){LF=document.forms['locationForm'];LF.act.value='remove_tag';LF.submit();}else{return false;}\">";
+		print "<!--strong-->".__("Tags", "store-locator")."<!--/strong-->&nbsp;<input name='sl_tags' style='margin: 1px; padding:3px; line-height:15px;'>&nbsp;<input class='button-primary' type='button' value='".__("Add Tag", "store-locator")."' onclick=\"LF=document.forms['locationForm'];LF.act.value='add_tag';LF.submit();\">&nbsp;<input class='button-primary' type='button' value='".__("Remove Tag", "store-locator")."' onclick=\"if(confirm('".__("Remove Tag", "store-locator")." -- ".__("You sure", "store-locator")."?')){LF=document.forms['locationForm'];LF.act.value='remove_tag';LF.submit();}else{return false;}\">";
 	}
   
 	if (function_exists("addto_sl_hook")) {
