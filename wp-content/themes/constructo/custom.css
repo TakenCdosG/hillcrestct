@@ -1,0 +1,4004 @@
+<<<<<<< HEAD
+/*** Write your CSS structure here. ***/
+/*
+* TEMPORAL SOCIAL ICON REMOVAL
+*/
+.footer-social-icons{
+    display: none;
+}
+
+/*
+* FONT STYLES
+*/
+h1,h2,h4,h5,h6{
+    font-family: "adobe-garamond-pro" !important;
+}
+.small-caps{
+    font-variant: small-caps;
+}
+/*
+* LINKS
+*/
+a *,.site-header a:hover, p a{
+    color:#003d79 !important;
+}
+a.item-hover div div h2, a.item-hover div div h2 i{
+    color: #ffffff !important;
+}
+.btn.style-1:hover, .btn.style-1:active, .btn.style-1:focus, .vc_btn.style-1:hover, .vc_btn.style-1:active, .vc_btn.style-1:focus,.btn:hover, .btn:active, .btn:focus, .wpcf7-submit:hover, .wpcf7-submit:active, .wpcf7-submit:focus{
+    background-color:#003d79 !important;
+}
+#custom-id-0 p{
+    color: #ffffff !important;
+}
+/*
+* Single Home Button to Our Homes
+*/
+div.bthbtn a {
+    font-size: 13px !important;
+}
+button.btn.btn-lg.style-5 i{
+    color: #ffffff !important;
+}
+/*
+* SLIDER TEXT STYLES
+*/
+.tp-caption.large_bold_white, .large_bold_white {
+	font-family: "adobe-garamond-pro" !important;
+	font-weight: 400 !important;
+	text-shadow: 2px 1px 1px rgba(0, 0, 0, 1);
+}
+
+h3 span{
+	font-family: "adobe-garamond-pro" ;
+	font-size: 45px !important;
+}
+
+div.text.orange-bar-text p span{
+	font-family: "pt-sans" ;
+	font-size: 20px !important;
+	font-weight: 600;
+}
+
+p span.contact-text strong{
+	font-family: "pt-sans" ;
+	font-size: 15px !important;
+	color: #888888;
+}
+
+span.contact-text, p span.contact-text{
+	font-family: "pt-sans" ;
+	font-size: 15px !important;
+	font-weight: 100;
+	color: #888888;
+}
+p span.contact-text a{
+    font-family: "pt-sans" ;
+    font-size: 15px !important;
+    font-weight: 100;
+    color: #003d79;
+}
+
+
+a#custom-id-0.btn.btn-md.style-1{
+	text-transform: capitalize;
+	margin-top: 15%;
+}
+
+.text h3{
+	font-family: "adobe-garamond-pro";
+	color: #003d79;
+	font-size: 35px;
+}
+
+.text h3 span.let1,.text h3 span.let2,.text h3 span.let3{
+    font-size: 25px !important;
+}
+
+.statement-text h1{
+	text-transform: none;
+	font-family: "adobe-garamond-pro";
+}
+
+form.wpcf7-form h3, h3 span.contact-title {
+	font-family: "adobe-garamond-pro";
+	color: #003d79;
+	font-size: 20px !important;
+	font-weight: 700;
+}
+
+.wpcf7-form input.wpcf7-text, .wpcf7-form textarea{
+	font-family: "arial";
+	font-size: 12px;
+	font-weight: 100;
+}
+
+.wpcf7-submit{
+	background-color: #afbd21 !important;
+	padding: 15px 17px !important;
+}
+
+ul#menu-main-menu li a{
+	font-family: georgia;
+	color:#292929;
+}
+
+.menu-item.menu-item-type-post_type.menu-item-object-page.current-menu-item a{
+	color: #003d79 !important;
+	font-weight:600;
+}
+
+ul.recentportfolio li.item.item-type-line{
+	width: 24.55%;
+	margin-right: 6px;
+	border-right: 2px solid #e6e6e6;
+}
+
+.upper-header{
+	height: 100px;
+	background-color: #f9f9f9;
+	position: relative;
+	top: -20px;
+	border-bottom: 1px solid #f2f2f2;
+}
+
+.social-icons-header{
+	position: absolute;
+	margin-left: 20%;	
+	height: 64px;
+	width: 181px;
+
+}
+
+.facebook-icon{
+	position: absolute;
+	margin-left: 28px;
+	top:20px;
+}
+
+.twitter-icon{
+	position: absolute;
+	margin-left: 55px;
+	top:20px;
+}
+
+.pinterest-icon{
+	position: absolute;
+	margin-left: 82px;
+	top:20px;
+}
+
+.googlep-icon{
+	position: absolute;
+	margin-left: 109px;
+	top:20px;
+}
+
+.behance-icon{
+	position: absolute;
+	margin-left: 136px;
+	top:20px;
+}
+
+.info-header{
+	position: absolute;
+	margin-left: 40%;
+	height:100px;
+	width: 303px;
+	border-left:1px solid #e6e6e6;
+	border-right: 1px solid #e6e6e6;
+}
+
+.clock-icon{
+	position: absolute;
+	top: 18px;
+	margin-left: 25px;
+}
+
+.info-header-text{
+	position: absolute;
+	top: 20px;
+	margin-left: 50px;
+	width: 232px;
+	height: 27px;
+	font-family: "pt-sans";
+	color: #003d79;
+	font-size: 13px;
+	font-weight: 700;
+}
+
+.site-navigation {
+	border: none;
+	display: block;
+	float: left;
+	margin-left: 3%;
+}
+
+.phone-number{
+	position: absolute;
+	margin-left: 57%;
+	height:64px;
+	width: 7%;
+}
+
+.phone-icon{
+	position: absolute;
+	top:18px;
+}
+
+.phone-number-text a{
+	position: absolute;
+	top: 20px;
+	margin-left: 20px;
+	width: 110px;
+	height: 27px;
+	font-family: "pt-sans";
+	color: #003d79;
+	font-size: 13px;
+    z-index: 900;
+}
+
+.header-email{
+	position: absolute;
+	margin-left: 66%;
+	height:64px;
+	width: 11%;
+	border-right: 1px solid #e6e6e6;
+}
+
+.mail-icon{
+	position: absolute;
+	top:18px;
+}
+
+.header-email-text a{
+	position: absolute;
+	top: 20px;
+	margin-left: 20px;
+	width: 110px;
+	height: 27px;
+	font-family: "pt-sans";
+	color: #003d79;
+	font-size: 13px;
+}
+
+.site-footer{
+	background-color: #5b8ebe !important;
+}
+
+.copyright-footer{
+	background-color: #093057 !important;
+}
+
+.widget_recent_entries > ul > li, ul#menu-footer-menu li a, .footer-textarea p{
+	color: #ffffff !important;
+	border: none;
+	font-family: arial;
+	font-size: 12px;
+	padding: 1px 0;
+}
+
+.widget_recent_entries >ul >li a:hover{
+	color: #ffffff;
+}
+
+.site-footer .widget-title{
+	margin-bottom: 20px;
+	font-family: "pt-sans";
+	font-weight: 600;
+	color: #ffffff;
+}
+
+.site-footer .copyright-footer > .container{
+	padding: 9px 0px 9px 0px;
+}
+
+li#text-2.widget-container.widget_text div.textwidget{
+	color: #97a0ad;
+	font-family: arial;
+	font-size: 13px;
+}
+
+.site-logo a img {
+	width: auto;
+	height:92px !important;
+	position: relative;
+	top: -10px;
+}
+
+div.headline h2{
+	font-family: "adobe-garamond-pro";
+	font-size: 25px !important;
+    text-transform: uppercase;
+}
+
+.headline h2::first-letter{
+    font-size: 35px;
+}
+
+@media screen and (max-width: 1250px) {
+	ul.recentportfolio li.item.item-type-line{
+		width: 24.31%;
+		margin-right: 4px;
+		border-right: 2px solid #e6e6e6;
+	}
+}
+
+.footer-logos{
+	position: relative;
+	top:-53px;
+}
+
+.calcagni-logo{
+	position: absolute;
+}
+
+.hillcrest-footer-logo{
+	position: absolute;
+	margin-left: 53%;
+}
+
+.footer-textarea{
+	position: relative;
+	top:50px;
+}
+
+.lower-logos{
+	height: 32px;
+	position: relative;
+	top: 50px;
+}
+
+.lower-img-1{
+	height: 32px;
+	position: absolute;
+}
+
+.lower-img-2{
+	height: 29px;
+	position: absolute;
+	margin-left: 15%
+}
+
+.footer-text-area{
+	position: relative;
+	top: -22px;
+	font-family: "arial";
+	color: #ffffff;
+	font-size: 13px;
+	font-weight: 600;
+}
+
+.footer-form-area{
+	position: relative;
+	top: -20px;
+}
+
+.footer-form-area input{
+	border: 1px solid #cbcbcb;
+	color: #4b4b4b;
+	font-family: "arial";
+	padding-left: 5px;
+}
+
+::-webkit-input-placeholder { color:#4b4b4b; }
+::-moz-placeholder { color:#4b4b4b; } /* firefox 19+ */
+:-ms-input-placeholder { color:#4b4b4b; } /* ie */
+input:-moz-placeholder { color:#4b4b4b; }
+
+input.submit-btn{
+	color: #ffffff;
+	background-color: #003d79;
+	border:1px solid #cbcbcb;
+	padding: 1px 9px 1px 9px;
+	position: absolute;
+	text-transform: uppercase;
+	font-family: "arial";
+}
+.site-footer img{
+	margin-bottom: 0px;
+}
+
+.footer-social-icons{
+	height: 16px;
+    display: none;
+}
+
+.fb-white{
+	position: absolute;
+}
+
+.tw-white{
+	position: absolute;
+	margin-left: 28px;
+}
+
+.pt-white{
+	position: absolute;
+	margin-left: 56px;
+}
+
+.gp-white{
+	position: absolute;
+	margin-left: 84px;
+}
+
+.be-white{
+	position: absolute;
+	margin-left: 112px;
+}
+
+/*
+* NAVIGATION MENU MOBILE STYLES
+*/
+@media screen and (max-width: 992px){
+    nav.site-navigation.open,.site-navigation:before, .site-navigation:after {
+        background: #003d79 !important;
+    }
+    .site-navigation{
+        margin-left: 0 !important;
+    }
+    nav.site-navigation.open ul#menu-main-menu li a {
+        color: #ffffff !important;
+    }
+}
+/*
+* ORANGE BAR UNDER HOME SLIDER MOBILE STYLES
+*/
+@media screen and (min-width: 320px) and (max-width: 992px){
+    section.wpb_row.vc_custom_1430511487651{
+        height: 135px!important;
+    }
+   div div.text.orange-bar-text{
+        margin-top: -62px !important;
+    }
+    div.text.orange-bar-text h3 span {
+        font-size: 20px !important;
+    }
+    div.text.orange-bar-text p{
+        margin-top: -17px;
+    }
+    div.text.orange-bar-text p span {
+        font-size: 13px!important;
+    }
+    div.vc_empty_space{
+        height: 0;
+    }
+    a#custom-id-0.btn.btn-md.style-1{
+        margin-top: -55px;
+        padding: 8px 12px !important;
+        font-size: 13px;
+    }
+
+    /* GOOGLE MAPS*/
+    div#map1.map{
+        height: 380px;
+    }
+}
+/*
+* STYLES OUR HOME PAGES
+*/
+ul.list.circle{
+    list-style-type: disc;
+    margin: 15px 16px 40px;
+}
+ul.list.circle li::before{
+    content: "";
+    margin-left: -15px;
+}
+.vc_button-2-wrapper.vc_button-2-align-inline{
+    margin-bottom: 40px;
+}
+.vc_button-2-wrapper.vc_button-2-align-inline .vc_btn.vc_btn_orange.vc_btn-orange.vc_btn_lg.vc_btn-lg.vc_btn_rounded, .vc_btn3.vc_btn3-color-orange, .vc_btn3.vc_btn3-color-orange.vc_btn3-style-flat{
+    background-color: #ea9919 !important;
+}
+div.row.home-detail-title div.wpb_column.col-md-12 h5{
+    font-family: "adobe-garamond-pro";
+    color:#003d79;
+    font-size: 15px;
+}
+div.row.home-detail-title div.wpb_column.col-md-12 h5:first-letter{
+    font-size: 20px;
+}
+div.row.home-detail-text div.wpb_column.col-md-12 div.text, div.row.home-detail-text div.wpb_column.col-md-12 ul.list.circle li{
+    font-family: "adobe-garamond-pro";
+    color: #303030;
+    font-size: 15px;
+}
+div.row.home-detail-note div.wpb_column.col-md-12 div.text{
+    font-family: "adobe-garamond-pro";
+    font-size: 13px;
+    color: #303030;
+}
+div.row.home-detail-text div.wpb_column.col-md-12 ul.list.circle li{
+    margin-bottom: -16px;
+}
+/*
+* OUR HOMES PAGE STYLES
+*/
+.filter i.fa-filter{
+    display: none;
+}
+.filter li{
+    font-family: "pt-sans";
+}
+/* PAGE HEADING STYLES */
+.page-heading h1{
+    font-family: "adobe-garamond-pro";
+    font-variant: small-caps;
+    font-size: 34px !important;
+    color: #003d79;
+}
+div.container ul.breadcrumbs{
+    font-family: "pt-sans";
+    color:#000000;
+    font-weight: 600;
+}
+/*
+* STATEMENT SECTION STYLES
+*/
+section.statement a#custom-id-0.btn.btn-md.style-1{
+    text-transform: uppercase;
+    margin-top: 0;
+}
+section.wpb_row.row.no-margin.vc_custom_1431455555338.text-center div section.statement{
+    top:75px;
+}
+/*
+* MANUFACTURERS SECTION
+*/
+.metaslider.metaslider-flex.ml-slider.nav-hidden{
+    margin-left: 19% !important;
+}
+/*
+* SINGLE PORTFOLIO STYLES
+*/
+.portfolio-single .gallery .item{
+    margin-bottom: 10px;
+}
+.img-description{
+    margin-bottom: 10px;
+    margin-top: -5px;
+}
+.img-desc-text{
+    text-align: center;
+}
+div.img-desc-text span{
+    font-family: "adobe-garamond-pro";
+    font-size: 18px;
+    text-transform: uppercase;
+    color: #003d79;
+}
+/*
+* CALCAGNI PAGE STYLES
+*/
+span.sales-rep img{
+    border: 1px solid #d7d7d7;
+}
+p span.garamond, span.garamond{
+    font-family: "adobe-garamond-pro";
+    color: #003d79;
+    font-size: 18px;
+}
+div.calcagni-red div div img.vc_single_image-img {
+    width: 200px;
+    height: 124px;
+}
+div.calcagni-text{
+    text-align: justify;
+}
+/*
+* Hiding header social,"Home" in the nav and "menu" in the footer... for launch
+*
+*/
+.widget-container.widget_recent_entries, button.fa.fa-search.mobile{
+    display: none;
+}
+ul.filter.style-1 li button.selected{
+    color: #db931f !important;
+    font-weight: 600;
+}
+ul.filter.style-1 span, ul.filter.style-1 li button{
+    color: #4c4c4c !important;
+}
+ul.portfolio h2{
+    font-family: "adobe-garamond-pro";
+    color: #003d79;
+    font-weight: 600;
+}
+/*
+* STATEMENT SECTION
+*/
+
+section.statement{
+    position: relative;
+    top: 100px;
+}
+
+/*
+*
+*Responsive in footer
+*/
+
+@media screen and (min-width: 320px) and (max-width: 420px){
+    input#fieldEmail{
+        width: 130px;
+    }
+    input.submit-btn{
+        position: relative;
+        top:1px;
+    }
+    .footer-social-icons{
+        top:10px;
+        position: relative;
+        display: none;
+    }
+    .be-white{
+        height: 14px;
+        width: 26px;
+    }
+    .lower-img-2{
+        margin-left: 35% !important;
+    }
+    .calcagni-logo{
+        width:50%;
+    }
+    .footer-textarea,.lower-logos{
+        top:0 !important;
+    }
+    /*footer.site-footer.style-2 div.container div.row div.col-md-3.col-xs-6:nth-child(2),*/footer.site-footer.style-2 div.container div.row div.col-md-3.col-xs-6:nth-child(3){
+        position: relative;
+        /*top:-45px; UNCOMMENT THIS LINE WHEN SHOWING 2ND COLUMN */
+        top: -70px;
+    }
+    footer.site-footer.style-2 div.container div.row div.col-md-3.col-xs-6:nth-child(4){
+        position: relative;
+        margin-top: -14% !important;
+    }
+
+    .social-icons-header{
+        position: absolute;
+        margin-left: 0;
+        height: 64px;
+        width: 28%;
+        border-left: none;
+        border-right: none;
+    }
+    .social-icons-container{
+        position: relative;
+        margin-left: -20%;
+        top:-18px;
+    }
+    .facebook-icon{
+        margin-left: 20% ;
+        top: 80px ;
+    }
+    .fb-like-text{
+        margin-top: 22px;
+        margin-left: 21% ;
+    }
+    .fb-like-text a p{
+        font-size: 11px ;
+    }
+    .twitter-icon{
+        margin-left: 50px;
+        top: 20px;
+    }
+    .pinterest-icon{
+        margin-left: 77px;
+        top:20px;
+    }
+    .googlep-icon{
+        margin-left: 41px;
+        top: 55px;
+    }
+    .behance-icon{
+        margin-left: 65px;
+        top: 53px;
+    }
+    .info-header{
+        margin-left: 28%;
+        margin-right: 0;
+        width: 39%;
+    }
+    .clock-icon{
+        top: 8px;
+        margin-left: 2%;
+    }
+    .info-header-text{
+        top: 7px;
+        margin-left: 15%;
+        width: 77%;
+        font-size: 9px;
+        margin-right: 5%;
+    }
+    .addr-phone-container{
+        width: 29%;
+        margin-left: 39%;
+        border-right: 1px solid #e6e6e6;
+        height: 100px;
+    }
+    .phone-number{
+        margin-left: 66%;
+        width: 35%;
+    }
+    .phone-icon{
+        top: 3px;
+        margin-left: 5%;
+    }
+    .phone-number-text a{
+        top: 5px;
+        margin-left: 19%;
+        width: 108px;
+        font-size: 9px;
+    }
+    .info-address{
+        margin-left: 1%;
+        width: 35%;
+    }
+    .info-address-text{
+        top: 8px;
+        margin-left: 5%;
+        width: 100px;
+        font-size: 8px;
+        color: #003d79;
+        position: relative;
+        font-weight: bold;
+    }
+    .mail-fb-container{
+        width: 32%;
+        height: 100px;
+        margin-top: -100px;
+        margin-left: 68%;
+    }
+    .header-email{
+        width: 54%;
+    }
+    .mail-icon{
+        top: 25px;
+        margin-left: 23%;
+    }
+    .header-email-text a{
+        top: 42px;
+        margin-left: 1%;
+        width: 0%;
+        font-size: 10px;
+    }
+}
+
+@media screen and (min-width: 421px) and (max-width: 488px){
+    .calcagni-logo{
+        width:50%;
+    }
+    .footer-textarea,.lower-logos{
+        top:10px !important;
+    }
+    .lower-img-2{
+        margin-left: 25% !important;
+    }
+    input.submit-btn{
+        position: relative;
+        top:1px;
+    }
+    /*footer.site-footer.style-2 div.container div.row div.col-md-3.col-xs-6:nth-child(2),*/footer.site-footer.style-2 div.container div.row div.col-md-3.col-xs-6:nth-child(3){
+        position: relative;
+        /*top:-45px; UNCOMMENT THIS WHEN SHOWING 2ND COLUMN  */
+        top: -70px;
+    }
+    footer.site-footer.style-2 div.container div.row div.col-md-3.col-xs-6:nth-child(4){
+        position: relative;
+        margin-top: -12% !important;
+    }
+
+    .social-icons-header{
+        position: absolute;
+        margin-left: 5%;
+        height: 64px;
+        width: 28%;
+        border-left: none;
+        border-right: none;
+    }
+    .social-icons-container{
+        position: relative;
+        margin-left: -20%;
+        top:-18px;
+    }
+    .facebook-icon{
+        margin-left: 30px;
+        top: 20px;
+    }
+    .twitter-icon{
+        margin-left: 50px;
+        top: 20px;
+    }
+    .pinterest-icon{
+        margin-left: 77px;
+        top:20px;
+    }
+    .googlep-icon{
+        margin-left: 41px;
+        top: 55px;
+    }
+    .behance-icon{
+        margin-left: 65px;
+        top: 53px;
+    }
+    .info-header{
+        margin-left: 28%;
+        margin-right: 0;
+        width: 39%;
+    }
+    .clock-icon{
+        top: 10px;
+        margin-left: 4%;
+    }
+    .info-header-text{
+        top: 7px !important;
+        margin-left: 15% !important;
+        width: 77% !important;
+        font-size: 9px !important;
+        margin-right: 5%;
+    }
+    .phone-number{
+        margin-left: 66%;
+        width: 35%;
+    }
+    .phone-icon{
+        top: 3px;
+        margin-left: 8%;
+    }
+    .phone-number-text a{
+        top: 5px;
+        margin-left: 19%;
+        width: 108px;
+        font-size: 11px;
+    }
+    .header-email{
+        width: 54%;
+    }
+    .mail-icon{
+        top: 40px;
+        margin-left: 3%;
+    }
+    .header-email-text a{
+        top: 42px;
+        margin-left: 10%;
+        width: 0%;
+        font-size: 11px;
+    }
+}
+
+@media screen and (min-width: 489px) and (max-width: 587px){
+    .calcagni-logo{
+        width:50%;
+    }
+    .footer-textarea,.lower-logos{
+        top:40px !important;
+    }
+
+    /*footer.site-footer.style-2 div.container div.row div.col-md-3.col-xs-6:nth-child(2),*/footer.site-footer.style-2 div.container div.row div.col-md-3.col-xs-6:nth-child(3){
+        position: relative;
+        /*top:-45px;   UNCOMMENT THIS LINE WHEN SHOWING 2ND COLUMNS        */
+        top: -70px;
+    }
+    footer.site-footer.style-2 div.container div.row div.col-md-3.col-xs-6:nth-child(4){
+        position: relative;
+        margin-top: -12% !important;
+    }
+    input#fieldEmail{
+        width: 130px;
+    }
+
+    .social-icons-header{
+        position: absolute;
+        margin-left: 5%;
+        height: 64px;
+        width: 28%;
+        border-left: none;
+        border-right: none;
+    }
+    .social-icons-container{
+        position: relative;
+        margin-left: -20%;
+        top:-18px;
+    }
+    .facebook-icon{
+        margin-top: 40px;
+        margin-left: 25%;
+    }
+    .fb-like-text{
+        margin-top: 62px !important;
+        margin-left: 25% !important;
+    }
+    .fb-like-text a p{
+        font-size: 11px !important;
+    }
+    .twitter-icon{
+        margin-left: 50px;
+        top: 20px;
+    }
+    .pinterest-icon{
+        margin-left: 77px;
+        top:20px;
+    }
+    .googlep-icon{
+        margin-left: 41px;
+        top: 55px;
+    }
+    .behance-icon{
+        margin-left: 65px;
+        top: 53px;
+    }
+    .info-header{
+        margin-left: 28%;
+        margin-right: 0;
+        width: 39%;
+    }
+    .clock-icon{
+        top: 10px;
+        margin-left: 4%;
+    }
+    .info-header-text{
+        top: 7px;
+        margin-left: 15%;
+        width: 77%;
+        font-size: 11px;
+        margin-right: 5%;
+    }
+    .phone-number{
+        margin-left: 66%;
+        width: 35%;
+    }
+    .phone-icon{
+        top: 3px;
+        margin-left: 8%;
+    }
+    .phone-number-text a{
+        top: 5px;
+        margin-left: 19%;
+        width: 108px;
+        font-size: 11px;
+    }
+    .header-email{
+        width: 54%;
+    }
+    .mail-icon{
+        top: 40px;
+        margin-left: 3%;
+    }
+    .header-email-text a{
+        top: 42px;
+        margin-left: 10%;
+        width: 0%;
+        font-size: 11px;
+    }
+}
+@media screen and (min-width: 690px) and (max-width: 991px){
+    .hillcrest-footer-logo{
+        margin-left: 44%;
+    }
+}
+@media screen and (min-width: 992px){
+    .hillcrest-footer-logo{
+        margin-left: 32%;
+    }
+    .lower-img-2{
+        margin-left: 10% !important;
+    }
+}
+@media screen and (min-width: 993px) {
+    .calcagni-logo{
+        width:50%;
+    }
+    .hillcrest-footer-logo{
+        margin-left: 53%;
+    }
+    .lower-img-2{
+        margin-left: 20% !important;
+    }
+    .footer-textarea,.lower-logos{
+        top:40px !important;
+    }
+}
+/*
+*
+*2nd, 3rd, 4th Columns position fix
+*
+*
+*/
+
+@media screen and (min-width: 579px) and (max-width: 734px){
+    /*footer.site-footer.style-2 div.container div.row div.col-md-3.col-xs-6:nth-child(2),*/footer.site-footer.style-2 div.container div.row div.col-md-3.col-xs-6:nth-child(3){
+        position: relative;
+        margin-top: 0px !important;
+    }
+    footer.site-footer.style-2 div.container div.row div.col-md-3.col-xs-6:nth-child(4){
+        position: relative;
+        margin-top: -30% !important;
+    }
+}
+@media screen and (min-width: 735px){
+    /*footer.site-footer.style-2 div.container div.row div.col-md-3.col-xs-6:nth-child(2),*/footer.site-footer.style-2 div.container div.row div.col-md-3.col-xs-6:nth-child(3){
+        position: relative;
+        margin-top: -45px !important;
+    }
+    footer.site-footer.style-2 div.container div.row div.col-md-3.col-xs-6:nth-child(4){
+        position: relative;
+        margin-top: -5% !important;
+    }
+}
+
+/*
+* THIS NEXT SECTION ONLY THE COLUMNS STYLES WILL BE COMMENTED, WHEN IT'S TIME TO DISPLAY THE MENU AND OTHER STUFF UNCOMMENT THIS STYLES
+*/
+@media screen and (min-width: 588px) and (max-width: 992px) {
+    /*footer.site-footer.style-2 div.container div.row div.col-md-3.col-xs-6:nth-child(2){
+        position: relative;
+        margin-top: -45px !important;
+    }*/
+    footer.site-footer.style-2 div.container div.row div.col-md-3.col-xs-6:nth-child(3){
+        position: relative;
+        /*margin-top: -10px !important;   UNCOMMENT THIS LINE AND DELETE THE FOLLOWING WHEN SHOWING 2ND COLUMN    */
+        margin-top: -75px !important;
+    }
+    footer.site-footer.style-2 div.container div.row div.col-md-3.col-xs-6:nth-child(4){
+        position: relative;
+        /*margin-top: -2% !important;     UNCOMMENT THIS LINE AND DELETE THE FOLLOWING WHEN SHOWING 2ND COLUMN     */
+        margin-top: -1% !important;
+    }
+
+    .social-icons-header{
+        position: absolute;
+        margin-left: 12%;
+        height: 64px;
+        width: 28%;
+        border-left: none;
+        border-right: none;
+    }
+    .social-icons-container{
+        position: relative;
+        margin-left: -41%;
+        top:-4px;
+    }
+    .facebook-icon{
+        position: absolute;
+        margin-left: 28px;
+        top:20px;
+    }
+
+    .twitter-icon{
+        position: absolute;
+        margin-left: 55px;
+        top:20px;
+    }
+
+    .pinterest-icon{
+        position: absolute;
+        margin-left: 82px;
+        top:20px;
+    }
+
+    .googlep-icon{
+        position: absolute;
+        margin-left: 109px;
+        top:20px;
+    }
+
+    .behance-icon{
+        position: absolute;
+        margin-left: 136px;
+        top:20px;
+    }
+    .info-header{
+        margin-left: 28%;
+        margin-right: 0;
+        width: 39%;
+    }
+    .clock-icon{
+        top: 10px;
+        margin-left: 4%;
+    }
+    .info-header-text{
+        top: 12px;
+        margin-left: 15%;
+        width: 77%;
+        font-size: 11px;
+        margin-right: 5%;
+    }
+    .phone-number{
+        margin-left: 66%;
+        width: 35%;
+    }
+    .phone-icon{
+        top: 3px;
+        margin-left: 8%;
+    }
+    .phone-number-text a{
+        top: 5px;
+        margin-left: 19%;
+        width: 108px;
+        font-size: 11px;
+    }
+    .header-email{
+        width: 54%;
+    }
+    .mail-icon{
+        top: 40px;
+        margin-left: 4%;
+    }
+    .header-email-text a{
+        top: 42px;
+        margin-left: 10%;
+        width: 0%;
+        font-size: 11px;
+    }
+}
+@media screen and (min-width: 993px) {
+    footer.site-footer.style-2 div.container div.row div.col-md-3.col-xs-6:nth-child(3){
+        position: relative;
+        margin-top: -45px !important;
+    }
+    footer.site-footer.style-2 div.container div.row div.col-md-3.col-xs-6:nth-child(4){
+        position: relative;
+        margin-top: -45px !important;
+    }
+}
+
+/*
+* MEDIA QUERIES FOR HEADER > 993PX
+*/
+@media screen and (min-width: 993px) and (max-width: 1027px){
+    .social-icons-header{
+        position: absolute;
+        margin-left: 10%;
+        height: 64px;
+        width: 181px;
+
+    }
+    .info-header{
+        position: absolute;
+        margin-left: 28.5%;
+        height:64px;
+        width: 31%px;
+        border-left:1px solid #e6e6e6;
+        border-right: 1px solid #e6e6e6;
+    }
+
+    .info-header-text{
+        position: absolute;
+        top: 20px;
+        margin-left: 50px;
+        width: 230px;
+        height: 27px;
+        font-family: "pt-sans";
+        color: #003d79;
+        font-size: 13px;
+        font-weight: 700;
+    }
+
+    .phone-number{
+        position: absolute;
+        margin-left: 61%;
+        height:64px;
+        width: 12%;
+        border-right: 1px solid #e6e6e6;
+    }
+
+    .header-email{
+        position: absolute;
+        margin-left: 74%;
+        height:64px;
+        width: 18%;
+        border-right: 1px solid #e6e6e6;
+    }
+}
+@media screen and (min-width: 1028px) and (max-width: 1070px){
+    .social-icons-header{
+        margin-left: 10%;
+    }
+    .info-header{
+        margin-left: 28.5%;
+        width: 31%;
+    }
+    .phone-number{
+        margin-left: 61%;
+        width: 12%;
+    }
+    .header-email{
+        margin-left: 76%;
+        width: 18%;
+    }
+}
+@media screen and (min-width: 1071px) and (max-width: 1150px){
+    .social-icons-header{
+        margin-left: 10%;
+    }
+    .info-header{
+        margin-left: 28.5%;
+        width: 28%;
+    }
+    .phone-number{
+        margin-left: 58%;
+        width: 12%;
+    }
+    .header-email{
+        margin-left: 73%;
+        width: 18%;
+    }
+}
+@media screen and (min-width: 1151px) and (max-width: 1230px){
+    .social-icons-header{
+        margin-left: 10%;
+    }
+    .info-header{
+        margin-left: 28.5%;
+        width: 26%;
+    }
+    .phone-number{
+        margin-left: 56%;
+        width: 12%;
+    }
+    .header-email{
+        margin-left: 71%;
+        width: 18;
+    }
+}
+@media screen and (min-width: 1231px) and (max-width: 1309px) {
+    .social-icons-header{
+        margin-left: 10%;
+    }
+    .info-header{
+        margin-left: 28.5%;
+        width: 25%;
+    }
+    .phone-number{
+        margin-left: 55%;
+        width: 12%;
+    }
+    .header-email{
+        margin-left: 68%;
+        width: 14%;
+    }
+}
+@media screen and (min-width: 1310px) and (max-width: 1429px) {
+    .social-icons-header{
+        margin-left: 10%;
+    }
+    .info-header{
+        margin-left: 28.5%;
+        width: 24%;
+    }
+    .phone-number{
+        margin-left: 54%;
+        width: 10%;
+    }
+    .header-email{
+        margin-left: 65%;
+        width: 13%;
+    }
+}
+@media screen and (min-width: 1430px) and (max-width:1560px) {
+    .social-icons-header{
+        margin-left: 10%;
+    }
+    .info-header{
+        margin-left: 28.5%;
+        width: 21%;
+    }
+    .phone-number{
+        margin-left: 51%;
+        width: 10%;
+    }
+    .header-email{
+        margin-left: 63%;
+        width: 13%;
+    }
+}
+@media screen and (min-width: 1561px) and (max-width:1690px) {
+    .social-icons-header{
+        margin-left: 10%;
+    }
+    .info-header{
+        margin-left: 28.5%;
+        width: 19%;
+    }
+    .phone-number{
+        margin-left: 49%;
+        width: 8.3%;
+    }
+    .header-email{
+        margin-left: 59%;
+        width: 12%;
+    }
+}
+@media screen and (min-width: 1691px) and (max-width:1820px) {
+    .social-icons-header{
+        margin-left: 10%;
+    }
+    .info-header{
+        margin-left: 28.5%;
+        width: 18%;
+    }
+    .phone-number{
+        margin-left: 48%;
+        width: 8%;
+    }
+    .header-email{
+        margin-left: 57%;
+        width: 10.4%;
+    }
+}
+
+/*
+* IMAGE PRINT STYLE
+*/
+@media print {
+    div.site-header,div.page-heading,section.container,footer.site-footer, div.nav-wrap, div.nav-wrap div.upper-header, div.nav-wrap div.container {
+        display: none;
+    }
+
+    div.img-desc-text, div.img-desc-text span{
+        display: block;
+        font-size: 80px;
+        color: #000000;
+    }
+
+    img{
+        display: block !important;
+        max-width: 700px !important;
+        position: absolute;
+        top: 20%;
+        }
+}
+
+/*
+* RECENT PORTFOLIO ARROWS
+*/
+div.recent-portfolio-slider-custom div div.container, div.recent-portfolio-slider-custom div div.container div.row.owly{
+    width: 100%;
+}
+div.recent-portfolio-slider-custom div div.container div.row.owly div.col-xs-6.col-md-6.align-right{
+    width: 100%;
+    position: absolute;
+}
+div.recent-portfolio-slider-custom div div.container div.row.owly div.col-xs-6.col-md-6.align-right a.owlprev{
+    position: relative;
+    top:180px;
+    float: left;
+    background: none !important;
+    z-index: 999;
+}
+div.recent-portfolio-slider-custom div div.container div.row.owly div.col-xs-6.col-md-6.align-right a.owlnext{
+    position: relative;
+    top: 180px;
+    z-index: 999;
+    background: none !important;
+}
+a.owlprev i, a.owlnext i{
+    color: #ffffff !important;
+    opacity: 1.25;
+}
+
+.flxmap-directions{
+margin-top : 10px;
+}
+
+.flxmap-directions p{
+font-family: "adobe-garamond-pro";
+  color: #003d79;
+  font-size: 20px !important;
+  font-weight: 700;
+}
+
+.flxmap-directions .wpcf7-submit{
+float : none;
+margin-left : 8px;
+}
+
+body.page-id-1198 div.row.vc_custom_1433260194186 a p{
+color: #ffffff !important;
+}
+
+div.price-list-text{
+}
+
+.page-id-1493 .vc_btn-juicy_pink {
+  background-color: #EA9919;
+}
+=======
+
+
+
+/*** Write your CSS structure here. ***/
+/*
+* TEMPORAL SOCIAL ICON REMOVAL
+*/
+.footer-social-icons{
+    display: none;
+}
+
+/*
+* FONT STYLES
+*/
+h1,h2,h4,h5,h6{
+    font-family: "adobe-garamond-pro" !important;
+}
+.small-caps{
+    font-variant: small-caps;
+}
+/*
+* LINKS
+*/
+a *,.site-header a:hover, p a{
+    color:#003d79 !important;
+}
+a.item-hover div div h2, a.item-hover div div h2 i{
+    color: #ffffff !important;
+}
+.btn.style-1:hover, .btn.style-1:active, .btn.style-1:focus, .vc_btn.style-1:hover, .vc_btn.style-1:active, .vc_btn.style-1:focus,.btn:hover, .btn:active, .btn:focus, .wpcf7-submit:hover, .wpcf7-submit:active, .wpcf7-submit:focus{
+    background-color:#003d79 !important;
+}
+/*
+* Single Home Button to Our Homes
+*/
+div.bthbtn a {
+    font-size: 13px !important;
+}
+button.btn.btn-lg.style-5 i{
+    color: #ffffff !important;
+}
+/*
+* SLIDER TEXT STYLES
+*/
+.tp-caption.large_bold_white, .large_bold_white {
+	font-family: "adobe-garamond-pro" !important;
+	font-weight: 400 !important;
+	text-shadow: 2px 1px 1px rgba(0, 0, 0, 1);
+}
+
+h3 span{
+	font-family: "adobe-garamond-pro" ;
+	font-size: 45px !important;
+}
+
+div.text.orange-bar-text p span{
+	font-family: "pt-sans" ;
+	font-size: 20px !important;
+	font-weight: 600;
+}
+
+p span.contact-text strong{
+	font-family: "pt-sans" ;
+	font-size: 15px !important;
+	color: #888888;
+}
+
+span.contact-text, p span.contact-text{
+	font-family: "pt-sans" ;
+	font-size: 15px !important;
+	font-weight: 100;
+	color: #888888;
+}
+p span.contact-text a{
+    font-family: "pt-sans" ;
+    font-size: 15px !important;
+    font-weight: 100;
+    color: #003d79;
+}
+
+
+a#custom-id-0.btn.btn-md.style-1{
+	text-transform: capitalize;
+	margin-top: 15%;
+}
+
+.text h3{
+	font-family: "adobe-garamond-pro";
+	color: #003d79;
+	font-size: 35px;
+}
+
+.text h3 span.let1,.text h3 span.let2,.text h3 span.let3{
+    font-size: 25px !important;
+}
+
+.statement-text h1{
+	text-transform: none;
+	font-family: "adobe-garamond-pro";
+}
+
+form.wpcf7-form h3, h3 span.contact-title {
+	font-family: "adobe-garamond-pro";
+	color: #003d79;
+	font-size: 20px !important;
+	font-weight: 700;
+}
+
+.wpcf7-form input.wpcf7-text, .wpcf7-form textarea{
+	font-family: "arial";
+	font-size: 12px;
+	font-weight: 100;
+}
+
+.wpcf7-submit{
+	background-color: #afbd21 !important;
+	padding: 15px 17px !important;
+}
+
+ul#menu-main-menu li a{
+	font-family: georgia;
+	color:#292929;
+}
+
+.menu-item.menu-item-type-post_type.menu-item-object-page.current-menu-item a{
+	color: #003d79 !important;
+	font-weight:600;
+}
+
+ul.recentportfolio li.item.item-type-line{
+	width: 24.55%;
+	margin-right: 6px;
+	border-right: 2px solid #e6e6e6;
+}
+
+.upper-header{
+	height: 100px;
+	background-color: #f9f9f9;
+	position: relative;
+	top: -20px;
+	border-bottom: 1px solid #f2f2f2;
+}
+
+.social-icons-header{
+	position: absolute;
+	margin-left: 20%;	
+	height: 64px;
+	width: 181px;
+
+}
+
+.facebook-icon{
+	position: relative;
+	margin-left: 2px;
+	top:40px;
+    background: url(images/social-logos/facebook.png);
+    display: block;
+    width: 9px;
+    height: 16px;
+    text-indent: -9999px;
+}
+.facebook-icon:hover{
+    background: url(images/social-logos/fb-blue.png);
+    width: 9px;
+    height: 16px;
+}
+.fb-like-text{
+    margin-top: 40px ;
+    margin-left: 40px;
+}
+.twitter-icon{
+	position: absolute;
+	margin-left: 55px;
+	top:20px;
+    background: url(images/social-logos/twitter.png);
+    display: block;
+    width: 15px;
+    height: 13px;
+    text-indent: -9999px;
+}
+.twitter-icon:hover{
+    background: url(images/social-logos/tw-blue.png);
+    width: 15px;
+    height: 13px;
+}
+
+.pinterest-icon{
+	position: absolute;
+	margin-left: 82px;
+	top:20px;
+    background: url(images/social-logos/pinterest.png);
+    display: block;
+    width: 14px;
+    height: 15px;
+    text-indent: -9999px;
+}
+
+.pinterest-icon:hover{
+    background: url(images/social-logos/pint-blue.png);
+    width: 14px;
+    height: 15px;
+}
+
+.googlep-icon{
+	position: absolute;
+	margin-left: 109px;
+	top:20px;
+    background: url(images/social-logos/googlePlus.png);
+    display: block;
+    width: 14px;
+    height: 16px;
+    text-indent: -9999px;
+}
+
+.googlep-icon:hover{
+    background: url(images/social-logos/gplus-blue.png);
+    width: 14px;
+    height: 16px;
+}
+
+.behance-icon{
+	position: absolute;
+	margin-left: 136px;
+	top:20px;
+}
+
+.info-header{
+	position: absolute;
+	margin-left: 40%;
+	height:100px;
+	width: 303px;
+	border-left:1px solid #e6e6e6;
+	border-right: 1px solid #e6e6e6;
+}
+
+.clock-icon{
+	position: absolute;
+	top: 18px;
+	margin-left: 25px;
+}
+
+.info-header-text{
+	position: absolute;
+	top: 20px;
+	margin-left: 50px;
+	width: 232px;
+	height: 27px;
+	font-family: "pt-sans";
+	color: #003d79;
+	font-size: 13px;
+	font-weight: 700;
+}
+
+.site-navigation {
+	border: none;
+	display: block;
+	float: left;
+	margin-left: 3%;
+}
+
+.phone-number{
+	position: absolute;
+	margin-left: 57%;
+	height:64px;
+	width: 7%;
+
+}
+
+.phone-icon{
+	position: absolute;
+	top:18px;
+}
+
+.phone-number-text a{
+	position: absolute;
+	top: 20px;
+	margin-left: 20px;
+	width: 110px;
+	height: 27px;
+	font-family: "pt-sans";
+	color: #003d79;
+	font-size: 13px;
+    z-index: 900;
+}
+
+.header-email{
+	position: absolute;
+	margin-left: 66%;
+	height:64px;
+	width: 11%;
+	border-right: 1px solid #e6e6e6;
+}
+
+.mail-icon{
+	position: absolute;
+	top:18px;
+}
+
+.header-email-text a{
+	position: absolute;
+	top: 20px;
+	margin-left: 20px;
+	width: 110px;
+	height: 27px;
+	font-family: "pt-sans";
+	color: #003d79;
+	font-size: 13px;
+}
+
+.site-footer{
+	background-color: #5b8ebe !important;
+}
+
+.copyright-footer{
+	background-color: #093057 !important;
+}
+
+.widget_recent_entries > ul > li, ul#menu-footer-menu li a, .footer-textarea p{
+	color: #ffffff !important;
+	border: none;
+	font-family: arial;
+	font-size: 12px;
+	padding: 1px 0;
+}
+
+.widget_recent_entries >ul >li a:hover{
+	color: #ffffff;
+}
+
+.site-footer .widget-title{
+	margin-bottom: 20px;
+	font-family: "pt-sans";
+	font-weight: 600;
+	color: #ffffff;
+}
+
+.site-footer .copyright-footer > .container{
+	padding: 9px 0px 9px 0px;
+}
+
+li#text-2.widget-container.widget_text div.textwidget{
+	color: #97a0ad;
+	font-family: arial;
+	font-size: 13px;
+}
+
+.site-logo a img {
+	width: auto;
+	height:92px !important;
+	position: relative;
+	top: -10px;
+}
+
+div.headline h2{
+	font-family: "adobe-garamond-pro";
+	font-size: 25px !important;
+    text-transform: uppercase;
+}
+
+.headline h2::first-letter{
+    font-size: 35px;
+}
+
+@media screen and (max-width: 1250px) {
+	ul.recentportfolio li.item.item-type-line{
+		width: 24.31%;
+		margin-right: 4px;
+		border-right: 2px solid #e6e6e6;
+	}
+}
+
+.footer-logos{
+	position: relative;
+	top:-53px;
+}
+
+.calcagni-logo{
+	position: absolute;
+}
+
+.hillcrest-footer-logo{
+	position: absolute;
+	margin-left: 53%;
+}
+
+.footer-textarea{
+	position: relative;
+	top:50px;
+}
+
+.lower-logos{
+	height: 32px;
+	position: relative;
+	top: 50px;
+}
+
+.lower-img-1{
+	height: 32px;
+	position: absolute;
+}
+
+.lower-img-2{
+	height: 29px;
+	position: absolute;
+	margin-left: 15%
+}
+
+.footer-text-area{
+	position: relative;
+	top: -22px;
+	font-family: "arial";
+	color: #ffffff;
+	font-size: 13px;
+	font-weight: 600;
+}
+
+.footer-form-area{
+	position: relative;
+	top: -20px;
+}
+
+.footer-form-area input{
+	border: 1px solid #cbcbcb;
+	color: #4b4b4b;
+	font-family: "arial";
+	padding-left: 5px;
+}
+
+::-webkit-input-placeholder { color:#4b4b4b; }
+::-moz-placeholder { color:#4b4b4b; } /* firefox 19+ */
+:-ms-input-placeholder { color:#4b4b4b; } /* ie */
+input:-moz-placeholder { color:#4b4b4b; }
+
+input.submit-btn{
+	color: #ffffff;
+	background-color: #003d79;
+	border:1px solid #cbcbcb;
+	padding: 1px 9px 1px 9px;
+	position: absolute;
+	text-transform: uppercase;
+	font-family: "arial";
+}
+.site-footer img{
+	margin-bottom: 0px;
+}
+
+.footer-social-icons{
+	height: 16px;
+    display: none;
+}
+
+.fb-white{
+	position: absolute;
+}
+
+.tw-white{
+	position: absolute;
+	margin-left: 28px;
+}
+
+.pt-white{
+	position: absolute;
+	margin-left: 56px;
+}
+
+.gp-white{
+	position: absolute;
+	margin-left: 84px;
+}
+
+.be-white{
+	position: absolute;
+	margin-left: 112px;
+}
+
+/*
+* NAVIGATION MENU MOBILE STYLES
+*/
+@media screen and (max-width: 992px){
+    nav.site-navigation.open,.site-navigation:before, .site-navigation:after {
+        background: #003d79 !important;
+    }
+    .site-navigation{
+        margin-left: 0 !important;
+    }
+    nav.site-navigation.open ul#menu-main-menu li a {
+        color: #ffffff !important;
+    }
+}
+/*
+* ORANGE BAR UNDER HOME SLIDER MOBILE STYLES
+*/
+@media screen and (min-width: 320px) and (max-width: 992px){
+    section.wpb_row.vc_custom_1430511487651{
+        height: 135px!important;
+    }
+   div div.text.orange-bar-text{
+        margin-top: -62px !important;
+    }
+    div.text.orange-bar-text h3 span {
+        font-size: 20px !important;
+    }
+    div.text.orange-bar-text p{
+        margin-top: -17px;
+    }
+    div.text.orange-bar-text p span {
+        font-size: 13px!important;
+    }
+    div.vc_empty_space{
+        height: 0;
+    }
+    a#custom-id-0.btn.btn-md.style-1{
+        margin-top: -55px;
+        padding: 8px 12px !important;
+        font-size: 13px;
+    }
+
+    /* GOOGLE MAPS*/
+    div#map1.map{
+        height: 380px;
+    }
+}
+/*
+* STYLES OUR HOME PAGES
+*/
+ul.list.circle{
+    list-style-type: disc;
+    margin: 15px 16px 40px;
+}
+ul.list.circle li::before{
+    content: "";
+    margin-left: -15px;
+}
+.vc_button-2-wrapper.vc_button-2-align-inline{
+    margin-bottom: 40px;
+}
+.vc_button-2-wrapper.vc_button-2-align-inline .vc_btn.vc_btn_orange.vc_btn-orange.vc_btn_lg.vc_btn-lg.vc_btn_rounded{
+    background-color: #ea9919 !important;
+}
+div.row.home-detail-title div.wpb_column.col-md-12 h5{
+    font-family: "adobe-garamond-pro";
+    color:#003d79;
+    font-size: 15px;
+}
+div.row.home-detail-title div.wpb_column.col-md-12 h5:first-letter{
+    font-size: 20px;
+}
+div.row.home-detail-text div.wpb_column.col-md-12 div.text, div.row.home-detail-text div.wpb_column.col-md-12 ul.list.circle li{
+    font-family: "adobe-garamond-pro";
+    color: #303030;
+    font-size: 15px;
+}
+div.row.home-detail-note div.wpb_column.col-md-12 div.text{
+    font-family: "adobe-garamond-pro";
+    font-size: 13px;
+    color: #303030;
+}
+div.row.home-detail-text div.wpb_column.col-md-12 ul.list.circle li{
+    margin-bottom: -16px;
+}
+/*
+* OUR HOMES PAGE STYLES
+*/
+.filter i.fa-filter{
+    display: none;
+}
+.filter li{
+    font-family: "pt-sans";
+}
+/* PAGE HEADING STYLES */
+.page-heading h1{
+    font-family: "adobe-garamond-pro";
+    font-variant: small-caps;
+    font-size: 34px !important;
+    color: #003d79;
+}
+div.container ul.breadcrumbs{
+    font-family: "pt-sans";
+    color:#000000;
+    font-weight: 600;
+}
+/*
+* STATEMENT SECTION STYLES
+*/
+section.statement a#custom-id-0.btn.btn-md.style-1{
+    text-transform: uppercase;
+    margin-top: 0;
+}
+section.wpb_row.row.no-margin.vc_custom_1431455555338.text-center div section.statement{
+    top:75px;
+}
+/*
+* MANUFACTURERS SECTION
+*/
+.metaslider.metaslider-flex.ml-slider.nav-hidden{
+    margin-left: 19% !important;
+}
+/*
+* SINGLE PORTFOLIO STYLES
+*/
+.portfolio-single .gallery .item{
+    margin-bottom: 10px;
+}
+.img-description{
+    margin-bottom: 10px;
+    margin-top: -5px;
+}
+.img-desc-text{
+    text-align: center;
+}
+div.img-desc-text span{
+    font-family: "adobe-garamond-pro";
+    font-size: 18px;
+    text-transform: uppercase;
+    color: #003d79;
+}
+/*
+* CALCAGNI PAGE STYLES
+*/
+span.sales-rep img{
+    border: 1px solid #d7d7d7;
+}
+p span.garamond{
+    font-family: "adobe-garamond-pro";
+    color: #003d79;
+    font-size: 18px;
+}
+div.calcagni-red div div img.vc_single_image-img {
+    width: 200px;
+    height: 124px;
+}
+div.calcagni-text{
+    text-align: justify;
+}
+/*
+* Hiding header social,"Home" in the nav and "menu" in the footer... for launch
+*
+*/
+.widget-container.widget_recent_entries, button.fa.fa-search.mobile{
+    display: none;
+}
+ul.filter.style-1 li button.selected{
+    color: #db931f !important;
+    font-weight: 600;
+}
+ul.filter.style-1 span, ul.filter.style-1 li button{
+    color: #4c4c4c !important;
+}
+ul.portfolio h2{
+    font-family: "adobe-garamond-pro";
+    color: #003d79;
+    font-weight: 600;
+}
+/*
+* STATEMENT SECTION
+*/
+
+section.statement{
+    position: relative;
+    top: 100px;
+}
+
+
+/*
+*
+*Responsive in footer
+*/
+
+@media screen and (min-width: 320px) and (max-width: 420px){
+    input#fieldEmail{
+        width: 130px;
+    }
+    input.submit-btn{
+        position: relative;
+        top:1px;
+    }
+    .footer-social-icons{
+        top:10px;
+        position: relative;
+        display: none;
+    }
+    .be-white{
+        height: 14px;
+        width: 26px;
+    }
+    .lower-img-2{
+        margin-left: 35% !important;
+    }
+    .calcagni-logo{
+        width:50%;
+        margin-left: 53%;
+    }
+    .hillcrest-footer-logo{
+        margin-left: 0;
+        width: 50%;
+    }
+    .footer-textarea,.lower-logos{
+        top:0 !important;
+    }
+    /*footer.site-footer.style-2 div.container div.row div.col-md-3.col-xs-6:nth-child(2),*/footer.site-footer.style-2 div.container div.row div.col-md-3.col-xs-6:nth-child(3){
+        position: relative;
+        /*top:-45px; UNCOMMENT THIS LINE WHEN SHOWING 2ND COLUMN */
+        top: -70px;
+    }
+    footer.site-footer.style-2 div.container div.row div.col-md-3.col-xs-6:nth-child(4){
+        position: relative;
+        margin-top: -14% !important;
+    }
+
+    .social-icons-header{
+        position: absolute;
+        margin-left: 0;
+        height: 64px;
+        width: 28%;
+        border-left: none;
+        border-right: none;
+    }
+    .social-icons-container{
+        position: relative;
+        margin-left: -20%;
+        top:-18px;
+        height: 20px;
+    }
+    .facebook-icon{
+        margin-top: 40px;
+        margin-left: 25%;
+    }
+    .twitter-icon{
+        margin-left: 45%;
+        margin-top: 20px;
+    }
+    .pinterest-icon{
+        margin-left: 25%;
+        margin-top: 50px;
+    }
+    .googlep-icon{
+        margin-left: 45%;
+        margin-top: 50px;
+    }
+    .behance-icon{
+        margin-left: 65px;
+        top: 53px;
+    }
+    .info-header{
+        margin-left: 0%;
+        margin-right: 0;
+        width: 39%;
+    }
+    .clock-icon{
+        top: 8px;
+        margin-left: 2%;
+    }
+    .info-header-text{
+        top: 7px;
+        margin-left: 15%;
+        width: 77%;
+        font-size: 9px;
+        margin-right: 5%;
+    }
+    .phone-number{
+        margin-left: 1%;
+        width: 31%;
+    }
+    .phone-icon{
+        top: 3px;
+        margin-left: 1%;
+    }
+    .phone-number-text a{
+        top: 5px;
+        margin-left: 19%;
+        width: 71px;
+        font-size: 9px;
+    }
+    .header-email{
+        width: 54%;
+        margin-left: 0%;
+        margin-top: -23px;
+    }
+    .mail-icon{
+        top: 25px;
+        margin-left: 23%;
+    }
+    .header-email-text a{
+        top: 42px;
+        margin-left: 1%;
+        width: 0%;
+        font-size: 10px;
+    }
+}
+
+@media screen and (min-width: 421px) and (max-width: 488px){
+    .calcagni-logo{
+        width:50%;
+        margin-left: 53%;
+    }
+    .hillcrest-footer-logo{
+        width: 50%;
+        margin-left: 0;
+    }
+    .footer-textarea,.lower-logos{
+        top:10px !important;
+    }
+    .lower-img-2{
+        margin-left: 25% !important;
+    }
+    input.submit-btn{
+        position: relative;
+        top:1px;
+    }
+    /*footer.site-footer.style-2 div.container div.row div.col-md-3.col-xs-6:nth-child(2),*/footer.site-footer.style-2 div.container div.row div.col-md-3.col-xs-6:nth-child(3){
+        position: relative;
+        /*top:-45px; UNCOMMENT THIS WHEN SHOWING 2ND COLUMN  */
+        top: -70px;
+    }
+    footer.site-footer.style-2 div.container div.row div.col-md-3.col-xs-6:nth-child(4){
+        position: relative;
+        margin-top: -12% !important;
+    }
+
+    .social-icons-header{
+        position: absolute;
+        margin-left: 5%;
+        height: 64px;
+        width: 28%;
+        border-left: none;
+        border-right: none;
+    }
+    .social-icons-container{
+        position: relative;
+        margin-left: -20%;
+        top:-18px;
+    }
+    .facebook-icon{
+        margin-top: 40px;
+        margin-left: 25%;
+    }
+    .twitter-icon{
+        margin-left: 45%;
+        margin-top: 20px;
+    }
+    .pinterest-icon{
+        margin-left: 25%;
+        margin-top: 50px;
+    }
+    .googlep-icon{
+        margin-left: 45%;
+        margin-top: 50px;
+    }
+    .fb-like-text{
+        margin-top: 62px !important;
+        margin-left: 25% !important;
+    }
+    .fb-like-text a p{
+        font-size: 11px !important;
+    }
+    .behance-icon{
+        margin-left: 65px;
+        top: 53px;
+    }
+    .info-header{
+        margin-left: 0%;
+        margin-right: 0;
+        width: 39%;
+    }
+    .clock-icon{
+        top: 10px;
+        margin-left: 4%;
+    }
+    .info-address-text{
+        top: 8px;
+        margin-left: 13%;
+        width: 100px;
+        font-size: 8px;
+        color: #003d79;
+        position: relative;
+        font-weight: bold;
+    }
+    .addr-phone-container{
+        width: 29%;
+        margin-left: 39%;
+        border-right: 1px solid #e6e6e6;
+        height: 100px;
+    }
+    .info-address{
+        margin-left: 1%;
+        width: 35%;
+    }
+    .info-address-text{
+        top: 5px;
+        margin-left: 8%;
+        width: 109px;
+        font-size: 10px;
+        color: #003d79;
+    }
+    .phone-number{
+        margin-left: 1%;
+        width: 31%;
+    }
+    .phone-icon{
+        top: 3px;
+        margin-left: 1%;
+    }
+    .phone-number-text a{
+        top: 5px;
+        margin-left: 19%;
+        width: 108px;
+        font-size: 9px;
+    }
+    .mail-fb-container{
+        width: 32%;
+        height: 100px;
+        margin-top: -100px;
+        margin-left: 68%;
+    }
+    .header-email{
+        width: 54%;
+        margin-left: 0%;
+        margin-top: -23px;
+    }
+    .mail-icon{
+        top: 40px;
+        margin-left: 3%;
+    }
+    .header-email-text a{
+        top: 42px;
+        margin-left: 10%;
+        width: 0%;
+        font-size: 11px;
+    }
+}
+
+@media screen and (min-width: 489px) and (max-width: 587px){
+    .calcagni-logo{
+        width:50%;
+        margin-left: 53%;
+    }
+    .hillcrest-footer-logo{
+        width: 50%;
+        margin-left: 0;
+    }
+    .footer-textarea,.lower-logos{
+        top:40px !important;
+    }
+
+    /*footer.site-footer.style-2 div.container div.row div.col-md-3.col-xs-6:nth-child(2),*/footer.site-footer.style-2 div.container div.row div.col-md-3.col-xs-6:nth-child(3){
+        position: relative;
+        /*top:-45px;   UNCOMMENT THIS LINE WHEN SHOWING 2ND COLUMNS        */
+        top: -70px;
+    }
+    footer.site-footer.style-2 div.container div.row div.col-md-3.col-xs-6:nth-child(4){
+        position: relative;
+        margin-top: -12% !important;
+    }
+    input#fieldEmail{
+        width: 130px;
+    }
+
+    .social-icons-header{
+        position: absolute;
+        margin-left: 5%;
+        height: 64px;
+        width: 28%;
+        border-left: none;
+        border-right: none;
+    }
+    .social-icons-container{
+        position: relative;
+        margin-left: -20%;
+        top:-18px;
+    }
+    .facebook-icon{
+        margin-top: 40px;
+        margin-left: 25%;
+    }
+    .twitter-icon{
+        margin-left: 45%;
+        margin-top: 20px;
+    }
+    .pinterest-icon{
+        margin-left: 25%;
+        margin-top: 50px;
+    }
+    .googlep-icon{
+        margin-left: 45%;
+        margin-top: 50px;
+    }
+    .behance-icon{
+        margin-left: 65px;
+        top: 53px;
+    }
+    .info-header{
+        margin-left: 0%;
+        margin-right: 0;
+        width: 39%;
+    }
+    .clock-icon{
+        top: 10px;
+        margin-left: 4%;
+    }
+    .info-header-text{
+        top: 7px;
+        margin-left: 15%;
+        width: 77%;
+        font-size: 11px;
+        margin-right: 5%;
+    }
+    .addr-phone-container{
+        width: 29%;
+        margin-left: 39%;
+        border-right: 1px solid #e6e6e6;
+        height: 100px;
+    }
+    .info-address{
+        margin-left: 1%;
+        width: 35%;
+    }
+    .info-address-text{
+        top: 8px;
+        margin-left: 5%;
+        width: 100px;
+        font-size: 8px;
+        color: #003d79;
+        position: relative;
+        font-weight: bold;
+    }
+    .phone-number{
+        margin-left: 1%;
+        width: 31%;
+    }
+    .phone-icon{
+        top: 3px;
+        margin-left: 1%;
+    }
+    .phone-number-text a{
+        top: 5px;
+        margin-left: 19%;
+        width: 108px;
+        font-size: 9px;
+    }
+    .mail-fb-container{
+        width: 32%;
+        height: 100px;
+        margin-top: -100px;
+        margin-left: 68%;
+    }
+    .header-email{
+        width: 54%;
+        margin-left: 0%;
+        margin-top: -23px;
+    }
+    .header-email{
+        width: 54%;
+    }
+    .mail-icon{
+        top: 40px;
+        margin-left: 3%;
+    }
+    .header-email-text a{
+        top: 42px;
+        margin-left: 10%;
+        width: 0%;
+        font-size: 11px;
+    }
+}
+@media screen and (min-width: 690px) and (max-width: 991px){
+    .hillcrest-footer-logo{
+        margin-left: 44%;
+    }
+}
+@media screen and (min-width: 992px){
+    .hillcrest-footer-logo{
+        margin-left: 32%;
+    }
+    .lower-img-2{
+        margin-left: 10% !important;
+    }
+}
+@media screen and (min-width: 993px) {
+    .calcagni-logo{
+        width:50%;
+    }
+    .hillcrest-footer-logo{
+        margin-left: 53%;
+    }
+    .lower-img-2{
+        margin-left: 20% !important;
+    }
+    .footer-textarea,.lower-logos{
+        top:40px !important;
+    }
+}
+/*
+*
+*2nd, 3rd, 4th Columns position fix
+*
+*
+*/
+
+@media screen and (min-width: 579px) and (max-width: 734px){
+    /*footer.site-footer.style-2 div.container div.row div.col-md-3.col-xs-6:nth-child(2),*/footer.site-footer.style-2 div.container div.row div.col-md-3.col-xs-6:nth-child(3){
+        position: relative;
+        margin-top: 0px !important;
+    }
+    footer.site-footer.style-2 div.container div.row div.col-md-3.col-xs-6:nth-child(4){
+        position: relative;
+        margin-top: -30% !important;
+    }
+}
+@media screen and (min-width: 735px){
+    /*footer.site-footer.style-2 div.container div.row div.col-md-3.col-xs-6:nth-child(2),*/footer.site-footer.style-2 div.container div.row div.col-md-3.col-xs-6:nth-child(3){
+        position: relative;
+        margin-top: -45px !important;
+    }
+    footer.site-footer.style-2 div.container div.row div.col-md-3.col-xs-6:nth-child(4){
+        position: relative;
+        margin-top: -5% !important;
+    }
+}
+
+/*
+* THIS NEXT SECTION ONLY THE COLUMNS STYLES WILL BE COMMENTED, WHEN IT'S TIME TO DISPLAY THE MENU AND OTHER STUFF UNCOMMENT THIS STYLES
+*/
+@media screen and (min-width: 588px) and (max-width: 992px) {
+    /*footer.site-footer.style-2 div.container div.row div.col-md-3.col-xs-6:nth-child(2){
+        position: relative;
+        margin-top: -45px !important;
+    }*/
+    footer.site-footer.style-2 div.container div.row div.col-md-3.col-xs-6:nth-child(3){
+        position: relative;
+        /*margin-top: -10px !important;   UNCOMMENT THIS LINE AND DELETE THE FOLLOWING WHEN SHOWING 2ND COLUMN    */
+        margin-top: -75px !important;
+    }
+    footer.site-footer.style-2 div.container div.row div.col-md-3.col-xs-6:nth-child(4){
+        position: relative;
+        /*margin-top: -2% !important;     UNCOMMENT THIS LINE AND DELETE THE FOLLOWING WHEN SHOWING 2ND COLUMN     */
+        margin-top: -1% !important;
+    }
+    .calcagni-logo{
+        margin-left: 53%;
+    }
+    .hillcrest-footer-logo{
+        margin-left: 0;
+    }
+    .social-icons-header{
+        position: absolute;
+        margin-left: 12%;
+        height: 64px;
+        width: 28%;
+        border-left: none;
+        border-right: none;
+    }
+    .social-icons-container{
+        position: relative;
+        margin-left: -41%;
+        top:-4px;
+    }
+    .facebook-icon{
+        position: relative;
+        margin-left: 32% !important;
+        top:72px !important;
+    }
+    .fb-like-text{
+        margin-top: 55px !important;
+        margin-left: 36% !important;
+    }
+    .fb-like-text a p{
+        font-size: 12px !important;
+    }
+    .twitter-icon{
+        margin-left: 40%;
+        margin-top: 53px;
+    }
+    .pinterest-icon{
+        margin-left: 49%;
+        margin-top: 53px;
+    }
+    .googlep-icon{
+        margin-left: 59%;
+        margin-top: 53px;
+    }
+
+    .behance-icon{
+        position: absolute;
+        margin-left: 136px;
+        top:20px;
+    }
+    .info-header{
+        margin-left: 0%;
+        margin-right: 0;
+        width: 39%;
+    }
+    .clock-icon{
+        top: 10px;
+        margin-left: 4%;
+    }
+    .info-header-text{
+        top: 12px;
+        margin-left: 15%;
+        width: 77%;
+        font-size: 11px;
+        margin-right: 5%;
+    }
+    .addr-phone-container{
+        width: 29%;
+        margin-left: 39%;
+        border-right: 1px solid #e6e6e6;
+        height: 100px;
+    }
+    .info-address{
+        margin-left: 1%;
+        width: 35%;
+    }
+    .info-address-text{
+        top: 13px;
+        position: relative;
+        margin-left: 8%;
+        width: 157px;
+        font-size: 11px;
+        color: #003d79;
+        font-weight: bold;
+    }
+    .phone-number{
+        margin-left: 1%;
+        width: 31%;
+        margin-top: 10px;
+    }
+    .phone-icon{
+        top: 3px;
+        margin-left: 1%;
+    }
+    .phone-number-text a{
+        top: 5px;
+        margin-left: 19%;
+        width: 108px;
+        font-size: 11px;
+    }
+    .mail-fb-container{
+        width: 32%;
+        height: 100px;
+        margin-top: -100px;
+        margin-left: 68%;
+    }
+    .header-email{
+        width: 54%;
+        margin-left: 0%;
+        margin-top: -23px;
+    }
+    .mail-icon{
+        top: 40px;
+        margin-left: 4%;
+    }
+    .header-email-text a{
+        top: 42px;
+        margin-left: 10%;
+        width: 0%;
+        font-size: 11px;
+    }
+}
+@media screen and (min-width: 993px) {
+    footer.site-footer.style-2 div.container div.row div.col-md-3.col-xs-6:nth-child(3){
+        position: relative;
+        margin-top: -45px !important;
+    }
+    footer.site-footer.style-2 div.container div.row div.col-md-3.col-xs-6:nth-child(4){
+        position: relative;
+        margin-top: -45px !important;
+    }
+    .calcagni-logo{
+        margin-left: 53%;
+    }
+    .hillcrest-footer-logo{
+        margin-left: 0;
+        width: 50%;
+    }
+}
+
+/*
+* MEDIA QUERIES FOR HEADER > 993PX
+*/
+@media screen and (min-width: 993px) and (max-width: 1027px){
+    .social-icons-header{
+        position: absolute;
+        margin-left: 10%;
+        height: 64px;
+        width: 181px;
+
+    }
+    .info-header{
+        position: absolute;
+        margin-left: 24.5%;
+        height:100px;
+        width: 31%px;
+        border-left:1px solid #e6e6e6;
+        border-right: 1px solid #e6e6e6;
+
+    }
+    .clock-icon{
+        position: absolute;
+        top: 6px;
+        margin-left: 25px;
+    }
+    .info-header-text{
+        position: absolute;
+        top: 8px;
+        margin-left: 50px;
+        width: 230px;
+        height: 27px;
+        font-family: "pt-sans";
+        color: #003d79;
+        font-size: 13px;
+        font-weight: 700;
+    }
+
+    .addr-phone-container{
+        width: 20%;
+        margin-left: 57%;
+        border-right: 1px solid #e6e6e6;
+        height: 100px;
+    }
+    .info-address{
+        margin-left: 1%;
+        width: 35%;
+    }
+    .info-address-text{
+        top: 8px;
+        position: relative;
+        margin-left: -13%;
+        width: 200px;
+        font-size: 13px;
+        color: #003d79;
+        font-weight: bold;
+    }
+    .phone-number{
+        margin-left: 1%;
+        width: 31%;
+        margin-top: 10px;
+        border-right: none;
+    }
+    .phone-icon{
+        top: 3px;
+        margin-left: 1%;
+    }
+    .phone-number-text a{
+        top: 5px;
+        margin-left: 5%;
+        width: 108px;
+        font-size: 13px;
+    }
+    .mail-fb-container{
+        width: 22%;
+        height: 100px;
+        margin-top: -100px;
+        margin-left: 77%;
+    }
+    .header-email{
+        position: absolute;
+        width: 18%;
+        margin-left: 1%;
+        margin-top: 10px;
+        height: 64px;
+        border-right: none;
+    }
+    .facebook-icon{
+        position: relative;
+        margin-left: 2px;
+        top: 50px;
+        width: 10px;
+    }
+    .fb-like-text{
+        margin-top: 30px;
+        margin-left: 20px;
+    }
+    .twitter-icon{
+        margin-left: 25%;
+        margin-top: 32px;
+    }
+    .pinterest-icon{
+        margin-left: 55%;
+        margin-top: 32px;
+    }
+    .googlep-icon{
+        margin-left: 84%;
+        margin-top: 32px;
+    }
+}
+@media screen and (min-width: 1028px) and (max-width: 1070px){
+    .social-icons-header{
+        position: absolute;
+        margin-left: 10%;
+        height: 64px;
+        width: 181px;
+
+    }
+    .info-header{
+        position: absolute;
+        margin-left: 24.5%;
+        height:100px;
+        width: 31%px;
+        border-left:1px solid #e6e6e6;
+        border-right: 1px solid #e6e6e6;
+
+    }
+    .clock-icon{
+        position: absolute;
+        top: 6px;
+        margin-left: 25px;
+    }
+    .info-header-text{
+        position: absolute;
+        top: 8px;
+        margin-left: 50px;
+        width: 230px;
+        height: 27px;
+        font-family: "pt-sans";
+        color: #003d79;
+        font-size: 13px;
+        font-weight: 700;
+    }
+
+    .addr-phone-container{
+        width: 20%;
+        margin-left: 57%;
+        border-right: 1px solid #e6e6e6;
+        height: 100px;
+    }
+    .info-address{
+        margin-left: 1%;
+        width: 35%;
+    }
+    .info-address-text{
+        top: 8px;
+        position: relative;
+        margin-left: -13%;
+        width: 200px;
+        font-size: 13px;
+        color: #003d79;
+        font-weight: bold;
+    }
+    .phone-number{
+        margin-left: 1%;
+        width: 31%;
+        margin-top: 10px;
+        border-right: none;
+    }
+    .phone-icon{
+        top: 3px;
+        margin-left: 1%;
+    }
+    .phone-number-text a{
+        top: 5px;
+        margin-left: 5%;
+        width: 108px;
+        font-size: 13px;
+    }
+    .mail-fb-container{
+        width: 22%;
+        height: 100px;
+        margin-top: -100px;
+        margin-left: 77%;
+    }
+    .header-email{
+        position: absolute;
+        width: 18%;
+        margin-left: 1%;
+        margin-top: 10px;
+        height: 64px;
+        border-right: none;
+    }
+    .facebook-icon{
+        position: relative;
+        margin-left: 2px;
+        top: 50px;
+        width: 10px;
+    }
+    .fb-like-text{
+        margin-top: 30px;
+        margin-left: 20px;
+    }
+    .twitter-icon{
+        margin-left: 25%;
+        margin-top: 32px;
+    }
+    .pinterest-icon{
+        margin-left: 55%;
+        margin-top: 32px;
+    }
+    .googlep-icon{
+        margin-left: 84%;
+        margin-top: 32px;
+    }
+}
+@media screen and (min-width: 1071px) and (max-width: 1150px){
+    .social-icons-header{
+        position: absolute;
+        margin-left: 10%;
+        height: 64px;
+        width: 181px;
+
+    }
+    .info-header{
+        position: absolute;
+        margin-left: 28.5%;
+        height:100px;
+        width: 31%px;
+        border-left:1px solid #e6e6e6;
+        border-right: 1px solid #e6e6e6;
+
+    }
+    .clock-icon{
+        position: absolute;
+        top: 6px;
+        margin-left: 25px;
+    }
+    .info-header-text{
+        position: absolute;
+        top: 8px;
+        margin-left: 50px;
+        width: 230px;
+        height: 27px;
+        font-family: "pt-sans";
+        color: #003d79;
+        font-size: 13px;
+        font-weight: 700;
+    }
+
+    .addr-phone-container{
+        width: 20%;
+        margin-left: 57%;
+        border-right: 1px solid #e6e6e6;
+        height: 100px;
+    }
+    .info-address{
+        margin-left: 1%;
+        width: 35%;
+    }
+    .info-address-text{
+        top: 8px;
+        position: relative;
+        margin-left: -13%;
+        width: 200px;
+        font-size: 13px;
+        color: #003d79;
+        font-weight: bold;
+    }
+    .phone-number{
+        margin-left: 1%;
+        width: 31%;
+        margin-top: 10px;
+        border-right: none;
+    }
+    .phone-icon{
+        top: 3px;
+        margin-left: 1%;
+    }
+    .phone-number-text a{
+        top: 5px;
+        margin-left: 5%;
+        width: 108px;
+        font-size: 13px;
+    }
+    .mail-fb-container{
+        width: 22%;
+        height: 100px;
+        margin-top: -100px;
+        margin-left: 77%;
+    }
+    .header-email{
+        position: absolute;
+        width: 18%;
+        margin-left: 1%;
+        margin-top: 10px;
+        height: 64px;
+        border-right: none;
+    }
+    .facebook-icon{
+        position: relative;
+        margin-left: 2px;
+        top: 50px;
+        width: 10px;
+    }
+    .fb-like-text{
+        margin-top: 30px;
+        margin-left: 20px;
+    }
+    .twitter-icon{
+        margin-left: 20%;
+        margin-top: 32px;
+    }
+    .pinterest-icon{
+        margin-left: 42%;
+        margin-top: 32px;
+    }
+    .googlep-icon{
+        margin-left: 67%;
+        margin-top: 32px;
+    }
+}
+@media screen and (min-width: 1151px) and (max-width: 1230px){
+    .social-icons-header{
+        position: absolute;
+        margin-left: 10%;
+        height: 64px;
+        width: 181px;
+
+    }
+    .info-header{
+        position: absolute;
+        margin-left: 24.5%;
+        height:100px;
+        width: 31%px;
+        border-left:1px solid #e6e6e6;
+        border-right: 1px solid #e6e6e6;
+
+    }
+    .clock-icon{
+        position: absolute;
+        top: 6px;
+        margin-left: 25px;
+    }
+    .info-header-text{
+        position: absolute;
+        top: 8px;
+        margin-left: 50px;
+        width: 230px;
+        height: 27px;
+        font-family: "pt-sans";
+        color: #003d79;
+        font-size: 13px;
+        font-weight: 700;
+    }
+
+    .addr-phone-container{
+        width: 20%;
+        margin-left: 57%;
+        border-right: 1px solid #e6e6e6;
+        height: 100px;
+    }
+    .info-address{
+        margin-left: 1%;
+        width: 35%;
+    }
+    .info-address-text{
+        top: 8px;
+        position: relative;
+        margin-left: -13%;
+        width: 200px;
+        font-size: 13px;
+        color: #003d79;
+        font-weight: bold;
+    }
+    .phone-number{
+        margin-left: 1%;
+        width: 31%;
+        margin-top: 10px;
+        border-right: none;
+    }
+    .phone-icon{
+        top: 3px;
+        margin-left: 1%;
+    }
+    .phone-number-text a{
+        top: 5px;
+        margin-left: 5%;
+        width: 108px;
+        font-size: 13px;
+    }
+    .mail-fb-container{
+        width: 22%;
+        height: 100px;
+        margin-top: -100px;
+        margin-left: 77%;
+    }
+    .header-email{
+        position: absolute;
+        width: 18%;
+        margin-left: 1%;
+        margin-top: 10px;
+        height: 64px;
+        border-right: none;
+    }
+    .facebook-icon{
+        position: relative;
+        margin-left: 2px;
+        top: 50px;
+        width: 10px;
+    }
+    .fb-like-text{
+        margin-top: 30px;
+        margin-left: 20px;
+    }
+    .twitter-icon{
+        margin-left: 20%;
+        margin-top: 32px;
+    }
+    .pinterest-icon{
+        margin-left: 42%;
+        margin-top: 32px;
+    }
+    .googlep-icon{
+        margin-left: 67%;
+        margin-top: 32px;
+    }
+}
+@media screen and (min-width: 1231px) and (max-width: 1309px) {
+    .social-icons-header{
+        position: absolute;
+        margin-left: 10%;
+        height: 64px;
+        width: 181px;
+
+    }
+    .info-header{
+        position: absolute;
+        margin-left: 30.5%;
+        height:100px;
+        width: 31%px;
+        border-left:1px solid #e6e6e6;
+        border-right: 1px solid #e6e6e6;
+
+    }
+    .clock-icon{
+        position: absolute;
+        top: 6px;
+        margin-left: 25px;
+    }
+    .info-header-text{
+        position: absolute;
+        top: 8px;
+        margin-left: 50px;
+        width: 230px;
+        height: 27px;
+        font-family: "pt-sans";
+        color: #003d79;
+        font-size: 13px;
+        font-weight: 700;
+    }
+
+    .addr-phone-container{
+        width: 20%;
+        margin-left: 59%;
+        border-right: 1px solid #e6e6e6;
+        height: 100px;
+    }
+    .info-address{
+        margin-left: 1%;
+        width: 35%;
+    }
+    .info-address-text{
+        top: 8px;
+        position: relative;
+        margin-left: -13%;
+        width: 200px;
+        font-size: 13px;
+        color: #003d79;
+        font-weight: bold;
+    }
+    .phone-number{
+        margin-left: 1%;
+        width: 31%;
+        margin-top: 10px;
+        border-right: none;
+    }
+    .phone-icon{
+        top: 3px;
+        margin-left: 1%;
+    }
+    .phone-number-text a{
+        top: 5px;
+        margin-left: 5%;
+        width: 108px;
+        font-size: 13px;
+    }
+    .mail-fb-container{
+        width: 22%;
+        height: 100px;
+        margin-top: -100px;
+        margin-left: 79%;
+    }
+    .header-email{
+        position: absolute;
+        width: 18%;
+        margin-left: 1%;
+        margin-top: 10px;
+        height: 64px;
+        border-right: none;
+    }
+    .facebook-icon{
+        position: relative;
+        margin-left: 2px;
+        top: 50px;
+        width: 10px;
+    }
+    .fb-like-text{
+        margin-top: 30px;
+        margin-left: 20px;
+    }
+    .twitter-icon{
+        margin-left: 20%;
+        margin-top: 32px;
+    }
+    .pinterest-icon{
+        margin-left: 42%;
+        margin-top: 32px;
+    }
+    .googlep-icon{
+        margin-left: 67%;
+        margin-top: 32px;
+    }
+}
+@media screen and (min-width: 1310px) and (max-width: 1429px) {
+    .social-icons-header{
+        position: absolute;
+        margin-left: 10%;
+        height: 64px;
+        width: 181px;
+
+    }
+    .info-header{
+        position: absolute;
+        margin-left: 33.5%;
+        height:100px;
+        width: 31%px;
+        border-left:1px solid #e6e6e6;
+        border-right: 1px solid #e6e6e6;
+
+    }
+    .clock-icon{
+        position: absolute;
+        top: 6px;
+        margin-left: 25px;
+    }
+    .info-header-text{
+        position: absolute;
+        top: 8px;
+        margin-left: 50px;
+        width: 230px;
+        height: 27px;
+        font-family: "pt-sans";
+        color: #003d79;
+        font-size: 13px;
+        font-weight: 700;
+    }
+
+    .addr-phone-container{
+        width: 15%;
+        margin-left: 58%;
+        border-right: 1px solid #e6e6e6;
+        height: 100px;
+    }
+    .info-address{
+        margin-left: 1%;
+        width: 35%;
+    }
+    .info-address-text{
+        top: 8px;
+        position: relative;
+        margin-left: -13%;
+        width: 200px;
+        font-size: 13px;
+        color: #003d79;
+        font-weight: bold;
+    }
+    .phone-number{
+        margin-left: 1%;
+        width: 31%;
+        margin-top: 10px;
+        border-right: none;
+    }
+    .phone-icon{
+        top: 3px;
+        margin-left: 1%;
+    }
+    .phone-number-text a{
+        top: 5px;
+        margin-left: 5%;
+        width: 108px;
+        font-size: 13px;
+    }
+    .mail-fb-container{
+        width: 22%;
+        height: 100px;
+        margin-top: -100px;
+        margin-left: 72%;
+    }
+    .header-email{
+        position: absolute;
+        width: 18%;
+        margin-left: 1%;
+        margin-top: 10px;
+        height: 64px;
+        border-right: none;
+    }
+    .facebook-icon{
+        position: relative;
+        margin-left: 2px;
+        top: 50px;
+        width: 10px;
+    }
+    .fb-like-text{
+        margin-top: 30px;
+        margin-left: 20px;
+    }
+    .twitter-icon{
+        margin-left: 18%;
+        margin-top: 32px;
+    }
+    .pinterest-icon{
+        margin-left: 38%;
+        margin-top: 32px;
+    }
+    .googlep-icon{
+        margin-left: 57%;
+        margin-top: 32px;
+    }
+}
+@media screen and (min-width: 1430px) and (max-width:1560px) {
+    .social-icons-header{
+        position: absolute;
+        margin-left: 10%;
+        height: 64px;
+        width: 181px;
+
+    }
+    .info-header{
+        position: absolute;
+        margin-left: 34.5%;
+        height:100px;
+        width: 31%px;
+        border-left:1px solid #e6e6e6;
+        border-right: 1px solid #e6e6e6;
+
+    }
+    .clock-icon{
+        position: absolute;
+        top: 6px;
+        margin-left: 25px;
+    }
+    .info-header-text{
+        position: absolute;
+        top: 8px;
+        margin-left: 50px;
+        width: 230px;
+        height: 27px;
+        font-family: "pt-sans";
+        color: #003d79;
+        font-size: 13px;
+        font-weight: 700;
+    }
+
+    .addr-phone-container{
+        width: 15%;
+        margin-left: 57%;
+        border-right: 1px solid #e6e6e6;
+        height: 100px;
+    }
+    .info-address{
+        margin-left: 1%;
+        width: 35%;
+    }
+    .info-address-text{
+        top: 8px;
+        position: relative;
+        margin-left: -13%;
+        width: 200px;
+        font-size: 13px;
+        color: #003d79;
+        font-weight: bold;
+    }
+    .phone-number{
+        margin-left: 1%;
+        width: 31%;
+        margin-top: 10px;
+        border-right: none;
+    }
+    .phone-icon{
+        top: 3px;
+        margin-left: 1%;
+    }
+    .phone-number-text a{
+        top: 5px;
+        margin-left: 5%;
+        width: 108px;
+        font-size: 13px;
+    }
+    .mail-fb-container{
+        width: 22%;
+        height: 100px;
+        margin-top: -100px;
+        margin-left: 72%;
+    }
+    .header-email{
+        position: absolute;
+        width: 18%;
+        margin-left: 1%;
+        margin-top: 10px;
+        height: 64px;
+        border-right: none;
+    }
+    .facebook-icon{
+        position: relative;
+        margin-left: 2px;
+        top: 50px;
+        width: 10px;
+    }
+    .fb-like-text{
+        margin-top: 30px;
+        margin-left: 20px;
+    }
+    .twitter-icon{
+        margin-left: 18%;
+        margin-top: 32px;
+    }
+    .pinterest-icon{
+        margin-left: 38%;
+        margin-top: 32px;
+    }
+    .googlep-icon{
+        margin-left: 57%;
+        margin-top: 32px;
+    }
+}
+@media screen and (min-width: 1561px) and (max-width:1690px) {
+    .social-icons-header{
+        position: absolute;
+        margin-left: 10%;
+        height: 64px;
+        width: 181px;
+
+    }
+    .info-header{
+        position: absolute;
+        margin-left: 36.5%;
+        height:100px;
+        width: 31%px;
+        border-left:1px solid #e6e6e6;
+        border-right: 1px solid #e6e6e6;
+
+    }
+    .clock-icon{
+        position: absolute;
+        top: 6px;
+        margin-left: 25px;
+    }
+    .info-header-text{
+        position: absolute;
+        top: 8px;
+        margin-left: 50px;
+        width: 230px;
+        height: 27px;
+        font-family: "pt-sans";
+        color: #003d79;
+        font-size: 13px;
+        font-weight: 700;
+    }
+
+    .addr-phone-container{
+        width: 15%;
+        margin-left: 57%;
+        border-right: 1px solid #e6e6e6;
+        height: 100px;
+    }
+    .info-address{
+        margin-left: 1%;
+        width: 35%;
+    }
+    .info-address-text{
+        top: 8px;
+        position: relative;
+        margin-left: -13%;
+        width: 200px;
+        font-size: 13px;
+        color: #003d79;
+        font-weight: bold;
+    }
+    .phone-number{
+        margin-left: 1%;
+        width: 31%;
+        margin-top: 10px;
+        border-right: none;
+    }
+    .phone-icon{
+        top: 3px;
+        margin-left: 1%;
+    }
+    .phone-number-text a{
+        top: 5px;
+        margin-left: 5%;
+        width: 108px;
+        font-size: 13px;
+    }
+    .mail-fb-container{
+        width: 22%;
+        height: 100px;
+        margin-top: -100px;
+        margin-left: 72%;
+    }
+    .header-email{
+        position: absolute;
+        width: 18%;
+        margin-left: 1%;
+        margin-top: 10px;
+        height: 64px;
+        border-right: none;
+    }
+    .facebook-icon{
+        position: relative;
+        margin-left: 2px;
+        top: 50px;
+        width: 10px;
+    }
+    .fb-like-text{
+        margin-top: 30px;
+        margin-left: 20px;
+    }
+    .twitter-icon{
+        margin-left: 15%;
+        margin-top: 32px;
+    }
+    .pinterest-icon{
+        margin-left: 30%;
+        margin-top: 32px;
+    }
+    .googlep-icon{
+        margin-left: 47%;
+        margin-top: 32px;
+    }
+}
+@media screen and (min-width: 1691px) and (max-width:1820px) {
+    .social-icons-header{
+        position: absolute;
+        margin-left: 10%;
+        height: 64px;
+        width: 181px;
+
+    }
+    .info-header{
+        position: absolute;
+        margin-left: 36.5%;
+        height:100px;
+        width: 31%px;
+        border-left:1px solid #e6e6e6;
+        border-right: 1px solid #e6e6e6;
+
+    }
+    .clock-icon{
+        position: absolute;
+        top: 6px;
+        margin-left: 25px;
+    }
+    .info-header-text{
+        position: absolute;
+        top: 8px;
+        margin-left: 50px;
+        width: 230px;
+        height: 27px;
+        font-family: "pt-sans";
+        color: #003d79;
+        font-size: 13px;
+        font-weight: 700;
+    }
+
+    .addr-phone-container{
+        width: 15%;
+        margin-left: 57%;
+        border-right: 1px solid #e6e6e6;
+        height: 100px;
+    }
+    .info-address{
+        margin-left: 1%;
+        width: 35%;
+    }
+    .info-address-text{
+        top: 8px;
+        position: relative;
+        margin-left: -13%;
+        width: 200px;
+        font-size: 13px;
+        color: #003d79;
+        font-weight: bold;
+    }
+    .phone-number{
+        margin-left: 1%;
+        width: 31%;
+        margin-top: 10px;
+        border-right: none;
+    }
+    .phone-icon{
+        top: 3px;
+        margin-left: 1%;
+    }
+    .phone-number-text a{
+        top: 5px;
+        margin-left: 5%;
+        width: 108px;
+        font-size: 13px;
+    }
+    .mail-fb-container{
+        width: 22%;
+        height: 100px;
+        margin-top: -100px;
+        margin-left: 72%;
+    }
+    .header-email{
+        position: absolute;
+        width: 18%;
+        margin-left: 1%;
+        margin-top: 10px;
+        height: 64px;
+        border-right: none;
+    }
+    .facebook-icon{
+        position: relative;
+        margin-left: 2px;
+        top: 50px;
+        width: 10px;
+    }
+    .fb-like-text{
+        margin-top: 30px;
+        margin-left: 20px;
+    }
+    .twitter-icon{
+        margin-left: 15%;
+        margin-top: 32px;
+    }
+    .pinterest-icon{
+        margin-left: 30%;
+        margin-top: 32px;
+    }
+    .googlep-icon{
+        margin-left: 47%;
+        margin-top: 32px;
+    }
+}
+@media screen and (min-width: 1821px){
+    .social-icons-header{
+        position: absolute;
+        margin-left: 10%;
+        height: 64px;
+        width: 181px;
+
+    }
+    .info-header{
+        position: absolute;
+        margin-left: 36.5%;
+        height:100px;
+        width: 31%px;
+        border-left:1px solid #e6e6e6;
+        border-right: 1px solid #e6e6e6;
+
+    }
+    .clock-icon{
+        position: absolute;
+        top: 6px;
+        margin-left: 25px;
+    }
+    .info-header-text{
+        position: absolute;
+        top: 8px;
+        margin-left: 50px;
+        width: 230px;
+        height: 27px;
+        font-family: "pt-sans";
+        color: #003d79;
+        font-size: 13px;
+        font-weight: 700;
+    }
+
+    .addr-phone-container{
+        width: 10.5%;
+        margin-left: 53%;
+        border-right: 1px solid #e6e6e6;
+        height: 100px;
+    }
+    .info-address{
+        margin-left: 1%;
+        width: 35%;
+    }
+    .info-address-text{
+        top: 8px;
+        position: relative;
+        margin-left: -13%;
+        width: 200px;
+        font-size: 13px;
+        color: #003d79;
+        font-weight: bold;
+    }
+    .phone-number{
+        margin-left: 1%;
+        width: 31%;
+        margin-top: 10px;
+        border-right: none;
+    }
+    .phone-icon{
+        top: 3px;
+        margin-left: 1%;
+    }
+    .phone-number-text a{
+        top: 5px;
+        margin-left: 5%;
+        width: 108px;
+        font-size: 13px;
+    }
+    .mail-fb-container{
+        width: 22%;
+        height: 100px;
+        margin-top: -119px;
+        margin-left: 63%;
+    }
+    .header-email{
+        position: absolute;
+        width: 18%;
+        margin-left: 1%;
+        margin-top: 10px;
+        height: 64px;
+        border-right: none;
+    }
+    .facebook-icon{
+        position: relative;
+        margin-left: 2px;
+        top: 50px;
+        width: 10px;
+    }
+    .fb-like-text{
+        margin-top: 30px;
+        margin-left: 20px;
+    }
+    .twitter-icon{
+        margin-left: 12%;
+        margin-top: 32px;
+    }
+    .pinterest-icon{
+        margin-left: 25%;
+        margin-top: 32px;
+    }
+    .googlep-icon{
+        margin-left: 37%;
+        margin-top: 32px;
+    }
+}
+
+@media screen and (min-width: 320px) and (max-width: 587px){
+    .info-address-title{
+        font-size: 8px;
+        color: #003d79;
+        font-weight: bold;
+        margin-left: 5%;
+        position: relative;
+        top: 8px;
+        width: 153%;
+    }
+    .info-address-text{
+        top: 2px;
+    }
+    .phone-number{
+        margin-top: 0px;
+    }
+    .phone-number-text a{
+        font-size: 10px;
+    }
+    .header-email{
+        margin-top: -5px;
+    }
+    .social-icons-container{
+        margin-top: -25px;
+    }
+    .facebook-icon{
+        margin-top: 70px;
+        margin-left: 20%;
+    }
+    .twitter-icon{
+        margin-left: 30%;
+        margin-top: 23px;
+    }
+    .pinterest-icon{
+        margin-left: 44%;
+        margin-top: 21px;
+    }
+    .googlep-icon{
+        margin-left: 56%;
+        margin-top: 21px;
+    }
+}
+
+@media screen and (min-width: 486px) and (max-width: 587px){
+    .info-address-title{
+        font-size: 11px;
+        color: #003d79;
+        font-weight: bold;
+        margin-left: 5%;
+        position: relative;
+        top: 8px;
+        width: 150%;
+    }
+    .info-address-text{
+        top: 2px;
+        font-size: 11px;
+        width: 89%;
+    }
+    .info-address{
+        width: 100%;
+    }
+}
+
+@media screen and (min-width: 588px) and (max-width: 992px){
+    .phone-number{
+        margin-top: 4px;
+    }
+    .phone-number-text a{
+        font-size: 13px;
+    }
+    .header-email{
+        margin-top: 5px;
+    }
+    .info-address-title{
+        font-size: 13px;
+        color: #003d79;
+        font-weight: bold;
+        margin-left: 5%;
+        position: relative;
+        top: 8px;
+        width: 150%;
+    }
+    .info-address-text{
+        top: 0px;
+        font-size: 13px;
+    }
+    .info-header-text{
+        font-size: 13px;
+    }
+    .phone-icon{
+        margin-left: 4%;
+    }
+    .header-email-text a{
+        font-size: 13px;
+        top: 34px;
+    }
+    .mail-icon{
+        top: 34px;
+    }
+}
+
+@media screen and (min-width: 992px) and (max-width: 1674px){
+    .phone-number{
+        margin-top: 10px;
+    }
+    .phone-number-text a{
+        font-size: 13px;
+    }
+    .header-email{
+        margin-top: 10px;
+    }
+    .info-address-title{
+        font-size: 13px;
+        color: #003d79;
+        font-weight: bold;
+        margin-left: -15%;
+        position: relative;
+        top: 8px;
+        width: 150%;
+    }
+    .info-address-text{
+        top: 0px;
+        font-size: 13px;
+    }
+    .info-header-text{
+        font-size: 13px;
+    }
+    .phone-icon{
+        margin-left: 0%;
+    }
+    .header-email-text a{
+        font-size: 13px;
+        top: 34px;
+    }
+    .mail-icon{
+        top: 34px;
+    }
+    .social-icons-container{
+        position: relative;
+        margin-top: 10px;
+    }
+}
+@media screen and (min-width: 1675px){
+    .phone-number{
+        margin-top: 25px;
+    }
+    .phone-number-text a{
+        font-size: 13px;
+    }
+    .header-email{
+        margin-top: 20px;
+    }
+    .info-address-title{
+        font-size: 13px;
+        color: #003d79;
+        font-weight: bold;
+        margin-left: -15%;
+        position: relative;
+        top: 8px;
+        width: 150%;
+    }
+    .info-address-text{
+        top: 0px;
+        font-size: 13px;
+    }
+    .info-header-text{
+        font-size: 13px;
+    }
+    .phone-icon{
+        margin-left: 0%;
+    }
+    .header-email-text a{
+        font-size: 13px;
+        top: 34px;
+    }
+    .mail-icon{
+        top: 34px;
+    }
+    .social-icons-container{
+        position: relative;
+        margin-top: 10px;
+    }
+}
+
+/*
+* IMAGE PRINT STYLE
+*/
+@media print {
+    div.site-header,div.page-heading,section.container,footer.site-footer, div.nav-wrap, div.nav-wrap div.upper-header, div.nav-wrap div.container {
+        display: none;
+    }
+
+    div.img-desc-text, div.img-desc-text span{
+        display: block;
+        font-size: 80px;
+        color: #000000;
+    }
+
+    img{
+        display: block !important;
+        max-width: 700px !important;
+        position: absolute;
+        top: 20%;
+        }
+}
+
+/*
+* RECENT PORTFOLIO ARROWS
+*/
+div.recent-portfolio-slider-custom div div.container, div.recent-portfolio-slider-custom div div.container div.row.owly{
+    width: 100%;
+}
+div.recent-portfolio-slider-custom div div.container div.row.owly div.col-xs-6.col-md-6.align-right{
+    width: 100%;
+    position: absolute;
+}
+div.recent-portfolio-slider-custom div div.container div.row.owly div.col-xs-6.col-md-6.align-right a.owlprev{
+    position: relative;
+    top:180px;
+    float: left;
+    background: none !important;
+    z-index: 999;
+}
+div.recent-portfolio-slider-custom div div.container div.row.owly div.col-xs-6.col-md-6.align-right a.owlnext{
+    position: relative;
+    top: 180px;
+    z-index: 999;
+    background: none !important;
+}
+a.owlprev i, a.owlnext i{
+    color: #ffffff !important;
+    opacity: 1.25;
+}
+
+.flxmap-directions{
+margin-top : 10px;
+}
+
+.flxmap-directions p{
+font-family: "adobe-garamond-pro";
+  color: #003d79;
+  font-size: 20px !important;
+  font-weight: 700;
+}
+
+.flxmap-directions .wpcf7-submit{
+float : none;
+margin-left : 8px;
+}
+
+/************** Changes for the News pages *****************/
+/****************** Added on 20/11/2015 ********************/
+.post-content { font-family: "adobe-garamond-pro"; font-size: 15px; line-height: 1.7em; }
+.post-content a { color: #003D79; }
+
+>>>>>>> 27bb76a6de3f8fb0fe1665dd6397190ea92cb377
